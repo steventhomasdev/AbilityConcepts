@@ -1,12 +1,19 @@
 import React from "react";
 import "./bootsnav.css";
 import logo from "../../../images/logo.png";
-
+import { useNavigate, useLocation } from "react-router-dom";
 
 export default function NavBar() {
+  const navigate = useNavigate();
+
+  const onLoginButtonCLick = (event) => {
+      console.log(event);
+      navigate("/login", {replace: true});
+  };
+
   return (
     <div>
-      <div className="top-area">
+      <div className="top-area" style={{display: "flex"}}>
         <div className="header-area">
           <nav
             className="navbar navbar-default bootsnav  navbar-sticky navbar-scrollspy"
@@ -36,7 +43,7 @@ export default function NavBar() {
               <div className="attr-nav">
                 <ul>
                   <li className="loginbtn">
-                    <button>Login</button>
+                    <button onClick={onLoginButtonCLick}>Login</button>
                   </li>
                   <li className="search">
                     <a href="#">

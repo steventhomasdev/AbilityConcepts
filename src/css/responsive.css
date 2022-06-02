@@ -94,3 +94,18 @@
 	
 }/*max-width:320px*/
 
+@media only screen and (max-width: 768px) {
+    .loginbtn {
+        margin-top: 16px;
+      }
+	.loginCard{
+		column-count: 1;
+        width: 100%;
+	}
+    .overlay-container {
+        display: none;
+    }
+    .login-pop .sign-in-container {
+        width: 100%;
+    }
+  }
