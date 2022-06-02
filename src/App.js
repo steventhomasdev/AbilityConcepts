@@ -1,24 +1,17 @@
 import React from "react";
-import { Route, Routes } from "react-router-dom";
-import NavBar from "./components/common/navigation/NavBar";
 import Footer from "./components/common/footer/Footer";
-import Home from "./components/home/Home";
-import Login from "./components/login/Login";
+import NavBar from "./components/common/navbar/NavBar";
 
 function App() {
   return (
     <>
-      <NavBar />
-      <Routes>
-        <Route path="/login" element={<Login />} />
-        <Route path="/home" element={<Home />} />
-        <Route path="/*" element={<Home />} />
-      </Routes>
+      <div className="top-area">
+        <div className="header-area"></div>
+          <NavBar />
+        </div>
+      <div className="clearfix"></div>
       <Footer />
     </>
-
-    // <>
-    // </>
   );
 }
 
