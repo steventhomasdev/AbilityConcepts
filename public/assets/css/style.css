@@ -108,6 +108,10 @@ nav.navbar.bootsnav {
   margin-top: 22px;
 }
 
+.wrap-sticky nav.navbar.bootsnav.sticked 	.navbar-toggle{
+  margin-top: 15px;
+}
+
 .navbar-header a.navbar-brand,
 .navbar-header a.navbar-brand:hover,
 .navbar-header a.navbar-brand:focus {
