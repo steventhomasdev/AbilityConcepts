@@ -1,6 +1,8 @@
 import React from "react";
 
+
 export default function PopularProducts() {
+
   return (
     <div>
       <section id="populer-products" className="populer-products">
