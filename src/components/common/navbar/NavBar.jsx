@@ -1,7 +1,12 @@
 import React, { useEffect, useState } from "react";
 
-export default function NavBar() {
+export default function NavBar(props) {
   const [scrolled, setScrolled] = useState(false);
+
+
+  const onLoginClick = () => {
+    props.setLogin(true);
+  };
 
   const handleScroll = () => {
     const offset = window.scrollY;
@@ -22,6 +27,7 @@ export default function NavBar() {
   if (scrolled) {
     navbarClasses.push("sticked");
   }
+
 
   return (
     <>
@@ -55,7 +61,7 @@ export default function NavBar() {
               <div className="container">
                 <div className="attr-nav">
                   <ul>
-                    <li className="loginbtn">
+                    <li onClick={onLoginClick} className="loginbtn">
                       <button>Login</button>
                     </li>
                     <li className="search">

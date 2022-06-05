@@ -1,12 +1,20 @@
 import React, { useState } from "react";
+import { useEffect, useCallback } from 'react';
 import { GetProductsCat } from "../../../api/api";
 
 export default function ProductCategories() {
   let [productCatList, setproductCatList] = useState("empty");
 
-  if (productCatList == "empty") {
-    GetProductsCat().then((data) => setproductCatList(data.body));
-  }
+  const fetchData = useCallback( () => {
+    GetProductsCat()
+    .then((data) => setproductCatList(data.body));
+  },[])
+  
+  useEffect(() => {
+    fetchData();
+  }, [fetchData])
+
+  console.log(productCatList)
 
   if (productCatList != "empty") {
     return (

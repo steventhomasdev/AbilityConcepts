@@ -193,6 +193,13 @@ nav.navbar.bootsnav ul.nav > li.dropdown span {
 .attr-nav > ul > li > a:hover {
   color: #a8be40;
 }
+
+.loginbtn:hover{
+  background: #a8be40;
+  color: white;
+}
+
+
 .wrap-sticky nav.navbar.bootsnav.sticked .attr-nav > ul > li > a {
   padding: 28px 15px;
 }

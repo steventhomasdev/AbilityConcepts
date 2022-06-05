@@ -1,7 +1,8 @@
 
   export function GetProductsCat() {
-    return fetch("https://u94lnqyv4e.execute-api.us-east-2.amazonaws.com/staging/", {
-      method: "POST",
+    //https://sfwywf7vs3.execute-api.us-east-2.amazonaws.com/Products_Live/getproductcategories
+    return fetch("", {
+      method: "GET",
       headers: {
         'Content-Type': "application/json",
         'Accept': "application/json",
