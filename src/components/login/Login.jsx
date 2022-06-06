@@ -1,9 +1,10 @@
 import React from "react";
 import { LoginAuthentication } from "../../api/api";
 
-export default function Login({ login, setLogin }) {
+export default function Login({ loginPopUp, SetloginPopUp, SetisLogin}) {
+
   const onCloseClick = () => {
-    setLogin(false);
+    SetloginPopUp(false);
   };
 
   const handleSubmit = (value) => {
@@ -15,13 +16,14 @@ export default function Login({ login, setLogin }) {
     }
 
     LoginAuthentication(userData)
+    .then(SetisLogin(true))
     .then(onCloseClick);
   }
 
   return (
     <div
       className="login-pop"
-      style={login ? { display: "flex" } : { display: "none" }}
+      style={loginPopUp ? { display: "flex" } : { display: "none" }}
     >
       <div onClick={onCloseClick} className="close" id="loginClose">
         X

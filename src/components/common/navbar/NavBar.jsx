@@ -1,12 +1,17 @@
 import React, { useEffect, useState } from "react";
+import { getToken, removeToken, removeTokenKey } from "../../utls/Session";
 
-export default function NavBar(props) {
+export default function NavBar({ SetloginPopUp, isLogin, SetisLogin }) {
   const [scrolled, setScrolled] = useState(false);
 
-
   const onLoginClick = () => {
-    props.setLogin(true);
+    SetloginPopUp(true);
   };
+
+  const onLogoutClick = () =>{
+    removeToken();
+    SetisLogin(false);
+  }
 
   const handleScroll = () => {
     const offset = window.scrollY;
@@ -61,9 +66,17 @@ export default function NavBar(props) {
               <div className="container">
                 <div className="attr-nav">
                   <ul>
-                    <li onClick={onLoginClick} className="loginbtn">
+                    {
+                      isLogin ?                     
+                      <li onClick={onLogoutClick} className="loginbtn">
+                        <button>Logout</button>
+                      </li>
+                      :
+                      <li onClick={onLoginClick} className="loginbtn">
                       <button>Login</button>
-                    </li>
+                      </li>
+                    }
+
                     <li className="search">
                       <a href="#">
                         <span className="lnr lnr-magnifier"></span>

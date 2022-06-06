@@ -8,3 +8,9 @@ export const setToken=(value) => {
         return localStorage.setItem("token", value)
     }
 }
+
+export const removeToken=() => {
+    if(getToken.length === 0){
+        return localStorage.removeItem("token")
+    }
+}
