@@ -34,6 +34,15 @@
 	nav.navbar.bootsnav ul.nav > li > a {padding: 15px 0px;border: transparent;}
 	.attr-nav > ul > li > a {padding: 20px 15px;}
 	.loginbtn{margin-top: 15px;}
+	.login-pop .container .overlay-container{
+		display: none;
+	}
+	.login-pop .container .sign-in-container{
+		width: 100%
+	}
+	.login-pop .mobileLogin{
+		display: inline;
+	  }
 }/*max-width:992px*/
 
 @media screen and (max-width:991px){

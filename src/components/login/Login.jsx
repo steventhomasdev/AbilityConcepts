@@ -1,51 +1,50 @@
 import React from "react";
-import { useNavigate } from "react-router-dom";
+import { LoginAuthentication } from "../../api/api";
 
-export default function Login({login,setLogin}) {
-
+export default function Login({ login, setLogin }) {
   const onCloseClick = () => {
     setLogin(false);
   };
 
+  const handleSubmit = (value) => {
+    value.preventDefault();
+
+    const userData = {
+      "email": value.target.elements.email.value,
+      "password": value.target.elements.password.value
+    }
+
+    LoginAuthentication(userData)
+    .then(onCloseClick);
+  }
+
   return (
-    <div className="login-pop" style={login? {display: 'flex'}: {display: 'none'}}>
+    <div
+      className="login-pop"
+      style={login ? { display: "flex" } : { display: "none" }}
+    >
       <div onClick={onCloseClick} className="close" id="loginClose">
         X
       </div>
       <div className="container" id="container">
-        <div className="form-container sign-up-container">
-          <form action="#">
-            <h1>Create Account</h1>
-
-            <span>or use your email for registration</span>
-            <input type="text" placeholder="Name" />
-            <input type="email" placeholder="Email" />
-            <input type="password" placeholder="Password" />
-            <button>Sign Up</button>
-          </form>
-        </div>
         <div className="form-container sign-in-container">
-          <form action="#">
+          <form onSubmit={handleSubmit}>
             <h1 className="color-blk">Sign in</h1>
-
             <span>or use your account</span>
-            <input type="email" placeholder="Email" />
-            <input type="password" placeholder="Password" />
+            <input type="email" name="email" placeholder="Email" />
+            <input type="password" name="password" placeholder="Password" />
             <a href="#">Forgot your password?</a>
-            <button>Sign In</button>
+            <button  type="submit">Sign In</button>
+            <div className="mobileLogin">
+              <p style={{ color: "#a8be40" }}>
+                Enter your personal details and start journey with us
+              </p>
+              <button>Sign Up</button>
+            </div>
           </form>
         </div>
         <div className="overlay-container">
           <div className="overlay">
-            <div className="overlay-panel overlay-left">
-              <h1>Welcome Back!</h1>
-              <p>
-                To keep connected with us please login with your personal info
-              </p>
-              <button className="ghost" id="signIn">
-                Sign In
-              </button>
-            </div>
             <div className="overlay-panel overlay-right">
               <h1>Hello, Friend!</h1>
               <p>Enter your personal details and start journey with us</p>

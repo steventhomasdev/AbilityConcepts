@@ -197,6 +197,7 @@ nav.navbar.bootsnav ul.nav > li.dropdown span {
 .loginbtn:hover{
   background: #a8be40;
   color: white;
+  cursor: pointer;
 }
 
 
@@ -1067,6 +1068,15 @@ span.feature-review {
   margin: 20px 0 30px;
   color: #fff;
 }
+
+.login-pop .sign-in-container p {
+  margin: 20px 0 20px;
+}
+
+.login-pop .mobileLogin{
+  display: none;
+}
+
 .login-pop span {
   font-size: 12px;
 }
