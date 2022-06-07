@@ -23,7 +23,17 @@
       },
       body: JSON.stringify(userData),
     }).then((data) => data.json())
-    .then((data) => {
-      setToken(data.body.accessToken);
-    });
+    .then((data) => {if(data.body.accessToken.length !=0) setToken(data.body.accessToken)});
+  }
+
+  export function UserRegistration (userData) {
+    //https://tgk1njzyvg.execute-api.us-east-2.amazonaws.com/Products_Live/userregistration
+    return fetch("https://tgk1njzyvg.execute-api.us-east-2.amazonaws.com/Products_Live/userregistration", {
+      method: "POST",
+      headers: {
+        'Content-Type': "application/json",
+        'Accept': "application/json",
+      },
+      body: JSON.stringify(userData),
+    }).then((data) => data.json());
   }

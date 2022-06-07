@@ -1079,6 +1079,7 @@ span.feature-review {
 
 .login-pop span {
   font-size: 12px;
+  margin-bottom: 3vh;
 }
 .login-pop a {
   color: #333;
@@ -1097,6 +1098,10 @@ span.feature-review {
   letter-spacing: 1px;
   text-transform: uppercase;
   transition: transform 80ms ease-in;
+}
+
+.login-pop .sign-up-container button{
+  margin-top: 5vh
 }
 .login-pop button:active {
   transform: scale(0.95);
@@ -1151,10 +1156,8 @@ span.feature-review {
   transform: translateX(100%);
 }
 .login-pop .sign-up-container {
-  left: 0;
   width: 50%;
-  opacity: 0;
-  z-index: 1;
+  z-index: 2;
 }
 .login-pop .container.right-panel-active .sign-up-container {
   transform: translateX(100%);

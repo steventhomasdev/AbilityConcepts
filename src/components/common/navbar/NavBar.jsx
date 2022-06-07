@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { getToken, removeToken, removeTokenKey } from "../../utls/Session";
+import { removeToken } from "../../utls/Session";
 
 export default function NavBar({ SetloginPopUp, isLogin, SetisLogin }) {
   const [scrolled, setScrolled] = useState(false);

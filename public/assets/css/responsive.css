@@ -40,9 +40,12 @@
 	.login-pop .container .sign-in-container{
 		width: 100%
 	}
+	.login-pop .container .sign-up-container{
+		width: 100%
+	}
 	.login-pop .mobileLogin{
 		display: inline;
-	  }
+	}
 }/*max-width:992px*/
 
 @media screen and (max-width:991px){

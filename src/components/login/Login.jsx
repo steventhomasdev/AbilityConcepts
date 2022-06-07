@@ -1,8 +1,12 @@
 import React from "react";
 import { LoginAuthentication } from "../../api/api";
 
-export default function Login({ loginPopUp, SetloginPopUp, SetisLogin}) {
-
+export default function Login({
+  loginPopUp,
+  SetloginPopUp,
+  SetisLogin,
+  setSignupPopUp,
+}) {
   const onCloseClick = () => {
     SetloginPopUp(false);
   };
@@ -11,14 +15,17 @@ export default function Login({ loginPopUp, SetloginPopUp, SetisLogin}) {
     value.preventDefault();
 
     const userData = {
-      "email": value.target.elements.email.value,
-      "password": value.target.elements.password.value
-    }
+      email: value.target.elements.email.value,
+      password: value.target.elements.password.value,
+    };
 
-    LoginAuthentication(userData)
-    .then(SetisLogin(true))
-    .then(onCloseClick);
-  }
+    LoginAuthentication(userData).then(SetisLogin(true)).then(onCloseClick); // some work needs to be done to handle non valid login
+  };
+
+  const onSignUpClick = () => {
+    setSignupPopUp(true);
+    onCloseClick();
+  };
 
   return (
     <div
@@ -36,7 +43,7 @@ export default function Login({ loginPopUp, SetloginPopUp, SetisLogin}) {
             <input type="email" name="email" placeholder="Email" />
             <input type="password" name="password" placeholder="Password" />
             <a href="#">Forgot your password?</a>
-            <button  type="submit">Sign In</button>
+            <button type="submit">Sign In</button>
             <div className="mobileLogin">
               <p style={{ color: "#a8be40" }}>
                 Enter your personal details and start journey with us
@@ -50,7 +57,7 @@ export default function Login({ loginPopUp, SetloginPopUp, SetisLogin}) {
             <div className="overlay-panel overlay-right">
               <h1>Hello, Friend!</h1>
               <p>Enter your personal details and start journey with us</p>
-              <button className="ghost" id="signUp">
+              <button onClick={onSignUpClick} className="ghost" id="signUp">
                 Sign Up
               </button>
             </div>
