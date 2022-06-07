@@ -1,9 +1,21 @@
 
-  import { setToken, setTokenKey } from "../components/utls/Session";
+  import { setToken } from "../components/utls/Session";
 
   export function GetProductsCat() {
     //https://sfwywf7vs3.execute-api.us-east-2.amazonaws.com/Products_Live/getproductcategories
     return fetch("https://sfwywf7vs3.execute-api.us-east-2.amazonaws.com/Products_Live/getproductcategories", {
+      method: "GET",
+      headers: {
+        'Content-Type': "application/json",
+        'Accept': "application/json",
+      },
+      body: JSON.stringify(),
+    }).then((data) => data.json());
+  }
+
+  export function GetProductsForHomePage() {
+    //https://wx6r3vnf7d.execute-api.us-east-2.amazonaws.com/Products_Live/getproducts
+    return fetch("https://wx6r3vnf7d.execute-api.us-east-2.amazonaws.com/Products_Live/getproducts", {
       method: "GET",
       headers: {
         'Content-Type': "application/json",
@@ -37,3 +49,4 @@
       body: JSON.stringify(userData),
     }).then((data) => data.json());
   }
+

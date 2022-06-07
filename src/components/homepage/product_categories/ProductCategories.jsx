@@ -14,8 +14,6 @@ export default function ProductCategories() {
     fetchData();
   }, [fetchData])
 
-  console.log(productCatList)
-
   if (productCatList != "empty") {
     return (
       <div>
