@@ -1,21 +1,14 @@
-import React, { useState } from "react";
+import React from "react";
 import OwlCarousel from "react-owl-carousel";
 import "owl.carousel/dist/assets/owl.carousel.css";
 import "owl.carousel/dist/assets/owl.theme.default.css";
 import "./owl.css";
-import { GetProductsForHomePage } from "../../../api/api";
 
-export default function Carousal() {
-  const [products, setProducts] = useState({});
+export default function Carousal({products}) {
 
-  if (Object.keys(products).length == 0) {
-    GetProductsForHomePage()
-      .then((data) => setProducts(data.body))
-  }
 
   //console.log(data.body[0].productName)
 
-  if (Object.keys(products).length != 0) {
     return (
       <OwlCarousel
         items={1}
@@ -220,5 +213,4 @@ export default function Carousal() {
         </div>
       </OwlCarousel>
     );
-  }
 }

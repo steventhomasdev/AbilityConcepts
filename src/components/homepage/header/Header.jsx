@@ -5,7 +5,7 @@ import SignUp from "../../signup/SignUp";
 import { getToken } from "../../utls/Session";
 import Carousal from "../carousal/Carousal";
 
-export default function Header() {
+export default function Header({products}) {
 
   let [loginPopUp, SetloginPopUp] = useState(false);  // This is for the login popup
   let [signupPopUp, setSignupPopUp] = useState(false); // this is for the create account popup
@@ -16,7 +16,7 @@ export default function Header() {
       <header id="home" class="welcome-hero">
         <Login loginPopUp={loginPopUp} SetloginPopUp={SetloginPopUp} SetisLogin={SetisLogin} setSignupPopUp={setSignupPopUp}/>
         <SignUp signupPopUp={signupPopUp} setSignupPopUp={setSignupPopUp} SetisLogin={SetisLogin} SetloginPopUp={SetloginPopUp}/>
-        <Carousal />
+        <Carousal products={products}/>
         <NavBar SetloginPopUp={SetloginPopUp} isLogin={isLogin} SetisLogin={SetisLogin}/> 
       </header>
     </div>

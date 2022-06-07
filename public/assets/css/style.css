@@ -581,7 +581,6 @@ ul.cart-list > li.total {
 }
 .single-new-arrival-bg {
   position: relative;
-  min-height: 310px;
   background: #f8f9fc;
   display: flex;
   align-items: center;

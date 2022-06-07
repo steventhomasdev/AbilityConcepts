@@ -75,17 +75,13 @@ export default function PopularProducts() {
                     <div className="single-populer-product-img">
                       <img
                         src="assets/images/populer-products/p3.png"
-                        alt="populer-products images"
+                        alt="contact Us images"
                       />
                     </div>
                     <h2>
-                      <a href="#">hanging lamp</a>
+                      <a href="#">Contact Us</a>
                     </h2>
                     <div className="single-populer-products-para">
-                      <p>
-                        Nemo enim ipsam voluptatem quia volu ptas sit asperna
-                        aut odit aut fugit.
-                      </p>
                     </div>
                   </div>
                 </div>
