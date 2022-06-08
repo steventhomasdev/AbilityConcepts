@@ -1,6 +1,3 @@
-
-  import { setToken } from "../components/utls/Session";
-
   export function GetProductsCat() {
     //https://sfwywf7vs3.execute-api.us-east-2.amazonaws.com/Products_Live/getproductcategories
     return fetch("https://sfwywf7vs3.execute-api.us-east-2.amazonaws.com/Products_Live/getproductcategories", {
@@ -35,7 +32,6 @@
       },
       body: JSON.stringify(userData),
     }).then((data) => data.json())
-    .then((data) => {if(data.body.accessToken.length !=0) setToken(data.body.accessToken)});
   }
 
   export function UserRegistration (userData) {

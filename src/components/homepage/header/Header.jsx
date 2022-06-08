@@ -11,6 +11,7 @@ export default function Header({products}) {
   let [signupPopUp, setSignupPopUp] = useState(false); // this is for the create account popup
   let [isLogin, SetisLogin] = useState(getToken.length <= 5 ? false : true)
 
+
   return (
     <div>
       <header id="home" class="welcome-hero">
