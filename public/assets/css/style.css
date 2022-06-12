@@ -200,6 +200,9 @@ nav.navbar.bootsnav ul.nav > li.dropdown span {
   cursor: pointer;
 }
 
+.search, .user-prof, .cart-list-txt{
+  cursor: pointer;
+}
 
 .wrap-sticky nav.navbar.bootsnav.sticked .attr-nav > ul > li > a {
   padding: 28px 15px;
@@ -225,8 +228,6 @@ nav.navbar.bootsnav .navbar-toggle i {
   color: #a8be40;
 }
 ul.dropdown-menu.cart-list {
-  height: 232px;
-  overflow-y: scroll;
   border-radius: 3px;
 }
 ul.cart-list > li img {
@@ -1297,4 +1298,61 @@ span.feature-review {
 }
 .login-pop {
   display: none;
+}
+
+.user-prof {
+  font-size: 14px;
+  margin-top: -5px;
+}
+
+.user-prof > span {
+  font-size: 14px;
+  padding-right: 10px;
+}
+
+.user-prof-items {
+  position: absolute;
+  z-index: 99;
+  background: #fff;
+  padding: 15px;
+  border-radius: 3px;
+  box-shadow: 0 3px 10px rgba(0, 0, 0, 0.1);
+  top: calc(100% - 30px);
+  display: none;
+}
+
+.sub-menu-con {
+  position: relative;
+}
+
+.user-prof-items li {
+  width: max-content;
+  font-size: 14px;
+}
+
+.user-prof-items li a {
+  font-size: 14px;
+  padding: 5px;
+}
+
+.search-btn1 {
+  background: #ccc;
+  padding: 5px 15px;
+  border-radius: 5px;
+  height: 34px;
+  align-self: center;
+  margin-right: 15px;
+}
+
+.input-group.d-flex {
+  display: flex;
+}
+
+.input-group.d-flex .input-group-addon {
+  margin-top: 6px;
+}
+
+.input-group.d-flex button {
+  background-color: #a8be40;
+  color: #fff;
 }

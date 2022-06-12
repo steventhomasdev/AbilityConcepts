@@ -46,3 +46,18 @@
     }).then((data) => data.json());
   }
 
+  export function GetAccountDetails (userData) {
+    //https://zfuvbeh3ze.execute-api.us-east-2.amazonaws.com/Products_Live/getaccountdetails
+    return fetch("https://zfuvbeh3ze.execute-api.us-east-2.amazonaws.com/Products_Live/getaccountdetails", {
+      method: "POST",
+      headers: {
+        'authorizationToken': "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJrZXkiOnsiX2lkIjoiNjI5ZTlhZjkzMWY1YWYyYWQ2NGNkMDY3IiwibmFtZSI6InRlc3QgdXNlciIsImVtYWlsIjoidGVzdEBnbWFpbC5jb20iLCJwYXNzd29yZCI6IiQyYSQxMCRZSWY0d1BhUHcyRHVhZEJnMHd0SlguME8wcVROQnY2a0l2SXguSjYyZERITldPOEhwMzdISyIsInBob25lIjpudWxsLCJjb3VudHJ5IjpudWxsLCJwcm92aWNlIjpudWxsLCJjaXR5IjpudWxsLCJwb3N0YWxDb2RlIjpudWxsfSwiaWF0IjoxNjU1MDA2OTgwfQ.Ccuw1PYY5qq_i-NnSrXhYu1VpSL2VM1s2FqSPvMOZmo",
+        'Content-Type': "application/json",
+        'Accept': "application/json",
+      },
+      body: JSON.stringify(userData),
+    }).then((data) => data.json());
+  }
+
+
+

@@ -59,7 +59,6 @@ export default function PopularProducts() {
                           </div>
                           <button
                             className="btn-cart welcome-add-cart populer-products-btn"
-                            onclick="window.location.href='#'"
                           >
                             discover more
                           </button>

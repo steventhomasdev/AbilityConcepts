@@ -46,6 +46,18 @@
 	.login-pop .mobileLogin{
 		display: inline;
 	}
+	.sub-menu-con{
+		visibility: hidden;
+	}
+
+	.wrap-sticky nav.navbar.bootsnav {
+		background-color: #fff;
+	}
+
+	.wrap-sticky nav.navbar.bootsnav ul.nav > li > a {
+		padding: 30px 25px;
+	}
+	
 }/*max-width:992px*/
 
 @media screen and (max-width:991px){

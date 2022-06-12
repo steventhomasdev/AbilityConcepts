@@ -8,7 +8,7 @@ export default function ImageBanner() {
   return (
     <div>
       <section id="sofa-collection">
-        <div class="container-fluid">
+        <div className="container-fluid">
           <OwlCarousel
             items={1}
             autoplay={true}
@@ -17,14 +17,14 @@ export default function ImageBanner() {
             mouseDrag={true}
             nav={false}
             smartSpeed={1000}
-            transitionStyle="fade"
+            transitionstyle="fade"
             animateIn="fadeIn"
             animateOut="fadeOutLeft"
             className="owl-theme"
           >
-            <div class="sofa-collection collectionbg1">
-              <div class="container">
-                <div class="sofa-collection-txt">
+            <div className="sofa-collection collectionbg1">
+              <div className="container">
+                <div className="sofa-collection-txt">
                   <h2>unlimited sofa collection</h2>
                   <p>
                     Lorem ipsum dolor sit amet, consectetur adipisicing elit,
@@ -32,23 +32,22 @@ export default function ImageBanner() {
                     aliqua. Ut enim ad minim veniam, quis nostrud exercitation
                     ullamco laboris nisi ut aliquip ex ea commodo consequat.
                   </p>
-                  <div class="sofa-collection-price">
+                  <div className="sofa-collection-price">
                     <h4>
                       strting from <span>$ 199</span>
                     </h4>
                   </div>
                   <button
-                    class="btn-cart welcome-add-cart sofa-collection-btn"
-                    onclick="window.location.href='#'"
+                    className="btn-cart welcome-add-cart sofa-collection-btn"
                   >
                     view more
                   </button>
                 </div>
               </div>
             </div>
-            <div class="sofa-collection collectionbg2">
-              <div class="container">
-                <div class="sofa-collection-txt">
+            <div className="sofa-collection collectionbg2">
+              <div className="container">
+                <div className="sofa-collection-txt">
                   <h2>unlimited dainning table collection</h2>
                   <p>
                     Lorem ipsum dolor sit amet, consectetur adipisicing elit,
@@ -56,14 +55,13 @@ export default function ImageBanner() {
                     aliqua. Ut enim ad minim veniam, quis nostrud exercitation
                     ullamco laboris nisi ut aliquip ex ea commodo consequat.
                   </p>
-                  <div class="sofa-collection-price">
+                  <div className="sofa-collection-price">
                     <h4>
                       strting from <span>$ 299</span>
                     </h4>
                   </div>
                   <button
-                    class="btn-cart welcome-add-cart sofa-collection-btn"
-                    onclick="window.location.href='#'"
+                    className="btn-cart welcome-add-cart sofa-collection-btn"
                   >
                     view more
                   </button>

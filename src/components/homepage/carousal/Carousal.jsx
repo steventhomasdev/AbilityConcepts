@@ -6,9 +6,6 @@ import "./owl.css";
 
 export default function Carousal({products}) {
 
-
-  //console.log(data.body[0].productName)
-
     return (
       <OwlCarousel
         items={1}
@@ -18,7 +15,7 @@ export default function Carousal({products}) {
         mouseDrag={true}
         nav={false}
         smartSpeed={1000}
-        transitionStyle="fade"
+        transitionstyle="fade"
         animateIn="fadeIn"
         animateOut="fadeOutLeft"
         className="owl-theme"
@@ -57,14 +54,12 @@ export default function Carousal({products}) {
                       </div>
                       <button
                         className="btn-cart welcome-add-cart"
-                        onclick="window.location.href='#'"
                       >
                         <span className="lnr lnr-plus-circle"></span>
                         add <span>to</span> cart
                       </button>
                       <button
                         className="btn-cart welcome-add-cart welcome-more-info"
-                        onclick="window.location.href='#'"
                       >
                         more info
                       </button>
@@ -120,14 +115,14 @@ export default function Carousal({products}) {
                       </div>
                       <button
                         className="btn-cart welcome-add-cart"
-                        onclick="window.location.href='#'"
+                        
                       >
                         <span className="lnr lnr-plus-circle"></span>
                         add <span>to</span> cart
                       </button>
                       <button
                         className="btn-cart welcome-add-cart welcome-more-info"
-                        onclick="window.location.href='#'"
+                        
                       >
                         more info
                       </button>
@@ -183,14 +178,14 @@ export default function Carousal({products}) {
                       </div>
                       <button
                         className="btn-cart welcome-add-cart"
-                        onclick="window.location.href='#'"
+                        
                       >
                         <span className="lnr lnr-plus-circle"></span>
                         add <span>to</span> cart
                       </button>
                       <button
                         className="btn-cart welcome-add-cart welcome-more-info"
-                        onclick="window.location.href='#'"
+                        
                       >
                         more info
                       </button>

@@ -1,17 +1,36 @@
 import React, { useEffect, useState } from "react";
-import { removeToken } from "../../utls/Session";
+import { getToken, removeToken } from "../../utls/Session";
 
-export default function NavBar({ SetloginPopUp, isLogin, SetisLogin }) {
+export default function NavBar({
+  SetloginPopUp,
+  isLogin,
+  SetisLogin,
+  accountDetails,
+}) {
   const [scrolled, setScrolled] = useState(false);
+  const [searchArea, setsearchArea] = useState(false);
+  const [userDropDown, setUserDropDown] = useState(false);
+
+  let navbarClasses = [
+    "navbar navbar-default bootsnav  navbar-sticky navbar-scrollspy",
+  ];
 
   const onLoginClick = () => {
     SetloginPopUp(true);
   };
 
-  const onLogoutClick = () =>{
+  const onLogoutClick = () => {
     removeToken();
     SetisLogin(false);
-  }
+  };
+
+  const onSearchClickToggle = () => {
+    searchArea ? setsearchArea(false) : setsearchArea(true);
+  };
+
+  const userDropDownToggle = () => {
+    userDropDown ? setUserDropDown(false) : setUserDropDown(true);
+  };
 
   const handleScroll = () => {
     const offset = window.scrollY;
@@ -26,13 +45,13 @@ export default function NavBar({ SetloginPopUp, isLogin, SetisLogin }) {
     window.addEventListener("scroll", handleScroll);
   });
 
-  let navbarClasses = [
-    "navbar navbar-default bootsnav  navbar-sticky navbar-scrollspy",
-  ];
   if (scrolled) {
     navbarClasses.push("sticked");
   }
 
+  if (searchArea) {
+    navbarClasses.push("sticked");
+  }
 
   return (
     <>
@@ -45,9 +64,12 @@ export default function NavBar({ SetloginPopUp, isLogin, SetisLogin }) {
               data-minus-value-mobile="55"
               data-speed="1000"
             >
-              <div className="top-search">
+              <div
+                className="top-search"
+                style={searchArea ? { display: "block" } : { display: "none" }}
+              >
                 <div className="container">
-                  <div className="input-group">
+                  <div className="input-group d-flex">
                     <span className="input-group-addon">
                       <i className="fa fa-search"></i>
                     </span>
@@ -56,7 +78,11 @@ export default function NavBar({ SetloginPopUp, isLogin, SetisLogin }) {
                       className="form-control"
                       placeholder="Search"
                     />
-                    <span className="input-group-addon close-search">
+                    <button className="search-btn1">Search</button>
+                    <span
+                      onClick={onSearchClickToggle}
+                      className="input-group-addon close-search"
+                    >
                       <i className="fa fa-times"></i>
                     </span>
                   </div>
@@ -66,109 +92,57 @@ export default function NavBar({ SetloginPopUp, isLogin, SetisLogin }) {
               <div className="container">
                 <div className="attr-nav">
                   <ul>
-                    {
-                      isLogin ?                     
-                      <li onClick={onLogoutClick} className="loginbtn">
-                        <button>Logout</button>
+                    {isLogin ? (
+                      <li
+                        onClick={userDropDownToggle}
+                        className="sub-menu-con"
+                        style={{ display: "block" }}
+                      >
+                        <a className="user-prof">
+                          <span>{accountDetails[0]}</span>
+                          <span className="lnr lnr-chevron-down"></span>
+                        </a>
+                        <div
+                          style={
+                            userDropDown
+                              ? { display: "block" }
+                              : { display: "none" }
+                          }
+                        >
+                          <ul className="dropdown-menu cart-list s-cate" style={{ display: "block" }}>
+                            <li className="cart-list-txt">
+                              <a>My Account</a>
+                            </li>
+                            <li className="cart-list-txt">
+                              <a>My orders</a>
+                            </li>
+                            <li className="cart-list-txt">
+                              <a onClick={onLogoutClick}>Logout</a>
+                            </li>
+                          </ul>
+                        </div>
                       </li>
-                      :
+                    ) : (
+                      //plans to give user icon
                       <li onClick={onLoginClick} className="loginbtn">
-                      <button>Login</button>
+                        <button>Login</button>
                       </li>
-                    }
+                    )}
 
                     <li className="search">
-                      <a href="#">
+                      <a onClick={onSearchClickToggle}>
                         <span className="lnr lnr-magnifier"></span>
                       </a>
                     </li>
 
                     <li className="dropdown">
                       <a
-                        href="#"
                         className="dropdown-toggle"
                         data-toggle="dropdown"
                       >
                         <span className="lnr lnr-cart"></span>
                         <span className="badge badge-bg-1">2</span>
                       </a>
-                      <ul className="dropdown-menu cart-list s-cate">
-                        <li className="single-cart-list">
-                          <a href="#" className="photo">
-                            <img
-                              src="assets/images/collection/arrivals1.png"
-                              className="cart-thumb"
-                              alt="image"
-                            />
-                          </a>
-                          <div className="cart-list-txt">
-                            <h6>
-                              <a href="#">
-                                arm <br /> chair
-                              </a>
-                            </h6>
-                            <p>
-                              1 x - <span className="price">$180.00</span>
-                            </p>
-                          </div>
-                          <div className="cart-close">
-                            <span className="lnr lnr-cross"></span>
-                          </div>
-                        </li>
-                        <li className="single-cart-list">
-                          <a href="#" className="photo">
-                            <img
-                              src="assets/images/collection/arrivals2.png"
-                              className="cart-thumb"
-                              alt="image"
-                            />
-                          </a>
-                          <div className="cart-list-txt">
-                            <h6>
-                              <a href="#">
-                                single <br /> armchair
-                              </a>
-                            </h6>
-                            <p>
-                              1 x - <span className="price">$180.00</span>
-                            </p>
-                          </div>
-                          <div className="cart-close">
-                            <span className="lnr lnr-cross"></span>
-                          </div>
-                        </li>
-                        <li className="single-cart-list">
-                          <a href="#" className="photo">
-                            <img
-                              src="assets/images/collection/arrivals3.png"
-                              className="cart-thumb"
-                              alt="image"
-                            />
-                          </a>
-                          <div className="cart-list-txt">
-                            <h6>
-                              <a href="#">
-                                wooden arn <br /> chair
-                              </a>
-                            </h6>
-                            <p>
-                              1 x - <span className="price">$180.00</span>
-                            </p>
-                          </div>
-                          <div className="cart-close">
-                            <span className="lnr lnr-cross"></span>
-                          </div>
-                        </li>
-                        <li className="total">
-                          <span>Total: $0.00</span>
-                          <button
-                            className="btn-cart pull-right"
-                            onclick="window.location.href='#'"
-                          >
-                            view cart
-                          </button>
-                        </li>
-                      </ul>
                     </li>
                   </ul>
                 </div>
@@ -182,7 +156,7 @@ export default function NavBar({ SetloginPopUp, isLogin, SetisLogin }) {
                   >
                     <i className="fa fa-bars"></i>
                   </button>
-                  <a className="navbar-brand" href="index.html">
+                  <a className="navbar-brand">
                     <img
                       src="assets/images/logo.png"
                       alt=""
@@ -201,19 +175,19 @@ export default function NavBar({ SetloginPopUp, isLogin, SetisLogin }) {
                     data-out="fadeOutUp"
                   >
                     <li className=" scroll active">
-                      <a href="#home">home</a>
+                      <a>home</a>
                     </li>
                     <li className="scroll">
-                      <a href="#homemofdification">Home modification</a>
+                      <a>Home modification</a>
                     </li>
                     <li className="scroll">
-                      <a href="#rent">Rentals</a>
+                      <a>Rentals</a>
                     </li>
                     <li className="scroll">
-                      <a href="#office">Office</a>
+                      <a>Office</a>
                     </li>
                     <li className="scroll">
-                      <a href="#newsletter">contact</a>
+                      <a>contact</a>
                     </li>
                   </ul>
                 </div>
