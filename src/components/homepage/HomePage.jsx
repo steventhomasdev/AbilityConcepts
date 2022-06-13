@@ -6,7 +6,7 @@ import FeaturedProducts from "./featured_products/FeaturedProducts";
 import Header from "./header/Header";
 import PopularProducts from "./popular-products/PopularProducts";
 import ProductCategories from "./product_categories/ProductCategories";
-import FooterDetails from "./footer_details/FooterDetails";
+import FooterDetails from "../common/footer_details/FooterDetails";
 import { GetProductsForHomePage } from "../../api/api";
 
 
@@ -29,7 +29,7 @@ export default function HomePage() {
     <div>
       <Header products={products}/>
       <PopularProducts/>
-      <ProductCategories />
+      <ProductCategories/>
       <ImageBanner />
       <FeaturedProducts products={products} />
       <FooterDetails />

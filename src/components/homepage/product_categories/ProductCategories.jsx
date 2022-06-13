@@ -1,9 +1,13 @@
 import React, { useState } from "react";
 import { useEffect, useCallback } from 'react';
-import { GetProductsCat } from "../../../api/api";
+import { GetProducts, GetProductsCat } from "../../../api/api";
+import { useNavigate, useLocation } from "react-router-dom";
 
 export default function ProductCategories() {
+
   let [productCatList, setproductCatList] = useState("empty");
+  const navigate = useNavigate();
+  const { state } = useLocation();
 
   const fetchData = useCallback( () => {
     GetProductsCat()
@@ -13,6 +17,23 @@ export default function ProductCategories() {
   useEffect(() => {
     fetchData();
   }, [fetchData])
+
+
+  const onCategoryClick = (event) => {
+    
+    const userData = {
+      category: event.currentTarget.id
+    };
+
+    GetProducts(userData)
+    .then((data) => {
+      navigate("/productlist", {
+        state: {
+          products: { data },
+        },
+      })
+    })
+  }
 
   if (productCatList != "empty") {
     return (
@@ -26,7 +47,7 @@ export default function ProductCategories() {
               <div className="row">
                 {productCatList?.map((categories) => (
                   <div className="col-md-3 col-sm-4">
-                    <div className="single-new-arrival">
+                    <div className="single-new-arrival"  onClick={onCategoryClick} id={categories.cat}>
                       <div className="single-new-arrival-bg">
                         <img src={categories.image} alt={categories.cat} />
                         <div className="single-new-arrival-bg-overlay"></div>
@@ -43,7 +64,7 @@ export default function ProductCategories() {
                         </div>
                       </div>
                       <h4>
-                        <a href="#">{categories.cat}</a>
+                        <a>{categories.cat}</a>
                       </h4>
                     </div>
                   </div>

@@ -18,9 +18,11 @@ export default function Header({products}) {
   };
 
   const fetchAccountDetails = () => {
-    GetAccountDetails(userData)
-    .then((data) => setAccountDetails(data.body.name.split(" ")));
-  }
+    if(isLogin)  
+    GetAccountDetails(userData).then((data) =>
+      setAccountDetails(data.body.name.split(" "))
+    );
+  };
   
   useEffect(() => {
     fetchAccountDetails();

@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
-import { getToken, removeToken } from "../../utls/Session";
+import { removeToken } from "../../utls/Session";
+import { useNavigate, useLocation } from "react-router-dom";
 
 export default function NavBar({
   SetloginPopUp,
@@ -10,6 +11,7 @@ export default function NavBar({
   const [scrolled, setScrolled] = useState(false);
   const [searchArea, setsearchArea] = useState(false);
   const [userDropDown, setUserDropDown] = useState(false);
+  const navigate = useNavigate();
 
   let navbarClasses = [
     "navbar navbar-default bootsnav  navbar-sticky navbar-scrollspy",
@@ -109,7 +111,10 @@ export default function NavBar({
                               : { display: "none" }
                           }
                         >
-                          <ul className="dropdown-menu cart-list s-cate" style={{ display: "block" }}>
+                          <ul
+                            className="dropdown-menu cart-list s-cate"
+                            style={{ display: "block" }}
+                          >
                             <li className="cart-list-txt">
                               <a>My Account</a>
                             </li>
@@ -136,10 +141,7 @@ export default function NavBar({
                     </li>
 
                     <li className="dropdown">
-                      <a
-                        className="dropdown-toggle"
-                        data-toggle="dropdown"
-                      >
+                      <a className="dropdown-toggle" data-toggle="dropdown">
                         <span className="lnr lnr-cart"></span>
                         <span className="badge badge-bg-1">2</span>
                       </a>
