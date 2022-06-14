@@ -1,12 +1,11 @@
 import React, { useState, useCallback, useEffect } from "react";
 import { GetAccountDetails } from "../../../api/api";
-import NavBar from "../../common/navbar/NavBar";
+import NavBar from "../navbar/NavBar";
 import Login from "../../login/Login";
 import SignUp from "../../signup/SignUp";
 import { getToken } from "../../utls/Session";
-import Carousal from "../carousal/Carousal";
 
-export default function Header({products}) {
+export default function Header() {
 
   let [loginPopUp, SetloginPopUp] = useState(false);  // This is for the login popup
   let [signupPopUp, setSignupPopUp] = useState(false); // this is for the create account popup
@@ -33,7 +32,6 @@ export default function Header({products}) {
       <header id="home" className="welcome-hero">
         <Login loginPopUp={loginPopUp} SetloginPopUp={SetloginPopUp} SetisLogin={SetisLogin} setSignupPopUp={setSignupPopUp}/>
         <SignUp signupPopUp={signupPopUp} setSignupPopUp={setSignupPopUp} SetisLogin={SetisLogin} SetloginPopUp={SetloginPopUp}/>
-        <Carousal products={products}/>
         <NavBar SetloginPopUp={SetloginPopUp} isLogin={isLogin} SetisLogin={SetisLogin} accountDetails={accountDetails}/> 
       </header>
     </div>

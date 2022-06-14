@@ -5,7 +5,6 @@ export default function Advertisement() {
     <div>
       <section id="advertisement">
         <div class="container">
-          <img src="assets/images/advertisement.jpg" alt="" />
         </div>
       </section>
     </div>
