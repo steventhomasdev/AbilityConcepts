@@ -1,7 +1,7 @@
 import React, { useState } from "react";
-import { LoginAuthentication } from "../../api/api";
-import Spinner from "../common/spinner/Spinner";
-import { setToken } from "../utls/Session";
+import { LoginAuthentication } from "../../../api/api";
+import Spinner from "../spinner/Spinner";
+import { setToken } from "../../utls/Session";
 
 export default function Login({
   loginPopUp,

@@ -68,7 +68,7 @@ export default function Products({productsList}) {
 
                 <div class="price-range">
                   <h2>Price Range</h2>
-                  <div class="well">
+                  {/* <div class="well">
                     <input
                       type="text"
                       class="span2"
@@ -81,7 +81,7 @@ export default function Products({productsList}) {
                     />
                     <br />
                     <b>$ 0</b> <b class="pull-right">$ 600</b>
-                  </div>
+                  </div> */}
                 </div>
               </div>
             </div>

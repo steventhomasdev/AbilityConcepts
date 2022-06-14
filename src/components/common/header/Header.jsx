@@ -1,9 +1,9 @@
 import React, { useState, useCallback, useEffect } from "react";
 import { GetAccountDetails } from "../../../api/api";
 import NavBar from "../navbar/NavBar";
-import Login from "../../login/Login";
-import SignUp from "../../signup/SignUp";
+import SignUp from "../signup/SignUp";
 import { getToken } from "../../utls/Session";
+import Login from "../login/Login";
 
 export default function Header() {
 

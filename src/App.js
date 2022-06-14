@@ -2,9 +2,9 @@ import React from "react";
 import { Route, Routes } from "react-router-dom";
 import Footer from "./components/common/footer/Footer";
 import FooterDetails from "./components/common/footer_details/FooterDetails";
+import Header from "./components/common/header/Header";
 import ScrollToTop from "./components/common/scroll_top/ScrollTop";
 import HomePage from "./components/homepage/HomePage";
-import Header from "./components/productlistpage/header/Header";
 import ProductListPage from "./components/productlistpage/ProductListPage";
 
 function App() {
