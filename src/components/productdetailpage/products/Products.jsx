@@ -1,8 +1,24 @@
-import React from "react";
+import React, { useState }  from "react";
+import { AddItemsToCart } from "../../../api/api";
+import { getToken } from "../../utls/Session";
 
-export default function Products({product}) {
+export default function Products({ product, setCartCount }) {
+  
+	const currentProduct = product.products.userData.product;
 
-	const currentProduct = product.products.userData.product
+	const onAddToCartClick = () => {
+		
+		let userData = {};
+		userData = {
+			authorizationToken: getToken(),
+			productId: currentProduct._id,
+			productPrice: currentProduct.productprice,
+			quantity: "1"
+		  }
+		AddItemsToCart(userData)
+		.then((data) => setCartCount(data.body.quantity))
+	}
+  
   return (
     <div>
       <section>
@@ -21,8 +37,7 @@ export default function Products({product}) {
                     id="similar-product"
                     className="carousel slide"
                     data-ride="carousel"
-                  >
-                  </div>
+                  ></div>
                 </div>
                 <div className="col-sm-7">
                   <div className="product-information">
@@ -30,9 +45,13 @@ export default function Products({product}) {
                     <p>Web ID: {currentProduct._id}</p>
                     <span>
                       <span>CAD ${currentProduct.productprice}</span>
-					  <label>Quantity:</label>
+                      <label>Quantity:</label>
                       <input type="text" value="1" />
-                      <button type="button" className="btn btn-fefault cart">
+                      <button
+                        type="button"
+                        className="btn btn-fefault cart"
+                        onClick={onAddToCartClick}
+                      >
                         <i className="fa fa-shopping-cart"></i>
                         Add to cart
                       </button>
@@ -46,8 +65,7 @@ export default function Products({product}) {
                     <p>
                       <b>Brand:</b> E-SHOPPER
                     </p>
-                    <a>
-                    </a>
+                    <a></a>
                   </div>
                 </div>
               </div>
@@ -70,7 +88,7 @@ export default function Products({product}) {
                 <div className="tab-content">
                   <div className="tab-pane fade active in" id="details">
                     <div className="col-sm-12">
-					<p>{currentProduct.productdescription}</p>
+                      <p>{currentProduct.productdescription}</p>
                     </div>
                   </div>
                   <div className="tab-pane fade" id="reviews">

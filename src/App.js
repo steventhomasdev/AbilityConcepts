@@ -1,4 +1,4 @@
-import React, {useEffect} from "react";
+import React, { useState } from "react";
 import { Route, Routes } from "react-router-dom";
 import Advertisement from "./components/common/advertisement/Advertisement";
 import Footer from "./components/common/footer/Footer";
@@ -11,19 +11,17 @@ import ProductListPage from "./components/productlistpage/ProductListPage";
 
 function App() {
 
-  useEffect(() => {
-    window.scrollTo(0, 0)
-  }, [])
+  const [cartCount, setCartCount] = useState() 
 
   return (
     <>
-      <Header/>
+      <Header cartCount={cartCount}/>
       <Advertisement/>
       <Routes>
         <Route path="/home" element={<HomePage />} />
         <Route path="/*" element={<HomePage />} />
         <Route path="/productlist" element={<ProductListPage />} />
-        <Route path="/productdetail" element={<ProductDetailPage />} />
+        <Route path="/productdetail" element={<ProductDetailPage setCartCount={setCartCount}/>} />
       </Routes>
       <FooterDetails/>
       <ScrollToTop/>

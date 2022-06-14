@@ -1,17 +1,21 @@
 import React, { useEffect, useState } from "react";
 import { removeToken } from "../../utls/Session";
 import { useNavigate, useLocation } from "react-router-dom";
+import { GetProducts } from "../../../api/api";
 
 export default function NavBar({
   SetloginPopUp,
   isLogin,
   SetisLogin,
   accountDetails,
+  cartCount
 }) {
   const [scrolled, setScrolled] = useState(false);
   const [searchArea, setsearchArea] = useState(false);
   const [userDropDown, setUserDropDown] = useState(false);
+  const [searchString, setSearchString] = useState("");
   const navigate = useNavigate();
+  const { state } = useLocation();
 
   let navbarClasses = [
     "navbar navbar-default bootsnav  navbar-sticky navbar-scrollspy",
@@ -33,6 +37,27 @@ export default function NavBar({
   const userDropDownToggle = () => {
     userDropDown ? setUserDropDown(false) : setUserDropDown(true);
   };
+
+  const onSearchButtonClick = () => {
+
+    const userData = {
+      searchString: searchString
+    };
+
+    GetProducts(userData)
+    .then((data) => {
+      navigate("/productlist", {
+        state: {
+          products: { data },
+        },
+      })
+    })
+  }
+
+  const getInputValue = (event)=>{
+    const userValue = event.target.value;
+    setSearchString(userValue);
+};
 
   const handleScroll = () => {
     const offset = window.scrollY;
@@ -79,8 +104,9 @@ export default function NavBar({
                       type="text"
                       className="form-control"
                       placeholder="Search"
+                      onChange={getInputValue}
                     />
-                    <button className="search-btn1">Search</button>
+                    <button className="search-btn1" onClick={onSearchButtonClick}>Search</button>
                     <span
                       onClick={onSearchClickToggle}
                       className="input-group-addon close-search"
@@ -143,7 +169,7 @@ export default function NavBar({
                     <li className="dropdown">
                       <a className="dropdown-toggle" data-toggle="dropdown">
                         <span className="lnr lnr-cart"></span>
-                        <span className="badge badge-bg-1">2</span>
+                        <span className="badge badge-bg-1">{cartCount}</span>
                       </a>
                     </li>
                   </ul>

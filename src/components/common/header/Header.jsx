@@ -5,7 +5,7 @@ import SignUp from "../signup/SignUp";
 import { getToken } from "../../utls/Session";
 import Login from "../login/Login";
 
-export default function Header() {
+export default function Header({cartCount}) {
 
   let [loginPopUp, SetloginPopUp] = useState(false);  // This is for the login popup
   let [signupPopUp, setSignupPopUp] = useState(false); // this is for the create account popup
@@ -32,7 +32,7 @@ export default function Header() {
       <header id="home" className="welcome-hero">
         <Login loginPopUp={loginPopUp} SetloginPopUp={SetloginPopUp} SetisLogin={SetisLogin} setSignupPopUp={setSignupPopUp}/>
         <SignUp signupPopUp={signupPopUp} setSignupPopUp={setSignupPopUp} SetisLogin={SetisLogin} SetloginPopUp={SetloginPopUp}/>
-        <NavBar SetloginPopUp={SetloginPopUp} isLogin={isLogin} SetisLogin={SetisLogin} accountDetails={accountDetails}/> 
+        <NavBar SetloginPopUp={SetloginPopUp} isLogin={isLogin} SetisLogin={SetisLogin} accountDetails={accountDetails} cartCount={cartCount}/> 
       </header>
     </div>
   );

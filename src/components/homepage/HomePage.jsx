@@ -10,6 +10,10 @@ import Carousal from "./carousal/Carousal";
 
 export default function HomePage() {
 
+  useEffect(() => {
+    window.scrollTo(0, 0)
+  }, [])
+
   const [products, setProducts] = useState({});
 
   const fetchData = useCallback( () => {
@@ -25,7 +29,7 @@ export default function HomePage() {
   return (
     <div>
       <Carousal products={products}/>
-      <PopularProducts/>
+      {/* <PopularProducts/> */}
       <ProductCategories/>
       <ImageBanner />
       <FeaturedProducts products={products} />

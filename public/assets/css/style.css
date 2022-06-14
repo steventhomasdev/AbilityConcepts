@@ -1495,29 +1495,31 @@ span.feature-review {
   color: #a8be40;
   float: left;
   font-family: 'Roboto', sans-serif;
-  font-size: 30px;
-  font-weight: 700;
+  font-size: 25px;
+  font-weight: 400px;
   margin-right: 20px;
-  margin-top: 0px;
+  /* margin-top: 0px; */
 }
 
 .product-information span label {
   color: #696763;
-  font-family: 'Roboto', sans-serif;
+  font-family: 'Roboto', sas-serif;
   font-weight: 700;
   margin-right: 5px;
+  margin-top: 24px;
 }
 
 .product-information span input {
   border: 1px solid #DEDEDC;
   color: #696763;
   font-family: 'Roboto', sans-serif;
-  font-size: 20px;
+  font-size: 15px;
   font-weight: 700;
   height: 33px;
   outline: medium none;
   text-align: center;
   width: 50px;
+  border-radius: 6px;
 }
 
 .cart {
@@ -1716,4 +1718,8 @@ span.feature-review {
 .newreview{
   margin-top: 20px;
   margin-bottom: 20px;
+}
+
+.fa-shopping-cart{
+  margin-right: 5px;
 }
