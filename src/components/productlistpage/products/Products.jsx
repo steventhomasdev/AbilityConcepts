@@ -1,64 +1,83 @@
-import React, { useEffect }  from "react";
+import React from "react";
+import { useNavigate, useLocation } from "react-router-dom";
 
 export default function Products({productsList}) {
 
+  const navigate = useNavigate();
+  const { state } = useLocation();
   const products= productsList.products.data.body;
 
-  useEffect(() => {
-    window.scrollTo(0, 0)
-  }, [])
+  const onProductClick = (event) => {
+
+    let userData = {};
+
+    for (let i in products) {
+      if(products[i]._id === event.currentTarget.id){
+        userData = {
+          product: products[i]
+        };
+        break;
+      }
+    }
+
+    navigate("/productdetail", {
+      state: {
+        products: { userData },
+      }
+    })
+  }
 
   return (
     <div>
       <section>
-        <div class="container">
-          <div class="row">
-            <div class="col-sm-3">
-              <div class="left-sidebar">
-                <div class="brands_products">
+        <div className="container">
+          <div className="row">
+            <div className="col-sm-3">
+              <div className="left-sidebar">
+                <div className="brands_products">
                   <h2>Brands</h2>
-                  <div class="brands-name">
-                    <ul class="nav nav-pills nav-stacked">
+                  <div className="brands-name">
+                    <ul className="nav nav-pills nav-stacked">
                       <li>
                         <a href="">
                           {" "}
-                          <span class="pull-right">(50)</span>Acne
+                          <span className="pull-right">(50)</span>Acne
                         </a>
                       </li>
                       <li>
                         <a href="">
                           {" "}
-                          <span class="pull-right">(56)</span>Grüne Erde
+                          <span className="pull-right">(56)</span>Grüne Erde
                         </a>
                       </li>
                       <li>
                         <a href="">
                           {" "}
-                          <span class="pull-right">(27)</span>Albiro
+                          <span className="pull-right">(27)</span>Albiro
                         </a>
                       </li>
                       <li>
                         <a href="">
                           {" "}
-                          <span class="pull-right">(32)</span>Ronhill
+                          <span className="pull-right">(32)</span>Ronhill
                         </a>
                       </li>
                       <li>
                         <a href="">
                           {" "}
-                          <span class="pull-right">(5)</span>Oddmolly
+                          <span className="pull-right">(5)</span>Oddmolly
                         </a>
                       </li>
                       <li>
                         <a href="">
                           {" "}
-                          <span class="pull-right">(9)</span>Boudestijn
+                          <span className="pull-right">(9)</span>Boudestijn
                         </a>
                       </li>
                       <li>
                         <a href="">
                           {" "}
-                          <span class="pull-right">(4)</span>Rösch creative
+                          <span className="pull-right">(4)</span>Rösch creative
                           culture
                         </a>
                       </li>
@@ -66,12 +85,12 @@ export default function Products({productsList}) {
                   </div>
                 </div>
 
-                <div class="price-range">
+                <div className="price-range">
                   <h2>Price Range</h2>
-                  {/* <div class="well">
+                  {/* <div className="well">
                     <input
                       type="text"
-                      class="span2"
+                      className="span2"
                       value=""
                       data-slider-min="0"
                       data-slider-max="600"
@@ -80,39 +99,39 @@ export default function Products({productsList}) {
                       id="sl2"
                     />
                     <br />
-                    <b>$ 0</b> <b class="pull-right">$ 600</b>
+                    <b>$ 0</b> <b className="pull-right">$ 600</b>
                   </div> */}
                 </div>
               </div>
             </div>
 
-            <div class="col-sm-9 padding-right">
-              <div class="features_items">
-                <div class="row">
+            <div className="col-sm-9 padding-right">
+              <div className="features_items">
+                <div className="row">
                 {products?.map((product) => (
-                  <div class="col-md-3 col-sm-4">
-                    <div class="single-new-arrival">
-                      <div class="single-new-arrival-bg">
+                  <div className="col-md-3 col-sm-4">
+                    <div className="single-new-arrival" onClick={onProductClick} id={[product._id]}>
+                      <div className="single-new-arrival-bg">
                         <img
                           src={product.productimage}
                           alt={product.productName}
                         />
-                        <div class="single-new-arrival-bg-overlay"></div>
-                        <div class="new-arrival-cart">
+                        <div className="single-new-arrival-bg-overlay"></div>
+                        <div className="new-arrival-cart">
                           <p>
-                            <a href="#">
+                            <a>
                               View <span>details </span>
                             </a>
                           </p>
-                          <p class="arrival-review pull-right">
-                            <span class="lnr lnr-frame-expand"></span>
+                          <p className="arrival-review pull-right">
+                            <span className="lnr lnr-frame-expand"></span>
                           </p>
                         </div>
                       </div>
                       <h4>
-                        <a href="#">{product.productName}</a>
+                        <a>{product.productName}</a>
                       </h4>
-                      <p class="arrival-product-price">${product.productprice}</p>
+                      <p className="arrival-product-price">${product.productprice}</p>
                     </div>
                   </div>
                   ))}

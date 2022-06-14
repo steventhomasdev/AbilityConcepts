@@ -40,7 +40,7 @@ export default function Carousal({products}) {
             <div className="welcome-hero-content">
               <div className="row">
                 <div className="col-sm-7">
-                  <div className="single-welcome-hero">
+                  <div className="single-welcome-hero" style={{marginTop: "0px"}}>
                     <div className="welcome-hero-txt">
                       <h4>Popular Products</h4>
                       <h2>{products[0].productName}</h2>
