@@ -15,7 +15,7 @@ export default function Products({ product, setCartCount, SetloginPopUp }) {
 			userData = {
 				authorizationToken: getToken(),
 				productId: currentProduct._id,
-				productPrice: currentProduct.productprice,
+				productDetails: currentProduct,
 				quantity: "1"
 			  }
 			AddItemsToCart(userData)

@@ -2,13 +2,12 @@ import React, { useState, useEffect } from "react";
 import { GetAccountDetails } from "../../../api/api";
 import NavBar from "../navbar/NavBar";
 import SignUp from "../signup/SignUp";
-import { getToken } from "../../utls/Session";
 import Login from "../login/Login";
+import { getToken } from "../../utls/Session";
 
-export default function Header({cartCount, setCartCount, loginPopUp, SetloginPopUp}) {
+export default function Header({cartCount, setCartCount, loginPopUp, SetloginPopUp, SetisLogin, isLogin}) {
 
   const [signupPopUp, setSignupPopUp] = useState(false); // this is for the create account popup
-  const [isLogin, SetisLogin] = useState(getToken() == undefined ? false : true)
   const [accountDetails, setAccountDetails] = useState({})
 
   const userData = {

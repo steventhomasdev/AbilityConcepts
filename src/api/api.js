@@ -97,5 +97,29 @@
     }).then((data) => data.json());
   }
 
+  export function GetCartItems (userData) {
+    //https://4ds5mcq6qc.execute-api.us-east-2.amazonaws.com/Products_Live/getcartitems
+    return fetch("https://4ds5mcq6qc.execute-api.us-east-2.amazonaws.com/Products_Live/getcartitems", {
+      method: "POST",
+      headers: {
+        'Content-Type': "application/json",
+        'Accept': "application/json",
+      },
+      body: JSON.stringify(userData),
+    }).then((data) => data.json());
+  }
+
+  export function RemoveItemsFromCart (userData) {
+    console.log(JSON.stringify(userData))
+    //https://v0oy6hc75f.execute-api.us-east-2.amazonaws.com/Products_Live/removeitemsfromcart
+    return fetch("https://v0oy6hc75f.execute-api.us-east-2.amazonaws.com/Products_Live/removeitemsfromcart", {
+      method: "POST",
+      headers: {
+        'Content-Type': "application/json",
+        'Accept': "application/json",
+      },
+      body: JSON.stringify(userData),
+    }).then((data) => data.json());
+  }
 
 

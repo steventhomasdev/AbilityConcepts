@@ -74,7 +74,15 @@ export default function NavBar({
   const getInputValue = (event)=>{
     const userValue = event.target.value;
     setSearchString(userValue);
-};
+  };
+
+  const onCartClick = () => {
+    navigate("/cart", {})
+  }
+
+  const onHomeButtonClick = () => {
+    navigate("/home", {})
+  }
 
   const handleScroll = () => {
     const offset = window.scrollY;
@@ -183,8 +191,8 @@ export default function NavBar({
                       </a>
                     </li>
 
-                    <li className="dropdown">
-                      <a className="dropdown-toggle" data-toggle="dropdown">
+                    <li>
+                      <a className="dropdown-toggle" data-toggle="dropdown" onClick={onCartClick} >
                         <span className="lnr lnr-cart"></span>
                         <span className="badge badge-bg-1">{cartCount}</span>
                       </a>
@@ -220,7 +228,7 @@ export default function NavBar({
                     data-out="fadeOutUp"
                   >
                     <li className=" scroll active">
-                      <a>home</a>
+                      <a onClick={onHomeButtonClick}>home</a>
                     </li>
                     <li className="scroll">
                       <a>Home modification</a>
