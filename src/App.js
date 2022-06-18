@@ -11,17 +11,18 @@ import ProductListPage from "./components/productlistpage/ProductListPage";
 
 function App() {
 
-  const [cartCount, setCartCount] = useState() 
+  const [cartCount, setCartCount] = useState(0) 
+  const [loginPopUp, SetloginPopUp] = useState(false);  // This is for the login popup
 
   return (
     <>
-      <Header cartCount={cartCount}/>
+      <Header cartCount={cartCount} setCartCount={setCartCount} loginPopUp={loginPopUp} SetloginPopUp={SetloginPopUp}/>
       <Advertisement/>
       <Routes>
         <Route path="/home" element={<HomePage />} />
         <Route path="/*" element={<HomePage />} />
         <Route path="/productlist" element={<ProductListPage />} />
-        <Route path="/productdetail" element={<ProductDetailPage setCartCount={setCartCount}/>} />
+        <Route path="/productdetail" element={<ProductDetailPage setCartCount={setCartCount} SetloginPopUp={SetloginPopUp}/>} />
       </Routes>
       <FooterDetails/>
       <ScrollToTop/>

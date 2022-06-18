@@ -85,5 +85,17 @@
     }).then((data) => data.json());
   }
 
+  export function GetCartCount (userData) {
+    //https://nppxsq0jaf.execute-api.us-east-2.amazonaws.com/Products_Live/additemstocart
+    return fetch("https://nppxsq0jaf.execute-api.us-east-2.amazonaws.com/Products_Live/additemstocart", {
+      method: "POST",
+      headers: {
+        'Content-Type': "application/json",
+        'Accept': "application/json",
+      },
+      body: JSON.stringify(userData),
+    }).then((data) => data.json());
+  }
+
 
 

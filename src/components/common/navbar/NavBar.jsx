@@ -1,19 +1,21 @@
 import React, { useEffect, useState } from "react";
-import { removeToken } from "../../utls/Session";
+import { getToken, removeToken } from "../../utls/Session";
 import { useNavigate, useLocation } from "react-router-dom";
-import { GetProducts } from "../../../api/api";
+import { GetCartCount, GetProducts } from "../../../api/api";
 
 export default function NavBar({
   SetloginPopUp,
   isLogin,
   SetisLogin,
   accountDetails,
-  cartCount
+  cartCount,
+  setCartCount
 }) {
   const [scrolled, setScrolled] = useState(false);
   const [searchArea, setsearchArea] = useState(false);
   const [userDropDown, setUserDropDown] = useState(false);
   const [searchString, setSearchString] = useState("");
+  const [cartCountRefresh, setCartCountReresh] = useState(true);
   const navigate = useNavigate();
   const { state } = useLocation();
 
@@ -21,13 +23,28 @@ export default function NavBar({
     "navbar navbar-default bootsnav  navbar-sticky navbar-scrollspy",
   ];
 
+  if(isLogin && cartCountRefresh){
+
+    let userData = {};
+		userData = {
+			authorizationToken: getToken(),
+		}
+    GetCartCount(userData)
+		.then((data) => setCartCount(data.body.quantity))
+    .then(setCartCountReresh(false));
+
+  }
   const onLoginClick = () => {
+
+    setCartCountReresh(true);
     SetloginPopUp(true);
+    
   };
 
   const onLogoutClick = () => {
     removeToken();
     SetisLogin(false);
+    setCartCount(0);
   };
 
   const onSearchClickToggle = () => {

@@ -2,7 +2,7 @@ import React, {useEffect} from "react";
 import Products from "./products/Products";
 import { useLocation } from "react-router-dom";
 
-export default function ProductDetailPage({setCartCount}) {
+export default function ProductDetailPage({setCartCount, SetloginPopUp}) {
 
   const { state } = useLocation();
 
@@ -12,7 +12,7 @@ export default function ProductDetailPage({setCartCount}) {
   
   return (
     <div>
-      <Products product={state} setCartCount={setCartCount}/>
+      <Products product={state} setCartCount={setCartCount} SetloginPopUp={SetloginPopUp}/>
     </div>
   );
 }

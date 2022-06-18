@@ -1,15 +1,14 @@
-import React, { useState, useCallback, useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import { GetAccountDetails } from "../../../api/api";
 import NavBar from "../navbar/NavBar";
 import SignUp from "../signup/SignUp";
 import { getToken } from "../../utls/Session";
 import Login from "../login/Login";
 
-export default function Header({cartCount}) {
+export default function Header({cartCount, setCartCount, loginPopUp, SetloginPopUp}) {
 
-  let [loginPopUp, SetloginPopUp] = useState(false);  // This is for the login popup
-  let [signupPopUp, setSignupPopUp] = useState(false); // this is for the create account popup
-  let [isLogin, SetisLogin] = useState(getToken() == undefined ? false : true)
+  const [signupPopUp, setSignupPopUp] = useState(false); // this is for the create account popup
+  const [isLogin, SetisLogin] = useState(getToken() == undefined ? false : true)
   const [accountDetails, setAccountDetails] = useState({})
 
   const userData = {
@@ -32,7 +31,7 @@ export default function Header({cartCount}) {
       <header id="home" className="welcome-hero">
         <Login loginPopUp={loginPopUp} SetloginPopUp={SetloginPopUp} SetisLogin={SetisLogin} setSignupPopUp={setSignupPopUp}/>
         <SignUp signupPopUp={signupPopUp} setSignupPopUp={setSignupPopUp} SetisLogin={SetisLogin} SetloginPopUp={SetloginPopUp}/>
-        <NavBar SetloginPopUp={SetloginPopUp} isLogin={isLogin} SetisLogin={SetisLogin} accountDetails={accountDetails} cartCount={cartCount}/> 
+        <NavBar SetloginPopUp={SetloginPopUp} isLogin={isLogin} SetisLogin={SetisLogin} accountDetails={accountDetails} cartCount={cartCount} setCartCount={setCartCount}/> 
       </header>
     </div>
   );

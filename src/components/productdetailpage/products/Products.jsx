@@ -2,21 +2,27 @@ import React, { useState }  from "react";
 import { AddItemsToCart } from "../../../api/api";
 import { getToken } from "../../utls/Session";
 
-export default function Products({ product, setCartCount }) {
+export default function Products({ product, setCartCount, SetloginPopUp }) {
   
 	const currentProduct = product.products.userData.product;
 
 	const onAddToCartClick = () => {
 		
-		let userData = {};
-		userData = {
-			authorizationToken: getToken(),
-			productId: currentProduct._id,
-			productPrice: currentProduct.productprice,
-			quantity: "1"
-		  }
-		AddItemsToCart(userData)
-		.then((data) => setCartCount(data.body.quantity))
+		const token = getToken()
+
+		if(token != undefined){
+			let userData = {};
+			userData = {
+				authorizationToken: getToken(),
+				productId: currentProduct._id,
+				productPrice: currentProduct.productprice,
+				quantity: "1"
+			  }
+			AddItemsToCart(userData)
+			.then((data) => setCartCount(data.body.quantity))
+		}else{
+			SetloginPopUp(true);
+		}
 	}
   
   return (
