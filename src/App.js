@@ -7,8 +7,10 @@ import Header from "./components/common/header/Header";
 import ScrollToTop from "./components/common/scroll_top/ScrollTop";
 import HomePage from "./components/homepage/HomePage";
 import MycartPage from "./components/mycart/MycartPage";
+import PaymentPage from "./components/payment/PaymentPage";
 import ProductDetailPage from "./components/productdetailpage/ProductDetailPage";
 import ProductListPage from "./components/productlistpage/ProductListPage";
+import ShippingPage from "./components/shipping/ShippingPage";
 import { getToken } from "./components/utls/Session";
 
 function App() {
@@ -27,6 +29,8 @@ function App() {
         <Route path="/productlist" element={<ProductListPage />} />
         <Route path="/productdetail" element={<ProductDetailPage setCartCount={setCartCount} SetloginPopUp={SetloginPopUp}/>} />
         <Route path="/cart" element={<MycartPage isLogin={isLogin} setCartCount={setCartCount}/>}/>
+        <Route path="/shipping" element={<ShippingPage/>}/>
+        <Route path="/payment" element={<PaymentPage/>}/>
       </Routes>
       <FooterDetails/>
       <ScrollToTop/>
