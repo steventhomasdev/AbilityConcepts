@@ -80,37 +80,49 @@ export default function Cart({ isLogin, setCartCount }) {
     });
   };
 
+  const onCheckOutClick = () => {
+    const userData = {
+      cartItems : cartItems,
+    };
+
+    navigate("/shipping", {
+      state: {
+        products: { userData },
+      },
+    });
+  };
+
   if (cartItems !== undefined && Object.keys(cartItems).length > 0) {
     return (
       <div>
         <section id="cart_items">
-          <div class="container">
-            <div class="breadcrumbs">
-              <ol class="breadcrumb">
+          <div className="container">
+            <div className="breadcrumbs">
+              <ol className="breadcrumb">
                 <li>
                   <a>Home</a>
                 </li>
-                <li class="active">
+                <li className="active">
                   <b>Cart</b>
                 </li>
               </ol>
             </div>
-            <div class="table-responsive cart_info">
-              <table class="table table-condensed">
+            <div className="table-responsive cart_info">
+              <table className="table table-condensed">
                 <thead>
-                  <tr class="cart_menu">
-                    <td class="image">Item</td>
-                    <td class="description"></td>
-                    <td class="price">Price</td>
-                    <td class="quantity">Quantity</td>
-                    <td class="total">Total</td>
+                  <tr className="cart_menu">
+                    <td className="image">Item</td>
+                    <td className="description"></td>
+                    <td className="price">Price</td>
+                    <td className="quantity">Quantity</td>
+                    <td className="total">Total</td>
                     <td></td>
                   </tr>
                 </thead>
                 <tbody>
                   {cartItems?.map((product) => (
                     <tr>
-                      <td class="cart_product">
+                      <td className="cart_product">
                         <a onClick={onProductClick} id={[product._id]}>
                           <img
                             src={product.productDetails.productimage}
@@ -119,7 +131,7 @@ export default function Cart({ isLogin, setCartCount }) {
                           />
                         </a>
                       </td>
-                      <td class="cart_description">
+                      <td className="cart_description">
                         <h4>
                           <a onClick={onProductClick} id={[product._id]}>
                             {product.productDetails.productName}
@@ -127,24 +139,24 @@ export default function Cart({ isLogin, setCartCount }) {
                         </h4>
                         <p>Web ID: {product.productDetails._id}</p>
                       </td>
-                      <td class="cart_price">
+                      <td className="cart_price">
                         <p>${product.productDetails.productprice}</p>
                       </td>
-                      <td class="cart_quantity">
-                        <div class="cart_quantity_button">
+                      <td className="cart_quantity">
+                        <div className="cart_quantity_button">
                           <input
-                            class="cart_quantity_input"
+                            className="cart_quantity_input"
                             type="text"
                             name="quantity"
                             value={product.quantity}
-                            autocomplete="off"
+                            autoComplete="off"
                             size="2"
-                            readonly
+                            readOnly
                           />
                         </div>
                       </td>
-                      <td class="cart_total">
-                        <p class="cart_total_price">
+                      <td className="cart_total">
+                        <p className="cart_total_price">
                           $
                           {getItemTotal(
                             product.productDetails.productprice,
@@ -152,22 +164,22 @@ export default function Cart({ isLogin, setCartCount }) {
                           )}
                         </p>
                       </td>
-                      <td class="cart_delete">
+                      <td className="cart_delete">
                         <a
-                          class="cart_quantity_delete"
+                          className="cart_quantity_delete"
                           onClick={OnRemoveButtonClick}
                           id={[product.productId]}
                         >
-                          <i class="fa fa-times"></i>
+                          <i className="fa fa-times"></i>
                         </a>
                       </td>
                     </tr>
                   ))}
-                </tbody>
-                <tr>
-                  <td colspan="3">&nbsp;</td>
-                  <td colspan="3">
-                      <div class="total_area">
+
+                  <tr>
+                    <td colSpan="3">&nbsp;</td>
+                    <td colSpan="3">
+                      <div className="total_area">
                         <ul>
                           <li>
                             Cart Sub Total <span>${getCartTotal()}</span>
@@ -192,21 +204,24 @@ export default function Cart({ isLogin, setCartCount }) {
                           </li>
                         </ul>
                       </div>
-                  </td>
-                </tr>
+                    </td>
+                  </tr>
+                </tbody>
               </table>
             </div>
           </div>
         </section>
 
-        <div class="container">
-          <div class="row">
-            <div class="breadcrumbs ">
-              <div class="col-sm-9"></div>
-              <div class="col-sm-3">
-                <ol class="breadcrumb bar">
+        <div className="container">
+          <div className="row">
+            <div className="breadcrumbs ">
+              <div className="col-sm-9"></div>
+              <div className="col-sm-3">
+                <ol className="breadcrumb bar">
                   <li>
-                    <a class="btn check-out-bar">Check Out</a>
+                    <a className="btn check-out-bar" onClick={onCheckOutClick}>
+                      Check Out
+                    </a>
                   </li>
                 </ol>
               </div>

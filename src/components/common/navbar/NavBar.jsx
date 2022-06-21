@@ -93,6 +93,10 @@ export default function NavBar({
     }
   };
 
+  const onProductClick = () => {
+    document.getElementById('new-arrivals').scrollIntoView({behavior: 'smooth'}) 
+  }
+
   useEffect(() => {
     window.addEventListener("scroll", handleScroll);
   });
@@ -145,7 +149,7 @@ export default function NavBar({
               <div className="container">
                 <div className="attr-nav">
                   <ul>
-                    {isLogin ? (
+                    {isLogin? (
                       <li
                         onClick={userDropDownToggle}
                         className="sub-menu-con"
@@ -179,7 +183,6 @@ export default function NavBar({
                         </div>
                       </li>
                     ) : (
-                      //plans to give user icon
                       <li onClick={onLoginClick} className="loginbtn">
                         <button>Login</button>
                       </li>
@@ -231,13 +234,13 @@ export default function NavBar({
                       <a onClick={onHomeButtonClick}>home</a>
                     </li>
                     <li className="scroll">
+                      <a onClick={onProductClick}>Products</a>
+                    </li>
+                    <li className="scroll">
                       <a>Home modification</a>
                     </li>
                     <li className="scroll">
                       <a>Rentals</a>
-                    </li>
-                    <li className="scroll">
-                      <a>Office</a>
                     </li>
                     <li className="scroll">
                       <a>contact</a>

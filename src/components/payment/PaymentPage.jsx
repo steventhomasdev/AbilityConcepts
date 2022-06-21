@@ -1,9 +1,36 @@
 import React, { useEffect } from "react";
+import { useLocation } from "react-router-dom";
 
 export default function PaymentPage() {
+  const { state } = useLocation();
+
   useEffect(() => {
     window.scrollTo(0, 0);
   }, []);
+
+  const getItemTotal = (productprice, quantity) => {
+    const total = Number(productprice.replace(/\,/g, "")) * Number(quantity);
+    return total.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+  };
+
+  const getCartTotal = () => {
+    const cartItems = state.products.cartItems;
+    let totalPrice = 0;
+    for (let i in cartItems) {
+      totalPrice += Number(
+        getItemTotal(
+          cartItems[i].productDetails.productprice,
+          cartItems[i].quantity
+        ).replace(/\,/g, "")
+      );
+    }
+
+    return totalPrice.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+  };
+
+  const calculateTax = () => {
+    return 2;
+  };
 
   return (
     <div>
@@ -27,16 +54,25 @@ export default function PaymentPage() {
                   <div class="total_area">
                     <ul>
                       <li>
-                        Cart Sub Total <span>$59</span>
+                        Cart Sub Total <span>${getCartTotal()}</span>
                       </li>
                       <li>
-                        Eco Tax <span>$2</span>
+                        Tax <span>${calculateTax()}</span>
                       </li>
                       <li>
                         Shipping Cost <span>Free</span>
                       </li>
                       <li>
-                        Total <span>$61</span>
+                        Total
+                        <span>
+                          $
+                          {(
+                            Number(getCartTotal().replace(/\,/g, "")) +
+                            calculateTax()
+                          )
+                            .toString()
+                            .replace(/\B(?=(\d{3})+(?!\d))/g, ",")}
+                        </span>
                       </li>
                     </ul>
                   </div>

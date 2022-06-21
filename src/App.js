@@ -29,7 +29,7 @@ function App() {
         <Route path="/productlist" element={<ProductListPage />} />
         <Route path="/productdetail" element={<ProductDetailPage setCartCount={setCartCount} SetloginPopUp={SetloginPopUp}/>} />
         <Route path="/cart" element={<MycartPage isLogin={isLogin} setCartCount={setCartCount}/>}/>
-        <Route path="/shipping" element={<ShippingPage/>}/>
+        <Route path="/shipping" element={<ShippingPage isLogin={isLogin}/>}/>
         <Route path="/payment" element={<PaymentPage/>}/>
       </Routes>
       <FooterDetails/>
