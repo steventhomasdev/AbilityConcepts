@@ -1,30 +1,33 @@
-import React, { useState }  from "react";
+import React, { useState } from "react";
 import { AddItemsToCart } from "../../../api/api";
 import { getToken } from "../../utls/Session";
 
 export default function Products({ product, setCartCount, SetloginPopUp }) {
-  
-	const currentProduct = product.products.userData.product;
+  const currentProduct = product.products.userData.product;
+  const [loading, setLoading] = useState(false);
 
-	const onAddToCartClick = () => {
-		
-		const token = getToken()
+  const onAddToCartClick = () => {
+    setLoading(true);
+    const token = getToken();
 
-		if(token != undefined){
-			let userData = {};
-			userData = {
-				authorizationToken: getToken(),
-				productId: currentProduct._id,
-				productDetails: currentProduct,
-				quantity: "1"
-			  }
-			AddItemsToCart(userData)
-			.then((data) => setCartCount(data.body.quantity))
-		}else{
-			SetloginPopUp(true);
-		}
-	}
-  
+    if (token != undefined) {
+      let userData = {};
+      userData = {
+        authorizationToken: getToken(),
+        productId: currentProduct._id,
+        productDetails: currentProduct,
+        quantity: "1",
+      };
+      AddItemsToCart(userData).then((data) => setCartCount(data.body.quantity));
+      setTimeout(() => {
+        setLoading(false);
+      }, 1000);
+    } else {
+      setLoading(false);
+      SetloginPopUp(true);
+    }
+  };
+
   return (
     <div>
       <section>
@@ -58,7 +61,16 @@ export default function Products({ product, setCartCount, SetloginPopUp }) {
                         className="btn btn-fefault cart"
                         onClick={onAddToCartClick}
                       >
-                        <i className="fa fa-shopping-cart"></i>
+                        {" "}
+                        {loading ? (
+                          <i
+                            class="fa fa-spinner"
+                            aria-hidden="true"
+                            style={{ color: "white", marginRight: "5px"}}
+                          ></i>
+                        ) : (
+                          <i className="fa fa-shopping-cart"></i>
+                        )}
                         Add to cart
                       </button>
                     </span>

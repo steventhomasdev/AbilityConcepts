@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { Route, Routes } from "react-router-dom";
+import Accountpage from "./components/accountpage/Accountpage";
 import Advertisement from "./components/common/advertisement/Advertisement";
 import Footer from "./components/common/footer/Footer";
 import FooterDetails from "./components/common/footer_details/FooterDetails";
@@ -31,6 +32,7 @@ function App() {
         <Route path="/cart" element={<MycartPage isLogin={isLogin} setCartCount={setCartCount}/>}/>
         <Route path="/shipping" element={<ShippingPage isLogin={isLogin}/>}/>
         <Route path="/payment" element={<PaymentPage/>}/>
+        <Route path="/account" element={<Accountpage/>}/>
       </Routes>
       <FooterDetails/>
       <ScrollToTop/>

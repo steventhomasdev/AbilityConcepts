@@ -1,7 +1,7 @@
 import React from "react";
 import "./css/spinner.css";
 
-export default function Spinner() {
+export default function SpinnerSmall() {
   return (
     <div class="loadingio-spinner-pulse-0m11xstatta">
       <div class="ldio-f7qxslqtpc7">

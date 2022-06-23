@@ -9,7 +9,7 @@ export default function NavBar({
   SetisLogin,
   accountDetails,
   cartCount,
-  setCartCount
+  setCartCount,
 }) {
   const [scrolled, setScrolled] = useState(false);
   const [searchArea, setsearchArea] = useState(false);
@@ -23,22 +23,18 @@ export default function NavBar({
     "navbar navbar-default bootsnav  navbar-sticky navbar-scrollspy",
   ];
 
-  if(isLogin && cartCountRefresh){
-
+  if (isLogin && cartCountRefresh) {
     let userData = {};
-		userData = {
-			authorizationToken: getToken(),
-		}
+    userData = {
+      authorizationToken: getToken(),
+    };
     GetCartCount(userData)
-		.then((data) => setCartCount(data.body.quantity))
-    .then(setCartCountReresh(false));
-
+      .then((data) => setCartCount(data.body.quantity))
+      .then(setCartCountReresh(false));
   }
   const onLoginClick = () => {
-
     setCartCountReresh(true);
     SetloginPopUp(true);
-    
   };
 
   const onLogoutClick = () => {
@@ -56,33 +52,31 @@ export default function NavBar({
   };
 
   const onSearchButtonClick = () => {
-
     const userData = {
-      searchString: searchString
+      searchString: searchString,
     };
 
-    GetProducts(userData)
-    .then((data) => {
+    GetProducts(userData).then((data) => {
       navigate("/productlist", {
         state: {
           products: { data },
         },
-      })
-    })
-  }
+      });
+    });
+  };
 
-  const getInputValue = (event)=>{
+  const getInputValue = (event) => {
     const userValue = event.target.value;
     setSearchString(userValue);
   };
 
   const onCartClick = () => {
-    navigate("/cart", {})
-  }
+    navigate("/cart", {});
+  };
 
   const onHomeButtonClick = () => {
-    navigate("/home", {})
-  }
+    navigate("/home", {});
+  };
 
   const handleScroll = () => {
     const offset = window.scrollY;
@@ -94,8 +88,10 @@ export default function NavBar({
   };
 
   const onProductClick = () => {
-    document.getElementById('new-arrivals').scrollIntoView({behavior: 'smooth'}) 
-  }
+    document
+      .getElementById("new-arrivals")
+      .scrollIntoView({ behavior: "smooth" });
+  };
 
   useEffect(() => {
     window.addEventListener("scroll", handleScroll);
@@ -135,7 +131,12 @@ export default function NavBar({
                       placeholder="Search"
                       onChange={getInputValue}
                     />
-                    <button className="search-btn1" onClick={onSearchButtonClick}>Search</button>
+                    <button
+                      className="search-btn1"
+                      onClick={onSearchButtonClick}
+                    >
+                      Search
+                    </button>
                     <span
                       onClick={onSearchClickToggle}
                       className="input-group-addon close-search"
@@ -149,7 +150,7 @@ export default function NavBar({
               <div className="container">
                 <div className="attr-nav">
                   <ul>
-                    {isLogin? (
+                    {isLogin ? (
                       <li
                         onClick={userDropDownToggle}
                         className="sub-menu-con"
@@ -195,7 +196,11 @@ export default function NavBar({
                     </li>
 
                     <li>
-                      <a className="dropdown-toggle" data-toggle="dropdown" onClick={onCartClick} >
+                      <a
+                        className="dropdown-toggle"
+                        data-toggle="dropdown"
+                        onClick={onCartClick}
+                      >
                         <span className="lnr lnr-cart"></span>
                         <span className="badge badge-bg-1">{cartCount}</span>
                       </a>
@@ -219,6 +224,8 @@ export default function NavBar({
                       className="ability-logo"
                     />
                   </a>
+                  <span className="Head1">Ability</span>
+                  <span className="Head2">Concepts</span>
                 </div>
 
                 <div

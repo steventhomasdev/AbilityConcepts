@@ -3,10 +3,12 @@ import { GetCartItems, RemoveItemsFromCart } from "../../../api/api";
 import Advertisement from "../../common/advertisement/Advertisement";
 import { getToken } from "../../utls/Session";
 import { useNavigate, useLocation } from "react-router-dom";
+import SpinnerSmall from "../../common/spinnersmall/SpinnerSmall";
 
 export default function Cart({ isLogin, setCartCount }) {
   const [cartItems, setCartItems] = useState();
   const [cartItemRefesh, setCartItemRefresh] = useState(false);
+  const [loading, setLoading] = useState(false);
 
   const navigate = useNavigate();
   const { state } = useLocation();
@@ -24,6 +26,7 @@ export default function Cart({ isLogin, setCartCount }) {
   }, [cartItemRefesh]);
 
   const OnRemoveButtonClick = (event) => {
+    setLoading(true);
     let userData = {};
     userData = {
       authorizationToken: getToken(),
@@ -35,6 +38,7 @@ export default function Cart({ isLogin, setCartCount }) {
     );
     setTimeout(() => {
       setCartItemRefresh(true);
+      setLoading(false);
     }, 1000);
   };
 
@@ -82,7 +86,7 @@ export default function Cart({ isLogin, setCartCount }) {
 
   const onCheckOutClick = () => {
     const userData = {
-      cartItems : cartItems,
+      cartItems: cartItems,
     };
 
     navigate("/shipping", {
@@ -107,108 +111,106 @@ export default function Cart({ isLogin, setCartCount }) {
                 </li>
               </ol>
             </div>
-            <div className="table-responsive cart_info">
-              <table className="table table-condensed">
-                <thead>
-                  <tr className="cart_menu">
-                    <td className="image">Item</td>
-                    <td className="description"></td>
-                    <td className="price">Price</td>
-                    <td className="quantity">Quantity</td>
-                    <td className="total">Total</td>
-                    <td></td>
-                  </tr>
-                </thead>
-                <tbody>
-                  {cartItems?.map((product) => (
-                    <tr>
-                      <td className="cart_product">
-                        <a onClick={onProductClick} id={[product._id]}>
-                          <img
-                            src={product.productDetails.productimage}
-                            style={{ width: "100px" }}
-                            alt={product.productDetails.productName}
-                          />
-                        </a>
-                      </td>
-                      <td className="cart_description">
-                        <h4>
-                          <a onClick={onProductClick} id={[product._id]}>
-                            {product.productDetails.productName}
-                          </a>
-                        </h4>
-                        <p>Web ID: {product.productDetails._id}</p>
-                      </td>
-                      <td className="cart_price">
-                        <p>${product.productDetails.productprice}</p>
-                      </td>
-                      <td className="cart_quantity">
-                        <div className="cart_quantity_button">
-                          <input
-                            className="cart_quantity_input"
-                            type="text"
-                            name="quantity"
-                            value={product.quantity}
-                            autoComplete="off"
-                            size="2"
-                            readOnly
-                          />
-                        </div>
-                      </td>
-                      <td className="cart_total">
-                        <p className="cart_total_price">
-                          $
-                          {getItemTotal(
-                            product.productDetails.productprice,
-                            product.quantity
-                          )}
-                        </p>
-                      </td>
-                      <td className="cart_delete">
-                        <a
-                          className="cart_quantity_delete"
-                          onClick={OnRemoveButtonClick}
-                          id={[product.productId]}
-                        >
-                          <i className="fa fa-times"></i>
-                        </a>
-                      </td>
-                    </tr>
-                  ))}
-
-                  <tr>
-                    <td colSpan="3">&nbsp;</td>
-                    <td colSpan="3">
-                      <div className="total_area">
-                        <ul>
-                          <li>
-                            Cart Sub Total <span>${getCartTotal()}</span>
-                          </li>
-                          <li>
-                            Tax <span>${calculateTax()}</span>
-                          </li>
-                          <li>
-                            Shipping Cost <span>Free</span>
-                          </li>
-                          <li>
-                            Total
-                            <span>
-                              $
-                              {(
-                                Number(getCartTotal().replace(/\,/g, "")) +
-                                calculateTax()
-                              )
-                                .toString()
-                                .replace(/\B(?=(\d{3})+(?!\d))/g, ",")}
-                            </span>
-                          </li>
-                        </ul>
-                      </div>
-                    </td>
-                  </tr>
-                </tbody>
-              </table>
-            </div>
+            <section id="do_action">
+              <div class="container">
+                <div class="row">
+                  <div class="col-sm-7">
+                    <div className="table-responsive cart_info">
+                      <table className="table table-condensed">
+                        <thead>
+                          <tr className="cart_menu">
+                            <td className="image">Item</td>
+                            <td className="description"></td>
+                            <td className="total">Total</td>
+                            <td></td>
+                          </tr>
+                        </thead>
+                        <tbody>
+                          {cartItems?.map((product) => (
+                            <tr>
+                              <td className="cart_product">
+                                <a id={[product._id]}>
+                                  <img
+                                    src={product.productDetails.productimage}
+                                    style={{ width: "100px" }}
+                                    alt={product.productDetails.productName}
+                                  />
+                                </a>
+                              </td>
+                              <td className="cart_description">
+                                <h4>
+                                  <a
+                                    id={[product._id]}
+                                    onClick={onProductClick}
+                                  >
+                                    {product.productDetails.productName}
+                                  </a>
+                                </h4>
+                                <p>
+                                  Price: $ {product.productDetails.productprice}
+                                </p>
+                                <span>Quantity: </span>
+                                {loading ? (
+                                  <SpinnerSmall />
+                                ) : (
+                                  <span>{product.quantity} </span>
+                                )}
+                                <a
+                                  className="cart_quantity_delete"
+                                  onClick={OnRemoveButtonClick}
+                                  id={[product.productId]}
+                                >
+                                  <i
+                                    className="fa fa-trash-o"
+                                    style={{ color: "#ff726f" }}
+                                  ></i>
+                                </a>
+                              </td>
+                              <td className="cart_total">
+                                <p className="cart_total_price">
+                                  $
+                                  {getItemTotal(
+                                    product.productDetails.productprice,
+                                    product.quantity
+                                  )}
+                                </p>
+                              </td>
+                            </tr>
+                          ))}
+                        </tbody>
+                      </table>
+                    </div>
+                  </div>
+                  <div class="col-sm-5">
+                    <div class="total_area">
+                      <ul>
+                        <li>
+                          Cart Sub Total <span>${getCartTotal()}</span>
+                        </li>
+                        <li>
+                          Tax <span>${calculateTax()}</span>
+                        </li>
+                        <li>
+                          Shipping Cost <span>Free</span>
+                        </li>
+                        <li>
+                          Total
+                          <span>
+                            $
+                            {(
+                              Number(getCartTotal().replace(/\,/g, "")) +
+                              calculateTax()
+                            )
+                              .toString()
+                              .replace(/\B(?=(\d{3})+(?!\d))/g, ",")}
+                          </span>
+                        </li>
+                      </ul>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </section>
           </div>
         </section>
 

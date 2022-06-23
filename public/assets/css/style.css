@@ -1756,7 +1756,7 @@ img, .single-new-arrival{
 .cart_info table tr td {
   border-top: 0 none;
   vertical-align: inherit;
-  padding-right: 75px;
+  /* padding-right: 75px; */
 }
 
 #cart_items .cart_info .image {
@@ -1884,7 +1884,7 @@ a:hover, a:active, a:focus{
 }
 
 .shopper-info > form > input, form > select  .form-two > form > select, .form-two > form > input, .form-one > form > input, .form-one > form > select {
-  background: #F0F0E9;
+  /* background: #F0F0E9; */
   border: 0 none;
   margin-bottom: 10px;
   padding: 10px;
@@ -1971,4 +1971,27 @@ select {
 
 .card-details{
   margin: 18px 15px 0px 0px;
+}
+
+.wrap-sticky nav.navbar.bootsnav.sticked .span{
+  margin-top: 45px; display: inline-block; color: rgb(168, 190, 64);
+}
+
+.navbar-header > span {
+  margin-top: 47px;
+  display: inline-block;
+  padding-right: 3px;
+}
+
+.navbar-header > .Head1 {
+  color: #a8be40;
+}
+.navbar-header > .Head2 {
+  color: black;
+}
+
+.wrap-sticky nav.navbar.bootsnav.sticked .navbar-header > span{
+  margin-top: 30px;
+  display: inline-block;
+  padding-right: 3px;
 }

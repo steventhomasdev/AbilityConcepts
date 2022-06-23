@@ -50,6 +50,56 @@ export default function PaymentPage() {
           <section id="do_action">
             <div class="container">
               <div class="row">
+                <div class="col-sm-7">
+                  <div className="table-responsive cart_info">
+                    <table className="table table-condensed">
+                      <thead>
+                        <tr className="cart_menu">
+                          <td className="image">Item</td>
+                          <td className="description"></td>
+                          <td className="total">Total</td>
+                          <td></td>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        {state.products.cartItems?.map((product) => (
+                          <tr>
+                            <td className="cart_product">
+                              <a id={[product._id]}>
+                                <img
+                                  src={product.productDetails.productimage}
+                                  style={{ width: "100px" }}
+                                  alt={product.productDetails.productName}
+                                />
+                              </a>
+                            </td>
+                            <td className="cart_description">
+                              <h4>
+                                <a id={[product._id]}>
+                                  {product.productDetails.productName}
+                                </a>
+                              </h4>
+                              <p>
+                                Price: ${product.productDetails.productprice}
+                              </p>
+                              <span>Quantity: </span>
+                              <span>{product.quantity}</span>
+                            </td>
+                            <td className="cart_total">
+                              <p className="cart_total_price">
+                                $
+                                {getItemTotal(
+                                  product.productDetails.productprice,
+                                  product.quantity
+                                )}
+                              </p>
+                            </td>
+                          </tr>
+                        ))}
+                      </tbody>
+                    </table>
+                  </div>
+                </div>
                 <div class="col-sm-5">
                   <div class="total_area">
                     <ul>
@@ -74,18 +124,15 @@ export default function PaymentPage() {
                             .replace(/\B(?=(\d{3})+(?!\d))/g, ",")}
                         </span>
                       </li>
-                    </ul>
-                  </div>
-                </div>
-                <div class="col-sm-2"></div>
-                <div class="col-sm-5">
-                  <div class="card-details shopper-info">
+                    <li className="shopper-info">
                     <p>Card details</p>
                     <form>
                       <input type="text" placeholder="Name on card" />
                       <input type="text" placeholder="Card number" />
                       <input type="Text" placeholder="Valid through" />
                     </form>
+                    </li>
+                    </ul>
                   </div>
                 </div>
               </div>
