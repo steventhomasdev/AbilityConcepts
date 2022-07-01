@@ -5,6 +5,11 @@ import { getToken } from "../../utls/Session";
 export default function Products({ product, setCartCount, SetloginPopUp }) {
   const currentProduct = product.products.userData.product;
   const [loading, setLoading] = useState(false);
+  const [quantity, setQuantity] = useState(1);
+
+  const quantityChange = (event) => {
+	  setQuantity(event.target.value);
+  }
 
   const onAddToCartClick = () => {
     setLoading(true);
@@ -16,7 +21,7 @@ export default function Products({ product, setCartCount, SetloginPopUp }) {
         authorizationToken: getToken(),
         productId: currentProduct._id,
         productDetails: currentProduct,
-        quantity: "1",
+        quantity: quantity,
       };
       AddItemsToCart(userData).then((data) => setCartCount(data.body.quantity));
       setTimeout(() => {
@@ -55,7 +60,13 @@ export default function Products({ product, setCartCount, SetloginPopUp }) {
                     <span>
                       <span>CAD ${currentProduct.productprice}</span>
                       <label>Quantity:</label>
-                      <input type="text" value="1" />
+					  <select onChange={quantityChange}>
+						  <option>1</option>
+						  <option>2</option>
+						  <option>3</option>
+						  <option>4</option>
+						  <option>5</option>
+					  </select>
                       <button
                         type="button"
                         className="btn btn-fefault cart"

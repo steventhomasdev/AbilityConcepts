@@ -1,31 +1,41 @@
 import React, { useState, useEffect } from "react";
-import { GetCartItems, RemoveItemsFromCart } from "../../../api/api";
-import Advertisement from "../../common/advertisement/Advertisement";
+import {
+  AddItemsToCart,
+  GetCartItems,
+  RemoveItemsFromCart,
+} from "../../../api/api";
 import { getToken } from "../../utls/Session";
 import { useNavigate, useLocation } from "react-router-dom";
 import SpinnerSmall from "../../common/spinnersmall/SpinnerSmall";
+import Spinner from "../../common/spinner/Spinner";
 
 export default function Cart({ isLogin, setCartCount }) {
   const [cartItems, setCartItems] = useState();
   const [cartItemRefesh, setCartItemRefresh] = useState(false);
   const [loading, setLoading] = useState(false);
+  const [pageLoading, setPageLoading] = useState(false);
+  const [Index, setIndex] = useState(null);
 
   const navigate = useNavigate();
   const { state } = useLocation();
 
   useEffect(() => {
     setCartItemRefresh(false);
+    setPageLoading(true);
     if (isLogin) {
       let userData = {};
       userData = {
         authorizationToken: getToken(),
       };
 
-      GetCartItems(userData).then((data) => setCartItems(data.body.cart));
+      GetCartItems(userData)
+        .then((data) => setCartItems(data.body.cart))
+        .then(setPageLoading(false));
     }
   }, [cartItemRefesh]);
 
   const OnRemoveButtonClick = (event) => {
+    setIndex(event.currentTarget.id);
     setLoading(true);
     let userData = {};
     userData = {
@@ -36,6 +46,32 @@ export default function Cart({ isLogin, setCartCount }) {
     RemoveItemsFromCart(userData).then((data) =>
       setCartCount(data.body.quantity)
     );
+    setTimeout(() => {
+      setCartItemRefresh(true);
+      setLoading(false);
+    }, 1000);
+  };
+
+  const OnAddButtonClick = (event) => {
+    let productDetails;
+
+    setLoading(true);
+
+    for (let i in cartItems) {
+      if (cartItems[i]._id === event.currentTarget.id) {
+        productDetails = cartItems[i].productDetails;
+        break;
+      }
+    }
+
+    let userData = {};
+    userData = {
+      authorizationToken: getToken(),
+      productId: event.currentTarget.id,
+      productDetails: productDetails,
+      quantity: 1,
+    };
+    AddItemsToCart(userData).then((data) => setCartCount(data.body.quantity));
     setTimeout(() => {
       setCartItemRefresh(true);
       setLoading(false);
@@ -112,77 +148,102 @@ export default function Cart({ isLogin, setCartCount }) {
               </ol>
             </div>
             <section id="do_action">
-              <div class="container">
-                <div class="row">
-                  <div class="col-sm-7">
+              <div className="container">
+                <div className="row">
+                  <div className="col-sm-7 cartTable">
                     <div className="table-responsive cart_info">
-                      <table className="table table-condensed">
-                        <thead>
-                          <tr className="cart_menu">
-                            <td className="image">Item</td>
-                            <td className="description"></td>
-                            <td className="total">Total</td>
-                            <td></td>
-                          </tr>
-                        </thead>
-                        <tbody>
-                          {cartItems?.map((product) => (
-                            <tr>
-                              <td className="cart_product">
-                                <a id={[product._id]}>
-                                  <img
-                                    src={product.productDetails.productimage}
-                                    style={{ width: "100px" }}
-                                    alt={product.productDetails.productName}
-                                  />
-                                </a>
-                              </td>
-                              <td className="cart_description">
-                                <h4>
-                                  <a
-                                    id={[product._id]}
-                                    onClick={onProductClick}
-                                  >
-                                    {product.productDetails.productName}
-                                  </a>
-                                </h4>
-                                <p>
-                                  Price: $ {product.productDetails.productprice}
-                                </p>
-                                <span>Quantity: </span>
-                                {loading ? (
-                                  <SpinnerSmall />
-                                ) : (
-                                  <span>{product.quantity} </span>
-                                )}
-                                <a
-                                  className="cart_quantity_delete"
-                                  onClick={OnRemoveButtonClick}
-                                  id={[product.productId]}
-                                >
-                                  <i
-                                    className="fa fa-trash-o"
-                                    style={{ color: "#ff726f" }}
-                                  ></i>
-                                </a>
-                              </td>
-                              <td className="cart_total">
-                                <p className="cart_total_price">
-                                  $
-                                  {getItemTotal(
-                                    product.productDetails.productprice,
-                                    product.quantity
-                                  )}
-                                </p>
-                              </td>
+                      {pageLoading ? (
+                        <Spinner />
+                      ) : (
+                        <table className="table table-condensed">
+                          <thead>
+                            <tr className="cart_menu">
+                              <td className="image">Item</td>
+                              <td className="description"></td>
+                              <td className="total">Total</td>
+                              <td></td>
                             </tr>
-                          ))}
-                        </tbody>
-                      </table>
+                          </thead>
+                          <tbody>
+                            {cartItems?.map((product) => (
+                              <tr>
+                                <td className="cart_product">
+                                  <a id={[product._id]}>
+                                    <img
+                                      src={product.productDetails.productimage}
+                                      style={{ width: "100px" }}
+                                      alt={product.productDetails.productName}
+                                    />
+                                  </a>
+                                </td>
+                                <td className="cart_description">
+                                  <h4>
+                                    <a
+                                      id={[product._id]}
+                                      onClick={onProductClick}
+                                    >
+                                      {product.productDetails.productName}
+                                    </a>
+                                  </h4>
+                                  <p>
+                                    Price: ${" "}
+                                    {product.productDetails.productprice}
+                                  </p>
+                                  <div className="quantity buttons_added">
+                                    <input
+                                      type="button"
+                                      value="--"
+                                      className="minus"
+                                      onClick={OnRemoveButtonClick}
+                                      id={[product.productId]}
+                                      style={{ color: "red" }}
+                                    />
+                                    <input
+                                      type="number"
+                                      step="1"
+                                      min="1"
+                                      max=""
+                                      name="quantity"
+                                      value={product.quantity}
+                                      title="Qty"
+                                      className="input-text qty text"
+                                      size="4"
+                                      pattern=""
+                                      inputmode=""
+                                      style={{ color: "black" }}
+                                    />
+                                    <input
+                                      type="button"
+                                      value="+"
+                                      className="plus"
+                                      onClick={OnAddButtonClick}
+                                      id={[product.productId]}
+                                      style={{ color: "green" }}
+                                    />
+                                  </div>
+                                </td>
+                                <td className="cart_total">
+                                  {loading && Index === product.productId ? (
+                                    <SpinnerSmall />
+                                  ) : (
+                                    <p className="cart_total_price">
+                                      $
+                                      {getItemTotal(
+                                        product.productDetails.productprice,
+                                        product.quantity
+                                      )}
+                                    </p>
+                                  )}
+                                </td>
+                              </tr>
+                            ))}
+                          </tbody>
+                        </table>
+                      )}
                     </div>
                   </div>
-                  <div class="col-sm-5">
-                    <div class="total_area">
+                  <div className="col-sm-5">
+                    <div className="total_area">
                       <ul>
                         <li>
                           Cart Sub Total <span>${getCartTotal()}</span>
@@ -213,7 +274,6 @@ export default function Cart({ isLogin, setCartCount }) {
             </section>
           </div>
         </section>
-
         <div className="container">
           <div className="row">
             <div className="breadcrumbs ">
@@ -234,10 +294,40 @@ export default function Cart({ isLogin, setCartCount }) {
     );
   } else {
     return (
-      <>
-        <Advertisement />
-        <div>No items found</div>
-      </>
+      <div>
+        <section id="cart_items">
+          <div className="container">
+            <div className="breadcrumbs">
+              <ol className="breadcrumb">
+                <li>
+                  <a>Home</a>
+                </li>
+                <li className="active">
+                  <b>Cart</b>
+                </li>
+              </ol>
+            </div>
+            <section id="do_action">
+              <div className="container">
+                <div className="row">
+                  <div className="col-sm-12 cartTable">
+                    <div
+                      className="d-flex justify-content-center align-items-center"
+                      id="main"
+                    >
+                      <div className="inline-block align-middle">
+                        <h2 className="font-weight-normal lead" id="desc">
+                          No Items present in the cart
+                        </h2>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </section>
+          </div>
+        </section>
+      </div>
     );
   }
 }

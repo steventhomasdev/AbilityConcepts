@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import { getToken, removeToken } from "../../utls/Session";
 import { useNavigate, useLocation } from "react-router-dom";
 import { GetCartCount, GetProducts } from "../../../api/api";
+import SpinnerSmall from "../spinnersmall/SpinnerSmall";
 
 export default function NavBar({
   SetloginPopUp,
@@ -16,6 +17,7 @@ export default function NavBar({
   const [userDropDown, setUserDropDown] = useState(false);
   const [searchString, setSearchString] = useState("");
   const [cartCountRefresh, setCartCountReresh] = useState(true);
+  const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
   const { state } = useLocation();
 
@@ -52,6 +54,7 @@ export default function NavBar({
   };
 
   const onSearchButtonClick = () => {
+    setLoading(true);
     const userData = {
       searchString: searchString,
     };
@@ -63,6 +66,10 @@ export default function NavBar({
         },
       });
     });
+
+    setTimeout(() => {
+      setLoading(false);
+    },1000)
   };
 
   const getInputValue = (event) => {
@@ -88,9 +95,8 @@ export default function NavBar({
   };
 
   const onProductClick = () => {
-    document
-      .getElementById("new-arrivals")
-      .scrollIntoView({ behavior: "smooth" });
+    
+    navigate("/productlist", {});
   };
 
   useEffect(() => {
@@ -131,12 +137,18 @@ export default function NavBar({
                       placeholder="Search"
                       onChange={getInputValue}
                     />
-                    <button
-                      className="search-btn1"
-                      onClick={onSearchButtonClick}
-                    >
-                      Search
-                    </button>
+                    {loading ? (
+                      <div className="loading">
+                        <SpinnerSmall />
+                      </div>
+                    ) : (
+                      <button
+                        className="search-btn1"
+                        onClick={onSearchButtonClick}
+                      >
+                        Search
+                      </button>
+                    )}
                     <span
                       onClick={onSearchClickToggle}
                       className="input-group-addon close-search"

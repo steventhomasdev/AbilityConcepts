@@ -1,239 +1,206 @@
-import React from "react";
+import React, { useState, useCallback, useEffect } from "react";
 import { useNavigate, useLocation } from "react-router-dom";
+import { GetProducts, GetProductsCat } from "../../../api/api";
+import Spinner from "../../common/spinner/Spinner";
+import SpinnerSmall from "../../common/spinnersmall/SpinnerSmall";
 
-export default function Products({productsList}) {
-
+export default function Products({ productsList, setIsProductListPage }) {
   const navigate = useNavigate();
   const { state } = useLocation();
-  const products= productsList.products.data.body;
+  const [productCatList, setproductCatList] = useState("empty");
+  const products = productsList.products.data.body;
+  const [loading, setLoading] = useState(true);
+  const [searchString, setSearchString] = useState("");
+  const [productLoading, setProductLoading] = useState(false);
+
+  const fetchData = useCallback(() => {
+    setIsProductListPage(true);
+    GetProductsCat()
+      .then((data) => setproductCatList(data.body))
+      .then(setLoading(false));
+  }, []);
+
+  useEffect(() => {
+    fetchData();
+  }, [fetchData]);
+
+  const getInputValue = (event) => {
+    const userValue = event.target.value;
+    setSearchString(userValue);
+  };
+
+  const onSearchButtonClick = () => {
+    setProductLoading(true);
+    const userData = {
+      searchString: searchString,
+    };
+
+    GetProducts(userData).then((data) => {
+      navigate("/productlist", {
+        replace: true,
+        state: {
+          products: { data },
+        },
+      });
+    });
+
+    setTimeout(() => {
+      setProductLoading(false)
+    }, 1000)
+  };
 
   const onProductClick = (event) => {
-
     let userData = {};
-
     for (let i in products) {
-      if(products[i]._id === event.currentTarget.id){
+      if (products[i]._id === event.currentTarget.id) {
         userData = {
-          product: products[i]
+          product: products[i],
         };
         break;
       }
     }
 
+    setIsProductListPage(false);
     navigate("/productdetail", {
       state: {
         products: { userData },
-      }
-    })
-  }
+      },
+    });
+  };
 
-  if(products != "No Products"){
-    return (
-      <div>
-        <section>
-          <div className="container">
+  const onCategoryClick = (event) => {
+    const userData = {
+      category: event.currentTarget.id,
+    };
+
+    GetProducts(userData).then((data) => {
+      navigate("/productlist", {
+        replace: true,
+        state: {
+          products: { data },
+        },
+      });
+    });
+  };
+
+  return (
+    <div>
+      <div
+        className="top-search"
+        style={{ display: "block", marginTop: "100px", marginBottom: "50px" }}
+      >
+        <div className="container">
+          <div className="input-group d-flex">
+            <span className="input-group-addon">
+              <i className="fa fa-search"></i>
+            </span>
+            <input
+              type="text"
+              className="form-control"
+              placeholder="Search"
+              onChange={getInputValue}
+            />
+            {productLoading ? (
+              <div className="loading">
+                <SpinnerSmall />
+              </div>
+            ) : (
+              <button className="search-btn1" onClick={onSearchButtonClick}>
+                Search
+              </button>
+            )}
+          </div>
+        </div>
+      </div>
+      <section>
+        <div className="container">
+          {loading || productCatList === "empty" ? (
+            <div className="loading">
+              <Spinner />
+            </div>
+          ) : (
             <div className="row">
               <div className="col-sm-3">
                 <div className="left-sidebar">
                   <div className="brands_products">
-                    <h2>Brands</h2>
+                    <h2>Categories</h2>
                     <div className="brands-name">
                       <ul className="nav nav-pills nav-stacked">
-                        <li>
-                          <a href="">
-                            {" "}
-                            <span className="pull-right">(50)</span>Acne
-                          </a>
-                        </li>
-                        <li>
-                          <a href="">
-                            {" "}
-                            <span className="pull-right">(56)</span>Grüne Erde
-                          </a>
-                        </li>
-                        <li>
-                          <a href="">
-                            {" "}
-                            <span className="pull-right">(27)</span>Albiro
-                          </a>
-                        </li>
-                        <li>
-                          <a href="">
-                            {" "}
-                            <span className="pull-right">(32)</span>Ronhill
-                          </a>
-                        </li>
-                        <li>
-                          <a href="">
-                            {" "}
-                            <span className="pull-right">(5)</span>Oddmolly
-                          </a>
-                        </li>
-                        <li>
-                          <a href="">
-                            {" "}
-                            <span className="pull-right">(9)</span>Boudestijn
-                          </a>
-                        </li>
-                        <li>
-                          <a href="">
-                            {" "}
-                            <span className="pull-right">(4)</span>Rösch creative
-                            culture
-                          </a>
-                        </li>
+                        {productCatList?.map((category) => (
+                          <li>
+                            <a onClick={onCategoryClick} id={category.cat}>
+                              {category.cat}
+                            </a>
+                          </li>
+                        ))}
                       </ul>
                     </div>
                   </div>
-  
-                  <div className="price-range">
-                    <h2>Price Range</h2>
-                    {/* <div className="well">
-                      <input
-                        type="text"
-                        className="span2"
-                        value=""
-                        data-slider-min="0"
-                        data-slider-max="600"
-                        data-slider-step="5"
-                        data-slider-value="[250,450]"
-                        id="sl2"
-                      />
-                      <br />
-                      <b>$ 0</b> <b className="pull-right">$ 600</b>
-                    </div> */}
-                  </div>
                 </div>
               </div>
-  
               <div className="col-sm-9 padding-right">
                 <div className="features_items">
                   <div className="row">
-                  {products?.map((product) => (
-                    <div className="col-md-3 col-sm-4">
-                      <div className="single-new-arrival" onClick={onProductClick} id={[product._id]}>
-                        <div className="single-new-arrival-bg">
-                          <img
-                            src={product.productimage}
-                            alt={product.productName}
-                          />
-                          <div className="single-new-arrival-bg-overlay"></div>
-                          <div className="new-arrival-cart">
-                            <p>
-                              <a>
-                                View <span>details </span>
-                              </a>
-                            </p>
-                            <p className="arrival-review pull-right">
-                              <span className="lnr lnr-frame-expand"></span>
+                    {products != "No Products" ||  loading ? (
+                      products?.map((product) => (
+                        <div className="col-md-3 col-sm-4">
+                          <div
+                            className="single-new-arrival"
+                            onClick={onProductClick}
+                            id={[product._id]}
+                          >
+                            <div className="single-new-arrival-bg">
+                              <img
+                                src={product.productimage}
+                                alt={product.productName}
+                              />
+                              <div className="single-new-arrival-bg-overlay"></div>
+                              <div className="new-arrival-cart">
+                                <p>
+                                  <a>
+                                    View <span>details </span>
+                                  </a>
+                                </p>
+                                <p className="arrival-review pull-right">
+                                  <span className="lnr lnr-frame-expand"></span>
+                                </p>
+                              </div>
+                            </div>
+                            <h4>
+                              <a>{product.productName}</a>
+                            </h4>
+                            <p className="arrival-product-price">
+                              ${product.productprice}
                             </p>
                           </div>
                         </div>
-                        <h4>
-                          <a>{product.productName}</a>
-                        </h4>
-                        <p className="arrival-product-price">${product.productprice}</p>
+                      ))
+                    ) : (
+                      <div className="col-sm-9 padding-right">
+                        <div className="features_items">
+                          <div className="row">
+                            <div
+                              class="d-flex justify-content-center align-items-center"
+                              id="main"
+                            >
+                              <div class="inline-block align-middle">
+                                <h2 class="font-weight-normal lead" id="desc">
+                                  No Results Found try with different search
+                                  keyword.
+                                </h2>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
                       </div>
-                    </div>
-                    ))}
+                    )}
                   </div>
                 </div>
               </div>
             </div>
-          </div>
-        </section>
-      </div>
-    );
-  }else{
-    return(
-      <div>
-        <section>
-          <div className="container">
-            <div className="row">
-              <div className="col-sm-3">
-                <div className="left-sidebar">
-                  <div className="brands_products">
-                    <h2>Brands</h2>
-                    <div className="brands-name">
-                      <ul className="nav nav-pills nav-stacked">
-                        <li>
-                          <a href="">
-                            {" "}
-                            <span className="pull-right">(50)</span>Acne
-                          </a>
-                        </li>
-                        <li>
-                          <a href="">
-                            {" "}
-                            <span className="pull-right">(56)</span>Grüne Erde
-                          </a>
-                        </li>
-                        <li>
-                          <a href="">
-                            {" "}
-                            <span className="pull-right">(27)</span>Albiro
-                          </a>
-                        </li>
-                        <li>
-                          <a href="">
-                            {" "}
-                            <span className="pull-right">(32)</span>Ronhill
-                          </a>
-                        </li>
-                        <li>
-                          <a href="">
-                            {" "}
-                            <span className="pull-right">(5)</span>Oddmolly
-                          </a>
-                        </li>
-                        <li>
-                          <a href="">
-                            {" "}
-                            <span className="pull-right">(9)</span>Boudestijn
-                          </a>
-                        </li>
-                        <li>
-                          <a href="">
-                            {" "}
-                            <span className="pull-right">(4)</span>Rösch creative
-                            culture
-                          </a>
-                        </li>
-                      </ul>
-                    </div>
-                  </div>
-  
-                  <div className="price-range">
-                    <h2>Price Range</h2>
-                    {/* <div className="well">
-                      <input
-                        type="text"
-                        className="span2"
-                        value=""
-                        data-slider-min="0"
-                        data-slider-max="600"
-                        data-slider-step="5"
-                        data-slider-value="[250,450]"
-                        id="sl2"
-                      />
-                      <br />
-                      <b>$ 0</b> <b className="pull-right">$ 600</b>
-                    </div> */}
-                  </div>
-                </div>
-              </div>
-  
-              <div className="col-sm-9 padding-right">
-                <div className="features_items">
-                  <div className="row">
-                    <h1>No products found with the search </h1>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </section>
-      </div>
-    )
-  }
+          )}
+        </div>
+      </section>
+    </div>
+  );
 }

@@ -1,12 +1,78 @@
-import React, { useEffect } from "react";
-import { useLocation } from "react-router-dom";
+import React, { useEffect, useState } from "react";
+import StripeCheckout from "react-stripe-checkout";
+import { OrderTableEntry, RemoveItemsFromCart } from "../../api/api";
+import { getToken } from "../utls/Session";
+import { useNavigate, useLocation } from "react-router-dom";
 
-export default function PaymentPage() {
+export default function PaymentPage({ setCartCount }) {
+
   const { state } = useLocation();
+  const navigate = useNavigate();
 
   useEffect(() => {
     window.scrollTo(0, 0);
   }, []);
+
+
+  const makePayment = (token) => {
+    
+    const body = {
+      token,
+      price : (Number(getCartTotal().replace(/\,/g, "")) + calculateTax()),
+      products : state.products.cartItems
+    }
+
+    const headers = {
+      'Content-Type': "application/json",
+      'Accept': "application/json",
+    }
+
+    //stripe must be moved to api section
+    return fetch("https://uuelbqsi64.execute-api.us-east-2.amazonaws.com/Products_Live/payment", 
+    {
+      method: "POST",
+      headers,
+      body: JSON.stringify(body)
+    }).then(response => {
+      const {status} = response;
+      if(status == 200){
+
+        const current = new Date();
+        const date = `${current.getDate()}/${current.getMonth()+1}/${current.getFullYear()}`;
+        let userData = {};
+
+
+        userData = {
+          authorizationToken: getToken(),
+          products: state.products.cartItems,
+          tax: calculateTax(),
+          amount: getCartTotal(),
+          shippingAddress: state.shippingAddress.shippingAddress,
+          billingAddress: state.billingAddress.billingAddress,
+          date: date,
+          removeall: true
+        };
+
+        console.log(userData);
+    
+        OrderTableEntry(userData);
+        RemoveItemsFromCart(userData).then((data) =>
+        setCartCount(data.body.quantity));
+
+        setTimeout(() => {
+          navigate("/cart", {
+            state: {
+              products: { userData },
+            },
+          });
+        }, 2000);
+
+      }
+    }).catch(err => {
+      console.log(err)
+    })
+
+  }
 
   const getItemTotal = (productprice, quantity) => {
     const total = Number(productprice.replace(/\,/g, "")) * Number(quantity);
@@ -14,6 +80,7 @@ export default function PaymentPage() {
   };
 
   const getCartTotal = () => {
+
     const cartItems = state.products.cartItems;
     let totalPrice = 0;
     for (let i in cartItems) {
@@ -24,7 +91,6 @@ export default function PaymentPage() {
         ).replace(/\,/g, "")
       );
     }
-
     return totalPrice.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
   };
 
@@ -35,22 +101,22 @@ export default function PaymentPage() {
   return (
     <div>
       <section id="cart_items">
-        <div class="container">
-          <div class="breadcrumbs">
-            <ol class="breadcrumb">
+        <div className="container">
+          <div className="breadcrumbs">
+            <ol className="breadcrumb">
               <li>
                 <a>Home</a>
               </li>
               <li>
                 <a>Cart</a>
               </li>
-              <li class="active">Review & Payment</li>
+              <li className="active">Review & Payment</li>
             </ol>
           </div>
           <section id="do_action">
-            <div class="container">
-              <div class="row">
-                <div class="col-sm-7">
+            <div className="container">
+              <div className="row">
+                <div className="col-sm-7">
                   <div className="table-responsive cart_info">
                     <table className="table table-condensed">
                       <thead>
@@ -100,8 +166,8 @@ export default function PaymentPage() {
                     </table>
                   </div>
                 </div>
-                <div class="col-sm-5">
-                  <div class="total_area">
+                <div className="col-sm-5">
+                  <div className="total_area">
                     <ul>
                       <li>
                         Cart Sub Total <span>${getCartTotal()}</span>
@@ -124,14 +190,6 @@ export default function PaymentPage() {
                             .replace(/\B(?=(\d{3})+(?!\d))/g, ",")}
                         </span>
                       </li>
-                    <li className="shopper-info">
-                    <p>Card details</p>
-                    <form>
-                      <input type="text" placeholder="Name on card" />
-                      <input type="text" placeholder="Card number" />
-                      <input type="Text" placeholder="Valid through" />
-                    </form>
-                    </li>
                     </ul>
                   </div>
                 </div>
@@ -140,14 +198,21 @@ export default function PaymentPage() {
           </section>
         </div>
       </section>
-      <div class="container">
-        <div class="row">
-          <div class="breadcrumbs ">
-            <div class="col-sm-9"></div>
-            <div class="col-sm-3">
-              <ol class="breadcrumb bar">
+      <div className="container">
+        <div className="row">
+          <div className="breadcrumbs ">
+            <div className="col-sm-9"></div>
+            <div className="col-sm-3">
+              <ol className="breadcrumb bar">
                 <li>
-                  <a class="btn check-out-bar">Pay Now</a>
+                  <StripeCheckout stripeKey="pk_test_51LDrdfES8E02HbRiDhuwkhsiNvf0CuzdpHGEIfBpoUJCqU9S0AOaiHDvsqQF0vrmSckCDTfrAR7m0EtOHQdpzReG00KbA4mNwe"
+                  token={makePayment} 
+                  name="Payment"
+                  amount= { (Number(getCartTotal().replace(/\,/g, "")) +
+                  calculateTax()) * 100}
+                  >
+                    <a className="btn check-out-bar">Pay Now</a>
+                  </StripeCheckout>
                 </li>
               </ol>
             </div>

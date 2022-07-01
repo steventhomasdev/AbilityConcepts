@@ -110,7 +110,6 @@
   }
 
   export function RemoveItemsFromCart (userData) {
-    console.log(JSON.stringify(userData))
     //https://v0oy6hc75f.execute-api.us-east-2.amazonaws.com/Products_Live/removeitemsfromcart
     return fetch("https://v0oy6hc75f.execute-api.us-east-2.amazonaws.com/Products_Live/removeitemsfromcart", {
       method: "POST",
@@ -121,5 +120,28 @@
       body: JSON.stringify(userData),
     }).then((data) => data.json());
   }
+
+  export function OrderTableEntry (userData) {
+    //https://pqe07h0alg.execute-api.us-east-2.amazonaws.com/Products_Live/ordertableentry
+    return fetch("https://pqe07h0alg.execute-api.us-east-2.amazonaws.com/Products_Live/ordertableentry", {
+      method: "POST",
+      headers: {
+        'Content-Type': "application/json",
+        'Accept': "application/json",
+      },
+      body: JSON.stringify(userData),
+    }).then((data) => data.json());
+  }
+
+  // export function Payment (userData) {
+  //   return fetch("http://localhost:8282/payment", {
+  //     method: "POST",
+  //     headers: {
+  //       'Content-Type': "application/json",
+  //       'Accept': "application/json",
+  //     },
+  //     body: JSON.stringify(userData),
+  //   }).then((data) => data.json());
+  // }
 
 

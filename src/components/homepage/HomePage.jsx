@@ -8,9 +8,10 @@ import Carousal from "./carousal/Carousal";
 
 
 
-export default function HomePage() {
+export default function HomePage({setIsProductListPage}) {
 
   useEffect(() => {
+    setIsProductListPage(false)
     window.scrollTo(0, 0)
   }, [])
 
