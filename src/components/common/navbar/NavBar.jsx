@@ -95,9 +95,13 @@ export default function NavBar({
   };
 
   const onProductClick = () => {
-    
+
     navigate("/productlist", {});
   };
+
+  const onMyAccountClick = () => {
+    navigate("/account", {});
+  }
 
   useEffect(() => {
     window.addEventListener("scroll", handleScroll);
@@ -184,7 +188,7 @@ export default function NavBar({
                             style={{ display: "block" }}
                           >
                             <li className="cart-list-txt">
-                              <a>My Account</a>
+                              <a onClick={onMyAccountClick}>My Account</a>
                             </li>
                             <li className="cart-list-txt">
                               <a>My orders</a>

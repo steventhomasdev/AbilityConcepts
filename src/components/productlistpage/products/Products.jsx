@@ -185,7 +185,7 @@ export default function Products({ productsList, setIsProductListPage }) {
                             >
                               <div class="inline-block align-middle">
                                 <h2 class="font-weight-normal lead" id="desc">
-                                  No Results Found try with different search
+                                    \tNo Results Found try with different search
                                   keyword.
                                 </h2>
                               </div>

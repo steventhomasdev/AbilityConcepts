@@ -2065,7 +2065,7 @@ select {
 .cartTable {
   position: relative;
   min-height: 1px;
-  padding-right: 30px;
+  padding-right: 0px;
   padding-left: 0px;
 }
 
@@ -2174,4 +2174,24 @@ h2.profile_title:before {
 
 .h42 {
   margin-bottom: 15px;
+}
+
+.select3 {
+  background-color: transparent;
+  border: 1px solid #ccc;
+  box-sizing: border-box;
+  height: 35px;
+  border-radius: 5px;
+  padding: 0;
+  color: black;
+}
+
+.user_info input, select, textarea {
+  background: #F0F0E9;
+  border: 0;
+  color: #696763;
+  padding: 5px;
+  width: 100%;
+  border-radius: 0;
+  resize: none;
 }

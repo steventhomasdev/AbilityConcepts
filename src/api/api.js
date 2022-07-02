@@ -73,6 +73,18 @@
     }).then((data) => data.json());
   }
 
+  export function UpdateUserDetails (userData) {
+    //https://r6v6hrihk2.execute-api.us-east-2.amazonaws.com/Products_Live/updateuserdetails
+    return fetch("https://r6v6hrihk2.execute-api.us-east-2.amazonaws.com/Products_Live/updateuserdetails", {
+      method: "POST",
+      headers: {
+        'Content-Type': "application/json",
+        'Accept': "application/json",
+      },
+      body: JSON.stringify(userData),
+    }).then((data) => data.json());
+  }
+
   export function AddItemsToCart (userData) {
     //https://nppxsq0jaf.execute-api.us-east-2.amazonaws.com/Products_Live/additemstocart
     return fetch("https://nppxsq0jaf.execute-api.us-east-2.amazonaws.com/Products_Live/additemstocart", {
@@ -132,6 +144,7 @@
       body: JSON.stringify(userData),
     }).then((data) => data.json());
   }
+  
 
   // export function Payment (userData) {
   //   return fetch("http://localhost:8282/payment", {

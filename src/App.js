@@ -35,7 +35,7 @@ function App() {
         <Route path="/cart" element={<MycartPage isLogin={isLogin} setCartCount={setCartCount} setIsProductListPage={setIsProductListPage}/>}/>
         <Route path="/shipping" element={<ShippingPage isLogin={isLogin}/>}/>
         <Route path="/payment" element={<PaymentPage setCartCount={setCartCount}/>}/>
-        <Route path="/account" element={<Accountpage/>}/>
+        <Route path="/account" element={<Accountpage isLogin={isLogin} setIsProductListPage={setIsProductListPage}/>}/>
       </Routes>
       <FooterDetails/>
       <ScrollToTop/>

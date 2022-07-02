@@ -1,190 +1,181 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
+import { GetAccountDetails, UpdateUserDetails } from "../../api/api";
+import { getToken } from "../utls/Session";
+import { useForm } from "react-hook-form";
 
-export default function Accountpage() {
+export default function Accountpage({ isLogin, setIsProductListPage }) {
+  const { register, getValues, setValue } = useForm();
+  const [sucsess, setSucsess] = useState(false);
+
+  const userData = {
+    authorizationToken: getToken(),
+  };
+
+  const fetchAccountDetails = () => {
+    if (isLogin)
+      GetAccountDetails(userData).then((data) => {
+        setValue("name", `${data.body.name}`);
+        setValue("email", `${data.body.email}`);
+        setValue("phone", `${data.body.phone}`);
+        setValue("address", `${data.body.address}`);
+        setValue("country", `${data.body.country}`);
+        setValue("province", `${data.body.province}`);
+        setValue("city", `${data.body.city}`);
+        setValue("zipCode", `${data.body.postalCode}`);
+      });
+  };
+
+  useEffect(() => {
+    setIsProductListPage(false)
+    fetchAccountDetails();
+  }, [isLogin]);
+
+
+  const onUpdateClick = () => {
+    const AccountDetails = {
+        authorizationToken: getToken(),
+        name : getValues("name"),
+        email : getValues("email"),
+        phone : getValues("phone"),
+        address : getValues("address"),
+        country : getValues("country"),
+        province : getValues("province"),
+        city : getValues("city"),
+        zipCode : getValues("zipCode"),
+      }
+
+    UpdateUserDetails(AccountDetails).then((data) => {
+        setTimeout(()=>{setSucsess(true)
+        },2000)
+    })
+
+    setTimeout(() => {
+        setSucsess(false)
+    }, 5000)
+  }
+
   return (
     <div>
       <section>
-        <div class="container">
-          <div class="row">
-            <div class="col-sm-3">
-              <div class="left-sidebar">
-                <div class="brands_products">
-                  <p class="user-prev">
-                    <small>Hello,</small>
-                    <span>John</span>
-                  </p>
-                  <h4 class="h-4">My Order</h4>
-                  <ul class="user-list-item">
+        <div className="container">
+          <div className="row">
+            <div className="col-sm-4">
+              <div className="left-sidebar">
+                <div className="brands_products">
+                  <h4 className="h-4">My Orders</h4>
+                  <ul className="user-list-item">
                     <li>
-                      <a href="">Order item</a>
-                    </li>
-                    <li>
-                      <a href="">Order item</a>
-                    </li>
-                    <li>
-                      <a href="">Order item</a>
-                    </li>
-                    <li>
-                      <a href="">Order item</a>
-                    </li>
-                  </ul>
-
-                  <h4 class="h-4">My wishlist</h4>
-                  <ul class="user-list-item">
-                    <li>
-                      <a href="">wishlist item</a>
-                    </li>
-                    <li>
-                      <a href="">wishlist item</a>
-                    </li>
-                    <li>
-                      <a href="">wishlist item</a>
-                    </li>
-                    <li>
-                      <a href="">wishlist item</a>
+                      <a>Order item</a>
                     </li>
                   </ul>
                 </div>
               </div>
             </div>
 
-            <div class="col-sm-9 padding-right">
-              <div class="features_items">
-                <div class="row">
-                  <div class="col-sm-10">
-                    <div class="contact-form">
-                      <h2 class="profile_title text-center"> My Profile</h2>
-                      <div
-                        class="status alert alert-success"
-                      ></div>
+            <div className="col-sm-8 padding-right">
+              <div className="features_items">
+                <div className="row">
+                  <div className="col-sm-12">
+                    <div className="contact-form">
+                      <h2 className="profile_title text-center"> My Profile</h2>
+                      <div className="status alert alert-success" style={ sucsess ? {display : "block"} : {display : "none"}}>Updated</div>
                       <form
-                        id="main-contact-form"
-                        class="contact-form row"
+                        className="contact-form row"
                         name="contact-form"
                         method="post"
                       >
-                        <div class="form-group col-md-6">
+                        <div className="form-group col-md-6">
                           <input
                             type="text"
-                            name="name"
-                            class="form-control"
+                            className="form-control"
                             required="required"
                             placeholder="Name"
-                            value="John"
+                            {...register("name")}
                           />
                         </div>
-                        <div class="form-group col-md-6">
+                        <div className="form-group col-md-6">
                           <input
                             type="email"
-                            name="email"
-                            class="form-control"
+                            className="form-control"
                             required="required"
                             placeholder="Email"
-                            value="john@gmail.com"
+                            disabled
+                            {...register("email")}
                           />
                         </div>
-                        <div class="form-group col-md-6">
+                        <div className="form-group col-md-6">
                           <input
                             type="text"
-                            name="Phone"
-                            class="form-control"
+                            className="form-control"
                             required="required"
-                            placeholder="Subject"
-                            value="1234567890"
+                            placeholder="Phone"
+                            {...register("phone")}
                           />
                         </div>
 
-                        <div class="form-group col-md-12">
-                          <input
-                            type="submit"
-                            name="submit"
-                            class="btn btn-primary pull-right"
-                            value="Update"
-                          />
+                        <div className="form-group col-md-12">
                         </div>
                       </form>
-                      <h4 class="h42">Address </h4>
-                      <span>
-                        <label for="" class="checkout2">
-                          <input type="checkbox" />
-                          Mark as default
-                        </label>
-                      </span>
+                      <h4 className="h42">Address </h4>
                       <form
                         id="main-contact-form"
-                        class="contact-form row"
+                        className="contact-form row"
                         name="contact-form"
                         method="post"
                       >
-                        <div class="form-group col-md-6">
+                        <div className="form-group col-md-6">
                           <input
                             type="text"
-                            name="name"
-                            class="form-control"
+                            className="form-control"
                             required="required"
-                            placeholder="Name"
-                            value="Address line 1"
+                            placeholder="Address"
+                            {...register("address")}
                           />
                         </div>
-                        <div class="form-group col-md-6">
-                          <input
-                            type="email"
-                            name="email"
-                            class="form-control"
-                            required="required"
-                            placeholder="Email"
-                            value="Addressline 2"
-                          />
-                        </div>
-                        <div class="form-group col-md-6">
+                        <div className="form-group col-md-6">
                           <input
                             type="text"
-                            name="Phone"
-                            class="form-control"
+                            className="form-control"
                             required="required"
-                            placeholder="Subject"
-                            value="Landmark"
+                            placeholder="City"
+                            {...register("city")}
                           />
                         </div>
-                        <div class="form-group col-md-6">
-                          <select class="select3">
+                        <div className="form-group col-md-6">
+                          <input
+                            type="text"
+                            className="form-control"
+                            required="required"
+                            placeholder="ZipCode"
+                            {...register("zipCode")}
+                          />
+                        </div>
+                        <div className="form-group col-md-6">
+                          <select className="select3" {...register("country")}>
                             <option>-- Country --</option>
                             <option>United States</option>
-                            <option>Bangladesh</option>
-                            <option>UK</option>
-                            <option>India</option>
-                            <option>Pakistan</option>
-                            <option>Ucrane</option>
                             <option>Canada</option>
-                            <option>Dubai</option>
                           </select>
                         </div>
-                        <div class="form-group col-md-6">
-                          <select class="select3">
-                            <option>-- State / Province / Region --</option>
+                        <div className="form-group col-md-6">
+                          <select className="select3" {...register("province")}>
+                            <option>-- Province --</option>
                             <option>United States</option>
-                            <option>Bangladesh</option>
-                            <option>UK</option>
-                            <option>India</option>
-                            <option>Pakistan</option>
-                            <option>Ucrane</option>
                             <option>Canada</option>
-                            <option>Dubai</option>
                           </select>
                         </div>
 
-                        <div class="col-sm-12">
-                          <button class="btn btn-primary add-address">
+                        <div className="col-sm-12">
+                          <button className="btn btn-primary add-address">
                             Add new address
                           </button>
                         </div>
 
-                        <div class="form-group col-md-12">
+                        <div className="form-group col-md-12">
                           <input
-                            type="submit"
-                            name="submit"
-                            class="btn btn-primary pull-right"
-                            value="Update"
+                            className="btn btn-primary pull-right"
+                            defaultValue="Update"
+                            onClick={onUpdateClick}
                           />
                         </div>
                       </form>
