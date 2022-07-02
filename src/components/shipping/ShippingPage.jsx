@@ -8,7 +8,6 @@ export default function ShippingPage({ isLogin }) {
   const { state } = useLocation();
   const { register, getValues, setValue } = useForm();
   const [isChecked, setIsCheked] = useState(false);
-  const [accountDetails, setAccountDetails] = useState({});
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -22,7 +21,6 @@ export default function ShippingPage({ isLogin }) {
   const fetchAccountDetails = () => {
     if (isLogin)
       GetAccountDetails(userData).then((data) => {
-        setAccountDetails(data.body);
         setValue("billname", `${data.body.name}`);
         setValue("billemail", `${data.body.email}`);
         setValue("billphone", `${data.body.phone}`);
@@ -39,51 +37,51 @@ export default function ShippingPage({ isLogin }) {
   }, [isLogin]);
 
   const handleChange = () => {
-
-    if(isChecked) {
-      setIsCheked(false)
-    }else{
+    if (isChecked) {
+      setIsCheked(false);
+    } else {
       setIsCheked(true);
-      setValue("name", `${accountDetails.name}`);
-      setValue("email", `${accountDetails.email}`);
-      setValue("phone", `${accountDetails.phone}`);
-      setValue("address", `${accountDetails.address}`);
-      setValue("country", `${accountDetails.country}`);
-      setValue("province", `${accountDetails.province}`);
-      setValue("city", `${accountDetails.city}`);
-      setValue("zipCode", `${accountDetails.postalCode}`);
-    } 
+
+      setValue("name", `${getValues("billname")}`);
+      setValue("email", `${getValues("billemail")}`);
+      setValue("phone", `${getValues("billphone")}`);
+      setValue("address", `${getValues("billaddress")}`);
+      setValue("country", `${getValues("billcountry")}`);
+      setValue("province", `${getValues("billprovince")}`);
+      setValue("city", `${getValues("billcity")}`);
+      setValue("zipCode", `${getValues("billzipCode")}`);
+    }
   };
 
   const onContinueClick = () => {
     const shippingAddress = {
-      name : getValues("name"),
-      email : getValues("email"),
-      phone : getValues("phone"),
-      address : getValues("address"),
-      country : getValues("country"),
-      province : getValues("province"),
-      city : getValues("city"),
-      zipCode : getValues("zipCode"),
-    }
+      name: getValues("name"),
+      email: getValues("email"),
+      phone: getValues("phone"),
+      address: getValues("address"),
+      country: getValues("country"),
+      province: getValues("province"),
+      city: getValues("city"),
+      zipCode: getValues("zipCode"),
+    };
 
     const billingAddress = {
-      name : getValues("billname"),
-      email : getValues("billemail"),
-      phone : getValues("billphone"),
-      address : getValues("billaddress"),
-      country : getValues("billcountry"),
-      province : getValues("billprovince"),
-      city : getValues("billcity"),
-      zipCode : getValues("billzipCode"),
-    }
+      name: getValues("billname"),
+      email: getValues("billemail"),
+      phone: getValues("billphone"),
+      address: getValues("billaddress"),
+      country: getValues("billcountry"),
+      province: getValues("billprovince"),
+      city: getValues("billcity"),
+      zipCode: getValues("billzipCode"),
+    };
     const cartItems = state.products.userData.cartItems;
 
     navigate("/payment", {
       state: {
         products: { cartItems },
-        shippingAddress : {shippingAddress},
-        billingAddress: { billingAddress }
+        shippingAddress: { shippingAddress },
+        billingAddress: { billingAddress },
       },
     });
   };
@@ -136,7 +134,6 @@ export default function ShippingPage({ isLogin }) {
                     />
                     <select
                       className="mb-10"
-                      required
                       {...register("billcountry")}
                     >
                       <option>-- Country -- *</option>

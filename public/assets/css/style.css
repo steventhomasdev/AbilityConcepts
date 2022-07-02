@@ -1878,6 +1878,12 @@ a:hover, a:active, a:focus{
   margin-left: 15px;
 }
 
+.order_menu {
+  display: block;
+  margin-left: 0px;
+  padding: 15px !important;
+}
+
 .a :hover{
    cursor: pointer;
 }
@@ -2100,7 +2106,7 @@ select {
 
 .user-list-item {
   background-color: #f8f8f8;
-  padding: 10px;
+  padding: 5px;
 }
 
 .user-list-item li a {
@@ -2194,4 +2200,8 @@ h2.profile_title:before {
   width: 100%;
   border-radius: 0;
   resize: none;
+}
+
+select {
+  padding: 10px 5px;
 }

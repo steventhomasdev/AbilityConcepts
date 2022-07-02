@@ -1,11 +1,14 @@
 import React, { useEffect, useState } from "react";
-import { GetAccountDetails, UpdateUserDetails } from "../../api/api";
+import { GetAccountDetails, GetOrders, UpdateUserDetails } from "../../api/api";
 import { getToken } from "../utls/Session";
 import { useForm } from "react-hook-form";
 
 export default function Accountpage({ isLogin, setIsProductListPage }) {
   const { register, getValues, setValue } = useForm();
   const [sucsess, setSucsess] = useState(false);
+  const [orderList, setOrderList] = useState();
+  const [orderProductList, setOrderProductList] = useState();
+  const [loading, setLoading] = useState(false);
 
   const userData = {
     authorizationToken: getToken(),
@@ -23,36 +26,51 @@ export default function Accountpage({ isLogin, setIsProductListPage }) {
         setValue("city", `${data.body.city}`);
         setValue("zipCode", `${data.body.postalCode}`);
       });
+
+    GetOrders(userData)
+      .then((data) => {
+        setOrderList(data.body.orderList);
+
+        let productList = [];
+        data.body.orderList?.map((order) => {
+          order.products?.map((product) => {
+            productList.push(product);
+            setOrderProductList(productList);
+          });
+        });
+      })
+      .then(setLoading(false));
   };
 
   useEffect(() => {
-    setIsProductListPage(false)
+    setIsProductListPage(false);
+    setLoading(true);
     fetchAccountDetails();
   }, [isLogin]);
 
-
   const onUpdateClick = () => {
     const AccountDetails = {
-        authorizationToken: getToken(),
-        name : getValues("name"),
-        email : getValues("email"),
-        phone : getValues("phone"),
-        address : getValues("address"),
-        country : getValues("country"),
-        province : getValues("province"),
-        city : getValues("city"),
-        zipCode : getValues("zipCode"),
-      }
+      authorizationToken: getToken(),
+      name: getValues("name"),
+      email: getValues("email"),
+      phone: getValues("phone"),
+      address: getValues("address"),
+      country: getValues("country"),
+      province: getValues("province"),
+      city: getValues("city"),
+      zipCode: getValues("zipCode"),
+    };
 
     UpdateUserDetails(AccountDetails).then((data) => {
-        setTimeout(()=>{setSucsess(true)
-        },2000)
-    })
+      setTimeout(() => {
+        setSucsess(true);
+      }, 2000);
+    });
 
     setTimeout(() => {
-        setSucsess(false)
-    }, 5000)
-  }
+      setSucsess(false);
+    }, 5000);
+  };
 
   return (
     <div>
@@ -62,11 +80,33 @@ export default function Accountpage({ isLogin, setIsProductListPage }) {
             <div className="col-sm-4">
               <div className="left-sidebar">
                 <div className="brands_products">
-                  <h4 className="h-4">My Orders</h4>
+                  <h4 className="h-4">Recently Ordered</h4>
                   <ul className="user-list-item">
-                    <li>
-                      <a>Order item</a>
-                    </li>
+                    <table className="table table-condensed">
+                      <thead>
+                        <tr className="order_product">
+                          <td className="image">Item</td>
+                          <td className="total">Total</td>
+                          <td></td>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        {orderProductList?.map((product) => {
+                          return (
+                            <tr>
+                              <td className="order_menu">
+                                <a>{product.productDetails.productName}</a>
+                              </td>
+                              <td className="cart_total">
+                                <p className="cart_total_price">
+                                  ${product.productDetails.productprice}
+                                </p>
+                              </td>
+                            </tr>
+                          );
+                        })}
+                      </tbody>
+                    </table>
                   </ul>
                 </div>
               </div>
@@ -78,7 +118,14 @@ export default function Accountpage({ isLogin, setIsProductListPage }) {
                   <div className="col-sm-12">
                     <div className="contact-form">
                       <h2 className="profile_title text-center"> My Profile</h2>
-                      <div className="status alert alert-success" style={ sucsess ? {display : "block"} : {display : "none"}}>Updated</div>
+                      <div
+                        className="status alert alert-success"
+                        style={
+                          sucsess ? { display: "block" } : { display: "none" }
+                        }
+                      >
+                        Updated
+                      </div>
                       <form
                         className="contact-form row"
                         name="contact-form"
@@ -113,8 +160,7 @@ export default function Accountpage({ isLogin, setIsProductListPage }) {
                           />
                         </div>
 
-                        <div className="form-group col-md-12">
-                        </div>
+                        <div className="form-group col-md-12"></div>
                       </form>
                       <h4 className="h42">Address </h4>
                       <form

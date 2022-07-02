@@ -144,6 +144,18 @@
       body: JSON.stringify(userData),
     }).then((data) => data.json());
   }
+
+  export function GetOrders (userData) {
+    //https://wfoybvekp3.execute-api.us-east-2.amazonaws.com/Products_Live/getorders
+    return fetch("https://wfoybvekp3.execute-api.us-east-2.amazonaws.com/Products_Live/getorders", {
+      method: "POST",
+      headers: {
+        'Content-Type': "application/json",
+        'Accept': "application/json",
+      },
+      body: JSON.stringify(userData),
+    }).then((data) => data.json());
+  }
   
 
   // export function Payment (userData) {
