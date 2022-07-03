@@ -1,6 +1,6 @@
 import React from "react";
 
-export default function Advertisement() {
+export default function TopSpacing() {
   return (
     <div>
       <section id="advertisement">

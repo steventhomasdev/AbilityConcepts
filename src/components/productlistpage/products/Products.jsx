@@ -4,7 +4,7 @@ import { GetProducts, GetProductsCat } from "../../../api/api";
 import Spinner from "../../common/spinner/Spinner";
 import SpinnerSmall from "../../common/spinnersmall/SpinnerSmall";
 
-export default function Products({ productsList, setIsProductListPage }) {
+export default function Products({ productsList }) {
   const navigate = useNavigate();
   const { state } = useLocation();
   const [productCatList, setproductCatList] = useState("empty");
@@ -14,7 +14,6 @@ export default function Products({ productsList, setIsProductListPage }) {
   const [productLoading, setProductLoading] = useState(false);
 
   const fetchData = useCallback(() => {
-    setIsProductListPage(true);
     GetProductsCat()
       .then((data) => setproductCatList(data.body))
       .then(setLoading(false));
@@ -45,8 +44,8 @@ export default function Products({ productsList, setIsProductListPage }) {
     });
 
     setTimeout(() => {
-      setProductLoading(false)
-    }, 1000)
+      setProductLoading(false);
+    }, 1000);
   };
 
   const onProductClick = (event) => {
@@ -60,7 +59,6 @@ export default function Products({ productsList, setIsProductListPage }) {
       }
     }
 
-    setIsProductListPage(false);
     navigate("/productdetail", {
       state: {
         products: { userData },
@@ -85,33 +83,6 @@ export default function Products({ productsList, setIsProductListPage }) {
 
   return (
     <div>
-      <div
-        className="top-search"
-        style={{ display: "block", marginTop: "100px", marginBottom: "50px" }}
-      >
-        <div className="container">
-          <div className="input-group d-flex">
-            <span className="input-group-addon">
-              <i className="fa fa-search"></i>
-            </span>
-            <input
-              type="text"
-              className="form-control"
-              placeholder="Search"
-              onChange={getInputValue}
-            />
-            {productLoading ? (
-              <div className="loading">
-                <SpinnerSmall />
-              </div>
-            ) : (
-              <button className="search-btn1" onClick={onSearchButtonClick}>
-                Search
-              </button>
-            )}
-          </div>
-        </div>
-      </div>
       <section>
         <div className="container">
           {loading || productCatList === "empty" ? (
@@ -121,6 +92,36 @@ export default function Products({ productsList, setIsProductListPage }) {
           ) : (
             <div className="row">
               <div className="col-sm-3">
+                <div
+                  className="top-search"
+                  style={{
+                    display: "block",
+                    marginBottom: "50px",
+                  }}
+                >
+                  <div className="container">
+                    <div className="input-group d-flex">
+                      <input
+                        type="text"
+                        placeholder="Search"
+                        className="product-search"
+                        onChange={getInputValue}
+                      />
+                      {productLoading ? (
+                        <div className="loading">
+                          <SpinnerSmall />
+                        </div>
+                      ) : (
+                        <button
+                          className="search-btn1"
+                          onClick={onSearchButtonClick}
+                        >
+                          <i className="fa fa-search" aria-hidden="true"></i>
+                        </button>
+                      )}
+                    </div>
+                  </div>
+                </div>
                 <div className="left-sidebar">
                   <div className="brands_products">
                     <h2>Categories</h2>
@@ -141,7 +142,7 @@ export default function Products({ productsList, setIsProductListPage }) {
               <div className="col-sm-9 padding-right">
                 <div className="features_items">
                   <div className="row">
-                    {products != "No Products" ||  loading ? (
+                    {products != "No Products" || loading ? (
                       products?.map((product) => (
                         <div className="col-md-3 col-sm-4">
                           <div
@@ -180,12 +181,12 @@ export default function Products({ productsList, setIsProductListPage }) {
                         <div className="features_items">
                           <div className="row">
                             <div
-                              class="d-flex justify-content-center align-items-center"
+                              className="d-flex justify-content-center align-items-center"
                               id="main"
                             >
-                              <div class="inline-block align-middle">
-                                <h2 class="font-weight-normal lead" id="desc">
-                                    \tNo Results Found try with different search
+                              <div className="inline-block align-middle">
+                                <h2 className="font-weight-normal lead" id="desc">
+                                  No Results Found try with different search
                                   keyword.
                                 </h2>
                               </div>

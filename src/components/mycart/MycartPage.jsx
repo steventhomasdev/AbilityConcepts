@@ -1,13 +1,8 @@
 import React, { useEffect } from "react";
 import Cart from "./cart/Cart";
 
-export default function MycartPage({
-  isLogin,
-  setCartCount,
-  setIsProductListPage,
-}) {
+export default function MycartPage({ isLogin, setCartCount }) {
   useEffect(() => {
-    setIsProductListPage(false);
     window.scrollTo(0, 0);
   }, []);
   return (

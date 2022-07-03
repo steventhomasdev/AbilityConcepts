@@ -3,7 +3,7 @@ import { GetAccountDetails, GetOrders, UpdateUserDetails } from "../../api/api";
 import { getToken } from "../utls/Session";
 import { useForm } from "react-hook-form";
 
-export default function Accountpage({ isLogin, setIsProductListPage }) {
+export default function Accountpage({ isLogin }) {
   const { register, getValues, setValue } = useForm();
   const [sucsess, setSucsess] = useState(false);
   const [orderList, setOrderList] = useState();
@@ -43,7 +43,6 @@ export default function Accountpage({ isLogin, setIsProductListPage }) {
   };
 
   useEffect(() => {
-    setIsProductListPage(false);
     setLoading(true);
     fetchAccountDetails();
   }, [isLogin]);

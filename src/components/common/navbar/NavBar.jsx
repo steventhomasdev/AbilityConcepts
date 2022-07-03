@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { getToken, removeToken } from "../../utls/Session";
-import { useNavigate, useLocation } from "react-router-dom";
+import { useNavigate, useLocation, NavLink } from "react-router-dom";
 import { GetCartCount, GetProducts } from "../../../api/api";
 import SpinnerSmall from "../spinnersmall/SpinnerSmall";
 
@@ -69,7 +69,7 @@ export default function NavBar({
 
     setTimeout(() => {
       setLoading(false);
-    },1000)
+    }, 1000);
   };
 
   const getInputValue = (event) => {
@@ -81,10 +81,6 @@ export default function NavBar({
     navigate("/cart", {});
   };
 
-  const onHomeButtonClick = () => {
-    navigate("/home", {});
-  };
-
   const handleScroll = () => {
     const offset = window.scrollY;
     if (offset > 200) {
@@ -94,14 +90,9 @@ export default function NavBar({
     }
   };
 
-  const onProductClick = () => {
-
-    navigate("/productlist", {});
-  };
-
   const onMyAccountClick = () => {
     navigate("/account", {});
-  }
+  };
 
   useEffect(() => {
     window.addEventListener("scroll", handleScroll);
@@ -253,11 +244,23 @@ export default function NavBar({
                     data-in="fadeInDown"
                     data-out="fadeOutUp"
                   >
-                    <li className=" scroll active">
-                      <a onClick={onHomeButtonClick}>home</a>
+                    <li>
+                      <NavLink
+                        exact="true"
+                        activeclassname="scroll active"
+                        end to={"/home"}
+                      >
+                        home
+                      </NavLink>
                     </li>
-                    <li className="scroll">
-                      <a onClick={onProductClick}>Products</a>
+                    <li>
+                      <NavLink
+                        exact="true"
+                        activeclassname="scroll active"
+                        end to={"/productlist"}
+                      >
+                        Products
+                      </NavLink>
                     </li>
                     <li className="scroll">
                       <a>Home modification</a>
