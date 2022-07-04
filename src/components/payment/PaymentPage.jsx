@@ -5,75 +5,85 @@ import { getToken } from "../utls/Session";
 import { useNavigate, useLocation } from "react-router-dom";
 import Spinner from "../common/spinner/Spinner";
 
-export default function PaymentPage({ setCartCount }) {
+export default function PaymentPage() {
   const { state } = useLocation();
   const navigate = useNavigate();
   const [loading, setLoading] = useState(false);
+  const [orderProductList, setOrderProductList] = useState();
 
   useEffect(() => {
     window.scrollTo(0, 0);
+
+    let productList = [];
+    state.products.cartItems?.map((product) => {
+      productList.push(product);
+      setOrderProductList(productList);
+    });
+
+    const tax = {
+      productDetails: {
+        productName: 'Tax',
+        productprice: String(calculateTax())
+      },
+      quantity: 1
+    }
+    productList.push(tax);
+    setOrderProductList(productList);
+
+    const shipping = {
+      productDetails: {
+        productName: 'Shipping',
+        productprice: String(0)
+      },
+      quantity: 1
+    }
+    productList.push(shipping);
+    setOrderProductList(productList);
+
   }, []);
 
   const makePayment = (token) => {
-    setLoading(true);
 
-    let orderDetails = [];
-    const body = {
-      token,
-      price: Number(getCartTotal().replace(/\,/g, "")) + calculateTax(),
+    const current = new Date();
+    const date = `${current.getDate()}/${
+      current.getMonth() + 1
+    }/${current.getFullYear()}`;
+    let userData = {};
+
+    userData = {
+      authorizationToken: getToken(),
       products: state.products.cartItems,
+      tax: calculateTax(),
+      amount: Number(getCartTotal().replace(/\,/g, "")) + calculateTax(),
+      shippingAddress: state.shippingAddress.shippingAddress,
+      billingAddress: state.billingAddress.billingAddress,
+      date: date,
+      temp: true,
     };
 
-    const headers = {
-      "Content-Type": "application/json",
-      Accept: "application/json",
-    };
+    OrderTableEntry(userData);
 
-    //stripe must be moved to api section
-    return fetch(
-      "https://uuelbqsi64.execute-api.us-east-2.amazonaws.com/Products_Live/payment",
-      {
-        method: "POST",
-        headers,
-        body: JSON.stringify(body),
-      }
-    )
-      .then((response) => {
-        const { status } = response;
-        if (status == 200) {
-          const current = new Date();
-          const date = `${current.getDate()}/${
-            current.getMonth() + 1
-          }/${current.getFullYear()}`;
-          let userData = {};
+    console.log(userData.products);
 
-          userData = {
-            authorizationToken: getToken(),
-            products: state.products.cartItems,
-            tax: calculateTax(),
-            amount: Number(getCartTotal().replace(/\,/g, "")) + calculateTax(),
-            shippingAddress: state.shippingAddress.shippingAddress,
-            billingAddress: state.billingAddress.billingAddress,
-            date: date,
-            removeall: true,
-          };
-
-          OrderTableEntry(userData).then((data) => orderDetails.push(data.body[0]));
-          RemoveItemsFromCart(userData).then((data) =>
-            setCartCount(data.body.quantity)
-          );
-
-          setTimeout(() => {
-            setLoading(false);
-            console.log(orderDetails)
-            navigate("/invoice", {
-              state: orderDetails
-            });
-          }, 3000);
-        }
+    return fetch("https://uuelbqsi64.execute-api.us-east-2.amazonaws.com/Products_Live/payment", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        authorizationToken: getToken(),
+        productList: orderProductList
+      }),
+    })
+      .then((res) => {
+        if (res.ok) return res.json();
+        return res.json().then((json) => Promise.reject(json));
       })
-      .catch((err) => {
-        console.log(err);
+      .then(({ url }) => {
+        window.location = url;
+      })
+      .catch((e) => {
+        console.error(e.error);
       });
   };
 
@@ -212,7 +222,7 @@ export default function PaymentPage({ setCartCount }) {
               <div className="col-sm-3">
                 <ol className="breadcrumb bar">
                   <li>
-                    <StripeCheckout
+                    {/* <StripeCheckout
                       stripeKey="pk_test_51LDrdfES8E02HbRiDhuwkhsiNvf0CuzdpHGEIfBpoUJCqU9S0AOaiHDvsqQF0vrmSckCDTfrAR7m0EtOHQdpzReG00KbA4mNwe"
                       token={makePayment}
                       name="Payment"
@@ -222,8 +232,10 @@ export default function PaymentPage({ setCartCount }) {
                         100
                       }
                     >
-                      <a className="btn check-out-bar">Pay Now</a>
-                    </StripeCheckout>
+                    </StripeCheckout> */}
+                    <a onClick={makePayment} className="btn check-out-bar">
+                      Pay Now
+                    </a>
                   </li>
                 </ol>
               </div>

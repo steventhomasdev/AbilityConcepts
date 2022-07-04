@@ -32,9 +32,9 @@ function App() {
         <Route path="/productdetail" element={<ProductDetailPage setCartCount={setCartCount} SetloginPopUp={SetloginPopUp}/>} />
         <Route path="/cart" element={<MycartPage isLogin={isLogin} setCartCount={setCartCount}/>}/>
         <Route path="/shipping" element={<ShippingPage isLogin={isLogin}/>}/>
-        <Route path="/payment" element={<PaymentPage setCartCount={setCartCount}/>}/>
+        <Route path="/payment" element={<PaymentPage/>}/>
         <Route path="/account" element={<Accountpage isLogin={isLogin} />}/>
-        <Route path="/invoice" element={<InvoicePage/>}/>
+        <Route path="/invoice" element={<InvoicePage setCartCount={setCartCount}/>}/>
       </Routes>
       <FooterDetails/>
       <ScrollToTop/>
