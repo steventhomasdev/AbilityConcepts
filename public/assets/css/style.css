@@ -2257,3 +2257,9 @@ select {
   padding: 0px 30px;
   background: white;
 }
+
+.orders{
+  padding-top: 5px;
+  padding-right: 20px;
+  padding-left: 20px;
+}

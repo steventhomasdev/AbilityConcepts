@@ -14,6 +14,7 @@ import ProductListPage from "./components/productlistpage/ProductListPage";
 import ShippingPage from "./components/shipping/ShippingPage";
 import { getToken } from "./components/utls/Session";
 import InvoicePage from "./components/invoice/InvoicePage";
+import MyOrders from "./components/myorders/MyOrders";
 
 function App() {
 
@@ -35,6 +36,7 @@ function App() {
         <Route path="/payment" element={<PaymentPage/>}/>
         <Route path="/account" element={<Accountpage isLogin={isLogin} />}/>
         <Route path="/invoice" element={<InvoicePage setCartCount={setCartCount}/>}/>
+        <Route path="/myorders" element={<MyOrders/>}/>
       </Routes>
       <FooterDetails/>
       <ScrollToTop/>
