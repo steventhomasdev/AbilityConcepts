@@ -13,7 +13,6 @@ export default function Cart({ isLogin, setCartCount }) {
   const [cartItems, setCartItems] = useState();
   const [cartItemRefesh, setCartItemRefresh] = useState(false);
   const [loading, setLoading] = useState(false);
-  const [pageLoading, setPageLoading] = useState(false);
   const [Index, setIndex] = useState(null);
 
   const navigate = useNavigate();
@@ -21,16 +20,13 @@ export default function Cart({ isLogin, setCartCount }) {
 
   useEffect(() => {
     setCartItemRefresh(false);
-    setPageLoading(true);
     if (isLogin) {
       let userData = {};
       userData = {
         authorizationToken: getToken(),
       };
 
-      GetCartItems(userData)
-        .then((data) => setCartItems(data.body.cart))
-        .then(setPageLoading(false));
+      GetCartItems(userData).then((data) => setCartItems(data.body.cart));
     }
   }, [cartItemRefesh]);
 
@@ -132,29 +128,27 @@ export default function Cart({ isLogin, setCartCount }) {
     });
   };
 
-  if (cartItems !== undefined && Object.keys(cartItems).length > 0) {
-    return (
-      <div>
-        <section id="cart_items">
-          <div className="container">
-            <div className="breadcrumbs">
-              <ol className="breadcrumb">
-                <li>
-                  <a>Home</a>
-                </li>
-                <li className="active">
-                  <b>Cart</b>
-                </li>
-              </ol>
-            </div>
-            <section id="do_action">
-              <div className="container">
-                <div className="row">
-                  <div className="col-sm-7 cartTable">
-                    <div className="table-responsive cart_info">
-                      {pageLoading ? (
-                        <Spinner />
-                      ) : (
+  if (cartItems) {
+    if (cartItems !== undefined && Object.keys(cartItems).length > 0) {
+      return (
+        <div>
+          <section id="cart_items">
+            <div className="container">
+              <div className="breadcrumbs">
+                <ol className="breadcrumb">
+                  <li>
+                    <a>Home</a>
+                  </li>
+                  <li className="active">
+                    <b>Cart</b>
+                  </li>
+                </ol>
+              </div>
+              <section id="do_action">
+                <div className="container">
+                  <div className="row">
+                    <div className="col-sm-7 cartTable">
+                      <div className="table-responsive cart_info">
                         <table className="table table-condensed">
                           <thead>
                             <tr className="cart_menu">
@@ -239,94 +233,113 @@ export default function Cart({ isLogin, setCartCount }) {
                             ))}
                           </tbody>
                         </table>
-                      )}
+                      </div>
                     </div>
-                  </div>
-                  <div className="col-sm-5">
-                    <div className="total_area">
-                      <ul>
-                        <li>
-                          Cart Sub Total <span>${getCartTotal()}</span>
-                        </li>
-                        <li>
-                          Tax <span>${calculateTax()}</span>
-                        </li>
-                        <li>
-                          Shipping Cost <span>Free</span>
-                        </li>
-                        <li>
-                          Total
-                          <span>
-                            $
-                            {(
-                              Number(getCartTotal().replace(/\,/g, "")) +
-                              calculateTax()
-                            )
-                              .toString()
-                              .replace(/\B(?=(\d{3})+(?!\d))/g, ",")}
-                          </span>
-                        </li>
-                      </ul>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </section>
-          </div>
-        </section>
-        <div className="container">
-          <div className="row">
-            <div className="breadcrumbs ">
-              <div className="col-sm-9"></div>
-              <div className="col-sm-3">
-                <ol className="breadcrumb bar">
-                  <li>
-                    <a className="btn check-out-bar" onClick={onCheckOutClick}>
-                      Check Out
-                    </a>
-                  </li>
-                </ol>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-    );
-  } else {
-    return (
-      <div>
-        <section id="cart_items">
-          <div className="container">
-            <div className="breadcrumbs">
-              <ol className="breadcrumb">
-                <li>
-                  <a>Home</a>
-                </li>
-                <li className="active">
-                  <b>Cart</b>
-                </li>
-              </ol>
-            </div>
-            <section id="do_action">
-              <div className="container">
-                <div className="row">
-                  <div className="col-sm-12 cartTable">
-                    <div
-                      className="d-flex justify-content-center align-items-center"
-                      id="main"
-                    >
-                      <div className="inline-block align-middle">
-                        <h2 className="font-weight-normal lead" id="desc">
-                          No Items present in the cart
-                        </h2>
+                    <div className="col-sm-5">
+                      <div className="total_area">
+                        <ul>
+                          <li>
+                            Cart Sub Total <span>${getCartTotal()}</span>
+                          </li>
+                          <li>
+                            Tax <span>${calculateTax()}</span>
+                          </li>
+                          <li>
+                            Shipping Cost <span>Free</span>
+                          </li>
+                          <li>
+                            Total
+                            <span>
+                              $
+                              {(
+                                Number(getCartTotal().replace(/\,/g, "")) +
+                                calculateTax()
+                              )
+                                .toString()
+                                .replace(/\B(?=(\d{3})+(?!\d))/g, ",")}
+                            </span>
+                          </li>
+                        </ul>
                       </div>
                     </div>
                   </div>
                 </div>
+              </section>
+            </div>
+          </section>
+          <div className="container">
+            <div className="row">
+              <div className="breadcrumbs ">
+                <div className="col-sm-9"></div>
+                <div className="col-sm-3">
+                  <ol className="breadcrumb bar">
+                    <li>
+                      <a
+                        className="btn check-out-bar"
+                        onClick={onCheckOutClick}
+                      >
+                        Check Out
+                      </a>
+                    </li>
+                  </ol>
+                </div>
               </div>
-            </section>
+            </div>
           </div>
-        </section>
+        </div>
+      );
+    } else {
+      return (
+        <div>
+          <section id="cart_items">
+            <div className="container">
+              <div className="breadcrumbs">
+                <ol className="breadcrumb">
+                  <li>
+                    <a>Home</a>
+                  </li>
+                  <li className="active">
+                    <b>Cart</b>
+                  </li>
+                </ol>
+              </div>
+              <section id="do_action">
+                <div className="container">
+                  <div className="row">
+                    <div className="col-sm-12 cartTable">
+                      <div
+                        className="d-flex justify-content-center align-items-center"
+                        id="main"
+                      >
+                        <div className="inline-block align-middle">
+                          <h2 className="font-weight-normal lead" id="desc">
+                            No Items present in the cart
+                          </h2>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </section>
+            </div>
+          </section>
+        </div>
+      );
+    }
+  } else {
+    return (
+      <div className="container">
+        <div className="breadcrumbs">
+          <ol className="breadcrumb">
+            <li>
+              <a>Home</a>
+            </li>
+            <li className="active">
+              <b>Cart</b>
+            </li>
+          </ol>
+        </div>
+        <Spinner />
       </div>
     );
   }

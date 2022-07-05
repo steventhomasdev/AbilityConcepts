@@ -94,6 +94,10 @@ export default function NavBar({
     navigate("/account", {});
   };
 
+  const onMyOrdersClick = () => {
+    navigate("/myorders", {})
+  }
+
   useEffect(() => {
     window.addEventListener("scroll", handleScroll);
   });
@@ -182,7 +186,7 @@ export default function NavBar({
                               <a onClick={onMyAccountClick}>My Account</a>
                             </li>
                             <li className="cart-list-txt">
-                              <a>My orders</a>
+                              <a onClick={onMyOrdersClick} >My orders</a>
                             </li>
                             <li className="cart-list-txt">
                               <a onClick={onLogoutClick}>Logout</a>

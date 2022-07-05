@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { GetOrders } from "../../api/api";
+import Spinner from "../common/spinner/Spinner";
 import { getToken } from "../utls/Session";
 
 export default function MyOrders() {
@@ -13,24 +14,26 @@ export default function MyOrders() {
     GetOrders(userData).then((data) => {
       setOrderList(data.body.orderList);
       console.log(data.body.orderList);
-
-      // let productList = [];
-      // data.body.orderList?.map((order) => {
-      //   order.products?.map((product) => {
-      //     productList.push(product);
-      //     setOrderProductList(productList);
-      //   });
-      // });
     });
   }, []);
 
   if (orderList) {
     return (
-      <ul>
-        {orderList.map((order) => {
-          return (
+      <div className="container">
+        <div className="breadcrumbs">
+          <ol className="breadcrumb">
             <li>
-              <div className="container">
+              <a>Home</a>
+            </li>
+            <li className="active">
+              <b>My Orders</b>
+            </li>
+          </ol>
+        </div>
+        <ul>
+          {orderList.map((order) => {
+            return (
+              <li>
                 <div className="container cartTable">
                   <div className="col-xs-12 cartTable">
                     <div className="grid invoice">
@@ -98,7 +101,9 @@ export default function MyOrders() {
                                           {product.productDetails.productName}
                                         </h3>
                                         <p>ID: {product.productDetails._id}</p>
-                                        <span>Quantity: {product.quantity}</span>
+                                        <span>
+                                          Quantity: {product.quantity}
+                                        </span>
                                       </td>
                                     </tr>
                                   ))}
@@ -111,11 +116,27 @@ export default function MyOrders() {
                     </div>
                   </div>
                 </div>
-              </div>
+              </li>
+            );
+          })}
+        </ul>
+      </div>
+    );
+  } else {
+    return (
+      <div className="container">
+        <div className="breadcrumbs">
+          <ol className="breadcrumb">
+            <li>
+              <a>Home</a>
             </li>
-          );
-        })}
-      </ul>
+            <li className="active">
+              <b>My Orders</b>
+            </li>
+          </ol>
+        </div>
+        <Spinner />
+      </div>
     );
   }
 }
