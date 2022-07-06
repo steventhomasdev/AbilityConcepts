@@ -8,23 +8,21 @@ import Spinner from "../common/spinner/Spinner";
 
 const Invoice = forwardRef((props, ref) => {
   const { state } = useLocation();
-  let params = new URL(document.location).searchParams;
   const [orderProductList, setOrderProductList] = useState();
   const [order, setOrder] = useState();
 
   const userData = {
     authorizationToken: getToken(),
-    invoice: true,
-    session_id: params.get("session_id"),
+    orderId: state.orderId.toString(),
+    oldInvoice: true,
+    invoice: false,
   };
 
   useEffect(() => {
+    window.scrollTo(0, 0);
+
     GetOrders(userData).then((data) => {
       setOrder(data.body.orderList[0]);
-
-      console.log(
-        data.body.orderList[0].mysession.details.billing_details.email
-      );
 
       let productList = [];
 
@@ -221,20 +219,16 @@ const Invoice = forwardRef((props, ref) => {
     );
   } else {
     return (
-      <div className="col-xs-12 cartTable">
+      <div ref={ref} className="col-xs-12 cartTable">
         <Spinner />
       </div>
     );
   }
 });
 
-export default function InvoicePage({ setCartCount }) {
+export default function OrderDetails() {
   const { state } = useLocation();
   const ref = useRef();
-
-  useEffect(() => {
-    setCartCount(0);
-  });
 
   return (
     <div className="row">
@@ -256,10 +250,7 @@ export default function InvoicePage({ setCartCount }) {
                 <ReactToPrint content={() => ref.current}>
                   <PrintContextConsumer>
                     {({ handlePrint }) => (
-                      <a
-                        style={{ float: "right", color: "#a8be40" }}
-                        onClick={handlePrint}
-                      >
+                      <a style={{float: "right", color: "#a8be40"}} onClick={handlePrint}>
                         Print <i className="fa fa-print"></i>
                       </a>
                     )}

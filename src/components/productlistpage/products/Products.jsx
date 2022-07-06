@@ -3,6 +3,7 @@ import { useNavigate, useLocation } from "react-router-dom";
 import { GetProducts, GetProductsCat } from "../../../api/api";
 import Spinner from "../../common/spinner/Spinner";
 import SpinnerSmall from "../../common/spinnersmall/SpinnerSmall";
+import "./style/Style.css";
 
 export default function Products({ productsList }) {
   const navigate = useNavigate();
@@ -85,6 +86,14 @@ export default function Products({ productsList }) {
     <div>
       <section>
         <div className="container">
+          <div className="breadcrumbs">
+            <ol className="breadcrumb">
+              <li>
+                <a>Home</a>
+              </li>
+              <li className="active">Products</li>
+            </ol>
+          </div>
           {loading || productCatList === "empty" ? (
             <div className="loading">
               <Spinner />
@@ -92,38 +101,29 @@ export default function Products({ productsList }) {
           ) : (
             <div className="row">
               <div className="col-sm-3">
-                <div
-                  className="top-search"
-                  style={{
-                    display: "block",
-                    marginBottom: "50px",
-                  }}
-                >
-                  <div className="container">
-                    <div className="input-group d-flex">
-                      <input
-                        type="text"
-                        placeholder="Search"
-                        className="product-search"
-                        onChange={getInputValue}
-                      />
-                      {productLoading ? (
-                        <div className="loading">
-                          <SpinnerSmall />
-                        </div>
-                      ) : (
-                        <button
-                          className="search-btn1"
-                          onClick={onSearchButtonClick}
-                        >
-                          <i className="fa fa-search" aria-hidden="true"></i>
-                        </button>
-                      )}
+                <div class="searchProduct">
+                  <input
+                    type="text"
+                    class="searchTerm"
+                    placeholder="What are you looking for?"
+                    onChange={getInputValue}
+                  />
+                  {productLoading ? (
+                    <div className="loading">
+                      <SpinnerSmall />
                     </div>
-                  </div>
+                  ) : (
+                    <button
+                      type="submit"
+                      class="searchButton"
+                      onClick={onSearchButtonClick}
+                    >
+                      <i class="fa fa-search"></i>
+                    </button>
+                  )}
                 </div>
                 <div className="left-sidebar">
-                  <div className="brands_products">
+                  <div className="brands_products" style={{ marginTop: "5%" }}>
                     <h2>Categories</h2>
                     <div className="brands-name">
                       <ul className="nav nav-pills nav-stacked">
@@ -185,7 +185,10 @@ export default function Products({ productsList }) {
                               id="main"
                             >
                               <div className="inline-block align-middle">
-                                <h2 className="font-weight-normal lead" id="desc">
+                                <h2
+                                  className="font-weight-normal lead"
+                                  id="desc"
+                                >
                                   No Results Found try with different search
                                   keyword.
                                 </h2>

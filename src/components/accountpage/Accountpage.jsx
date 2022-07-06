@@ -2,13 +2,12 @@ import React, { useEffect, useState } from "react";
 import { GetAccountDetails, GetOrders, UpdateUserDetails } from "../../api/api";
 import { getToken } from "../utls/Session";
 import { useForm } from "react-hook-form";
+import Spinner from "../common/spinner/Spinner";
 
 export default function Accountpage({ isLogin }) {
   const { register, getValues, setValue } = useForm();
   const [sucsess, setSucsess] = useState(false);
-  const [orderList, setOrderList] = useState();
   const [orderProductList, setOrderProductList] = useState();
-  const [loading, setLoading] = useState(false);
 
   const userData = {
     authorizationToken: getToken(),
@@ -29,7 +28,6 @@ export default function Accountpage({ isLogin }) {
 
     GetOrders(userData)
       .then((data) => {
-        setOrderList(data.body.orderList);
 
         let productList = [];
         data.body.orderList?.map((order) => {
@@ -55,11 +53,9 @@ export default function Accountpage({ isLogin }) {
 
         setOrderProductList(UniqueproductList);
       })
-      .then(setLoading(false));
   };
 
   useEffect(() => {
-    setLoading(true);
     fetchAccountDetails();
   }, [isLogin]);
 
@@ -76,15 +72,15 @@ export default function Accountpage({ isLogin }) {
       zipCode: getValues("zipCode"),
     };
 
-    UpdateUserDetails(AccountDetails).then((data) => {
+    UpdateUserDetails(AccountDetails).then(() => {
       setTimeout(() => {
         setSucsess(true);
-      }, 2000);
+      }, 1000);
     });
 
     setTimeout(() => {
       setSucsess(false);
-    }, 5000);
+    }, 20000);
   };
 
   if (orderProductList) {
@@ -92,7 +88,15 @@ export default function Accountpage({ isLogin }) {
       <div>
         <section>
           <div className="container">
-            <div className="row">
+            <div className="breadcrumbs">
+              <ol className="breadcrumb">
+                <li>
+                  <a>Home</a>
+                </li>
+                <li className="active">My Account</li>
+              </ol>
+            </div>
+            <div className="row" style={{ marginTop: "60px" }}>
               <div className="col-sm-4">
                 <div>
                   <h4 className="h-4">Recently Ordered</h4>
@@ -139,7 +143,7 @@ export default function Accountpage({ isLogin }) {
                             sucsess ? { display: "block" } : { display: "none" }
                           }
                         >
-                          Updated
+                          Account sucsessfully updated, Please logout and relogin to see changes
                         </div>
                         <form
                           className="contact-form row"
@@ -239,11 +243,10 @@ export default function Accountpage({ isLogin }) {
                           </div>
 
                           <div className="form-group col-md-12">
-                            <input
+                            <button
                               className="btn btn-primary pull-right"
-                              defaultValue="Update"
                               onClick={onUpdateClick}
-                            />
+                            >Update</button>
                           </div>
                         </form>
                       </div>
@@ -254,6 +257,20 @@ export default function Accountpage({ isLogin }) {
             </div>
           </div>
         </section>
+      </div>
+    );
+  } else {
+    return (
+      <div className="container">
+        <div className="breadcrumbs">
+          <ol className="breadcrumb">
+            <li>
+              <a>Home</a>
+            </li>
+            <li className="active">My Account</li>
+          </ol>
+        </div>
+        <Spinner />
       </div>
     );
   }

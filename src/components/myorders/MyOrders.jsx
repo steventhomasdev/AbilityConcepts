@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from "react";
+import { useNavigate, useLocation } from "react-router-dom";
 import { GetOrders } from "../../api/api";
 import Spinner from "../common/spinner/Spinner";
 import { getToken } from "../utls/Session";
@@ -6,6 +7,7 @@ import { getToken } from "../utls/Session";
 export default function MyOrders() {
   const [orderList, setOrderList] = useState();
 
+  const navigate = useNavigate();
   const userData = {
     authorizationToken: getToken(),
   };
@@ -13,9 +15,16 @@ export default function MyOrders() {
   useEffect(() => {
     GetOrders(userData).then((data) => {
       setOrderList(data.body.orderList);
-      console.log(data.body.orderList);
     });
   }, []);
+
+  const onOrderDetailsClick = (event) => {
+    navigate("/orderdetails", {
+      state: {
+        orderId: event.target.id,
+      },
+    });
+  };
 
   if (orderList) {
     return (
@@ -26,7 +35,7 @@ export default function MyOrders() {
               <a>Home</a>
             </li>
             <li className="active">
-              <b>My Orders</b>
+              My Orders
             </li>
           </ol>
         </div>
@@ -67,9 +76,19 @@ export default function MyOrders() {
                               style={{ float: "right" }}
                             >
                               <div>
-                                <span>Order #{order._id} </span>
+                                <span
+                                  onClick={onOrderDetailsClick}
+                                  id={order._id}
+                                >
+                                  Order #{order._id}{" "}
+                                </span>
                                 <p>
-                                  <a>View Order details | Invoice</a>
+                                  <a
+                                    onClick={onOrderDetailsClick}
+                                    id={order._id}
+                                  >
+                                    View Order details | Invoice
+                                  </a>
                                 </p>
                               </div>
                             </div>

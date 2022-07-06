@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from "react";
-import StripeCheckout from "react-stripe-checkout";
 import { OrderTableEntry, RemoveItemsFromCart } from "../../api/api";
 import { getToken } from "../utls/Session";
 import { useNavigate, useLocation } from "react-router-dom";
@@ -42,8 +41,9 @@ export default function PaymentPage() {
 
   }, []);
 
-  const makePayment = (token) => {
+  const makePayment = () => {
 
+    setLoading(true);
     const current = new Date();
     const date = `${current.getDate()}/${
       current.getMonth() + 1
@@ -80,6 +80,7 @@ export default function PaymentPage() {
         return res.json().then((json) => Promise.reject(json));
       })
       .then(({ url }) => {
+        setLoading(false);
         window.location = url;
       })
       .catch((e) => {
