@@ -3,8 +3,29 @@ import OwlCarousel from "react-owl-carousel";
 import "owl.carousel/dist/assets/owl.carousel.css";
 import "owl.carousel/dist/assets/owl.theme.default.css";
 import "./owl.css";
+import { useNavigate, useLocation } from "react-router-dom";
 
 export default function Carousal({products}) {
+
+  const navigate = useNavigate();
+
+  const onProductClick = (event) => {
+    let userData = {};
+    for (let i in products) {
+      if (products[i]._id === event.currentTarget.id) {
+        userData = {
+          product: products[i],
+        };
+        break;
+      }
+    }
+
+    navigate("/productdetail", {
+      state: {
+        products: { userData },
+      },
+    });
+  };
 
     return (
       <OwlCarousel
@@ -53,13 +74,9 @@ export default function Carousal({products}) {
                         </p>
                       </div>
                       <button
-                        className="btn-cart welcome-add-cart"
-                      >
-                        <span className="lnr lnr-plus-circle"></span>
-                        add <span>to</span> cart
-                      </button>
-                      <button
                         className="btn-cart welcome-add-cart welcome-more-info"
+                        id={products[0]._id}
+                        onClick={onProductClick}
                       >
                         more info
                       </button>
@@ -114,14 +131,9 @@ export default function Carousal({products}) {
                         </p>
                       </div>
                       <button
-                        className="btn-cart welcome-add-cart"
-                        
-                      >
-                        <span className="lnr lnr-plus-circle"></span>
-                        add <span>to</span> cart
-                      </button>
-                      <button
+                      id={products[1]._id}
                         className="btn-cart welcome-add-cart welcome-more-info"
+                        onClick={onProductClick}
                         
                       >
                         more info
@@ -177,15 +189,9 @@ export default function Carousal({products}) {
                         </p>
                       </div>
                       <button
-                        className="btn-cart welcome-add-cart"
-                        
-                      >
-                        <span className="lnr lnr-plus-circle"></span>
-                        add <span>to</span> cart
-                      </button>
-                      <button
                         className="btn-cart welcome-add-cart welcome-more-info"
-                        
+                        id={products[2]._id}
+                        onClick={onProductClick}
                       >
                         more info
                       </button>

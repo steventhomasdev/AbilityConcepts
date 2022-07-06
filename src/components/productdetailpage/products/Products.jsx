@@ -8,8 +8,8 @@ export default function Products({ product, setCartCount, SetloginPopUp }) {
   const [quantity, setQuantity] = useState(1);
 
   const quantityChange = (event) => {
-	  setQuantity(event.target.value);
-  }
+    setQuantity(event.target.value);
+  };
 
   const onAddToCartClick = () => {
     setLoading(true);
@@ -37,6 +37,15 @@ export default function Products({ product, setCartCount, SetloginPopUp }) {
     <div>
       <section>
         <div className="container">
+          <div className="breadcrumbs">
+            <ol className="breadcrumb">
+              <li>
+                <a>Home</a>
+              </li>
+              <li><a>Products</a></li>
+              <li className="active">{currentProduct.productName}</li>
+            </ol>
+          </div>
           <div className="row">
             <div className="col-sm-12 padding-right">
               <div className="product-details">
@@ -60,13 +69,13 @@ export default function Products({ product, setCartCount, SetloginPopUp }) {
                     <span>
                       <span>CAD ${currentProduct.productprice}</span>
                       <label>Quantity:</label>
-					  <select onChange={quantityChange}>
-						  <option>1</option>
-						  <option>2</option>
-						  <option>3</option>
-						  <option>4</option>
-						  <option>5</option>
-					  </select>
+                      <select onChange={quantityChange}>
+                        <option>1</option>
+                        <option>2</option>
+                        <option>3</option>
+                        <option>4</option>
+                        <option>5</option>
+                      </select>
                       <button
                         type="button"
                         className="btn btn-fefault cart"
@@ -77,7 +86,7 @@ export default function Products({ product, setCartCount, SetloginPopUp }) {
                           <i
                             class="fa fa-spinner"
                             aria-hidden="true"
-                            style={{ color: "white", marginRight: "5px"}}
+                            style={{ color: "white", marginRight: "5px" }}
                           ></i>
                         ) : (
                           <i className="fa fa-shopping-cart"></i>

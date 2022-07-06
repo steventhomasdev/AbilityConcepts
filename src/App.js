@@ -16,13 +16,20 @@ import { getToken } from "./components/utls/Session";
 import InvoicePage from "./components/invoice/InvoicePage";
 import MyOrders from "./components/myorders/MyOrders";
 import OrderDetails from "./components/orderdetails/OrderDetails";
+import AdminPage from "./components/admin/AdminPage";
 
 function App() {
 
   const [cartCount, setCartCount] = useState(0) ;
   const [loginPopUp, SetloginPopUp] = useState(false);  // This is for the login popup
   const [isLogin, SetisLogin] = useState(getToken() == undefined ? false : true);
+  const [isAdmin, SetIsAdmin] = useState(false);
 
+  if(isAdmin){
+    return(
+      <AdminPage/>
+    )
+  }else{
   return (
     <>
       <Header cartCount={cartCount} setCartCount={setCartCount} loginPopUp={loginPopUp} SetloginPopUp={SetloginPopUp} isLogin={isLogin} SetisLogin={SetisLogin}/>
@@ -45,6 +52,7 @@ function App() {
       <Footer/>
     </>
   );
+  }
 }
 
 export default App;
