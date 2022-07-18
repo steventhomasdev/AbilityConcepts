@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import { Route, Routes } from "react-router-dom";
 import Accountpage from "./components/accountpage/Accountpage";
 import TopSpacing from "./components/common/advertisement/TopSpacing";
@@ -17,6 +17,8 @@ import InvoicePage from "./components/invoice/InvoicePage";
 import MyOrders from "./components/myorders/MyOrders";
 import OrderDetails from "./components/orderdetails/OrderDetails";
 import AdminPage from "./components/admin/AdminPage";
+import AboutUs from "./components/aboutus/AboutUs";
+import FundingPage from "./components/funding/FundingPage";
 
 function App() {
 
@@ -46,6 +48,8 @@ function App() {
         <Route path="/invoice" element={<InvoicePage setCartCount={setCartCount}/>}/>
         <Route path="/orderdetails" element={<OrderDetails/>}/>
         <Route path="/myorders" element={<MyOrders/>}/>
+        <Route path="/aboutus" element={<AboutUs/>}/>
+        <Route path="/funding" element={<FundingPage/>}/>
       </Routes>
       <FooterDetails/>
       <ScrollToTop/>

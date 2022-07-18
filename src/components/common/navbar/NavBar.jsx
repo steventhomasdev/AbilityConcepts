@@ -15,6 +15,9 @@ export default function NavBar({
   const [scrolled, setScrolled] = useState(false);
   const [searchArea, setsearchArea] = useState(false);
   const [userDropDown, setUserDropDown] = useState(false);
+  const [servicesDropDown, setServicesDropDown] = useState(false);
+  const [aboutUsDropDown, setAboutUsDropDown] = useState(false);
+  const [fundingDropDown, setFundingDropDown] = useState(false);
   const [searchString, setSearchString] = useState("");
   const [cartCountRefresh, setCartCountReresh] = useState(true);
   const [loading, setLoading] = useState(false);
@@ -51,6 +54,14 @@ export default function NavBar({
 
   const userDropDownToggle = () => {
     userDropDown ? setUserDropDown(false) : setUserDropDown(true);
+  };
+
+  const servicesDropDownToggle = () => {
+    servicesDropDown ? setServicesDropDown(false) : setServicesDropDown(true);
+  };
+
+  const fundingDropDownToggle = () => {
+    fundingDropDown ? setFundingDropDown(false) : setFundingDropDown(true);
   };
 
   const onSearchButtonClick = () => {
@@ -95,8 +106,16 @@ export default function NavBar({
   };
 
   const onMyOrdersClick = () => {
-    navigate("/myorders", {})
-  }
+    navigate("/myorders", {});
+  };
+
+  const onDropDownItemClick = (value) => {
+    navigate("/funding", {
+      state: {
+        page: value.target.innerText,
+      },
+    });
+  };
 
   useEffect(() => {
     window.addEventListener("scroll", handleScroll);
@@ -163,7 +182,8 @@ export default function NavBar({
                   <ul>
                     {isLogin ? (
                       <li
-                        onClick={userDropDownToggle}
+                        onMouseEnter={userDropDownToggle}
+                        onMouseLeave={userDropDownToggle}
                         className="sub-menu-con"
                         style={{ display: "block" }}
                       >
@@ -186,7 +206,7 @@ export default function NavBar({
                               <a onClick={onMyAccountClick}>My Account</a>
                             </li>
                             <li className="cart-list-txt">
-                              <a onClick={onMyOrdersClick} >My orders</a>
+                              <a onClick={onMyOrdersClick}>My orders</a>
                             </li>
                             <li className="cart-list-txt">
                               <a onClick={onLogoutClick}>Logout</a>
@@ -252,7 +272,8 @@ export default function NavBar({
                       <NavLink
                         exact="true"
                         activeclassname="scroll active"
-                        end to={"/home"}
+                        end
+                        to={"/home"}
                       >
                         home
                       </NavLink>
@@ -261,19 +282,119 @@ export default function NavBar({
                       <NavLink
                         exact="true"
                         activeclassname="scroll active"
-                        end to={"/productlist"}
+                        end
+                        to={"/productlist"}
                       >
                         Products
                       </NavLink>
                     </li>
-                    <li className="scroll">
-                      <a>Home modification</a>
+                    <li>
+                      <NavLink
+                        exact="true"
+                        activeclassname="scroll active"
+                        end
+                        to={"/productlist"}
+                      >
+                        Rentals
+                      </NavLink>
                     </li>
-                    <li className="scroll">
-                      <a>Rentals</a>
+                    <li
+                      onMouseEnter={servicesDropDownToggle}
+                      onMouseLeave={servicesDropDownToggle}
+                    >
+                      <NavLink
+                        exact="true"
+                        activeclassname="scroll active"
+                        end
+                        to={"/services"}
+                      >
+                        Services
+                        <span> </span>
+                        <i className="fa fa-caret-down"></i>
+                      </NavLink>
+                      <div
+                        style={
+                          servicesDropDown
+                            ? { display: "block" }
+                            : { display: "none" }
+                        }
+                      >
+                        <ul
+                          className="dropdown-menu cart-list s-cate"
+                          style={{ display: "block" }}
+                        >
+                          <li className="cart-list-txt">
+                            <a>Home modification</a>
+                          </li>
+                          <li className="cart-list-txt">
+                            <a>Repair Services</a>
+                          </li>
+                          <li className="cart-list-txt">
+                            <a>Service Education</a>
+                          </li>
+                          <li className="cart-list-txt">
+                            <a>Shipping Procedure</a>
+                          </li>
+                        </ul>
+                      </div>
                     </li>
-                    <li className="scroll">
-                      <a>contact</a>
+                    <li
+                      onMouseEnter={fundingDropDownToggle}
+                      onMouseLeave={fundingDropDownToggle}
+                    >
+                      <a>
+                        Funding <i className="fa fa-caret-down"></i>
+                      </a>
+
+                      <div
+                        style={
+                          fundingDropDown
+                            ? { display: "block" }
+                            : { display: "none" }
+                        }
+                      >
+                        <ul
+                          className="dropdown-menu cart-list s-cate"
+                          style={{ display: "block" }}
+                        >
+                          <li className="cart-list-txt">
+                            <a onClick={onDropDownItemClick}>ADP</a>
+                          </li>
+                          <li className="cart-list-txt">
+                            <a onClick={onDropDownItemClick}>ODSP</a>
+                          </li>
+                          <li className="cart-list-txt">
+                            <a onClick={onDropDownItemClick}>MS Society</a>
+                          </li>
+                          <li className="cart-list-txt">
+                            <a onClick={onDropDownItemClick}>VAC</a>
+                          </li>
+                          <li className="cart-list-txt">
+                            <a onClick={onDropDownItemClick}>WSIB</a>
+                          </li>
+                          <li className="cart-list-txt">
+                            <a onClick={onDropDownItemClick}>
+                              Ontario March Of Dimes
+                            </a>
+                          </li>
+                          <li className="cart-list-txt">
+                            <a onClick={onDropDownItemClick}>CHMC</a>
+                          </li>
+                          <li className="cart-list-txt">
+                            <a onClick={onDropDownItemClick}>Other Funding</a>
+                          </li>
+                        </ul>
+                      </div>
+                    </li>
+                    <li>
+                      <NavLink
+                        exact="true"
+                        activeclassname="scroll active"
+                        end
+                        to={"/aboutus"}
+                      >
+                        About Us
+                      </NavLink>
                     </li>
                   </ul>
                 </div>
