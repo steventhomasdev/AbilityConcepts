@@ -108,7 +108,18 @@ export default function PaymentPage() {
   };
 
   const calculateTax = () => {
-    return 2;
+    const cartItems = state.products.cartItems;
+    let totalTax = 0;
+    for (let i in cartItems) {
+      totalTax += Number(
+        getItemTotal(
+          cartItems[i].productDetails.productTax,
+          cartItems[i].quantity
+        ).replace(/\,/g, "")
+      );
+    }
+
+    return totalTax.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
   };
 
   return (
@@ -199,8 +210,8 @@ export default function PaymentPage() {
                           <span>
                             $
                             {(
-                              Number(getCartTotal().replace(/\,/g, "")) +
-                              calculateTax()
+                                Number(getCartTotal().replace(/\,/g, "")) +
+                                Number(calculateTax().replace(/\,/g, ""))
                             )
                               .toString()
                               .replace(/\B(?=(\d{3})+(?!\d))/g, ",")}

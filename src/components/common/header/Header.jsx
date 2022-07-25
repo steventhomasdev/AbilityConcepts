@@ -5,7 +5,7 @@ import SignUp from "../signup/SignUp";
 import { getToken } from "../../utls/Session";
 import Login from "../login/Login";
 
-export default function Header({cartCount, setCartCount, loginPopUp, SetloginPopUp, SetisLogin, isLogin}) {
+export default function Header({cartCount, setCartCount, loginPopUp, SetloginPopUp, SetisLogin, isLogin, SetIsAdmin}) {
 
   const [signupPopUp, setSignupPopUp] = useState(false); // this is for the create account popup
 
@@ -29,9 +29,9 @@ export default function Header({cartCount, setCartCount, loginPopUp, SetloginPop
   return (
     <div>
       <header id="home" className="welcome-hero">
-        <Login loginPopUp={loginPopUp} SetloginPopUp={SetloginPopUp} SetisLogin={SetisLogin} setSignupPopUp={setSignupPopUp}/>
+        <Login loginPopUp={loginPopUp} SetloginPopUp={SetloginPopUp} SetisLogin={SetisLogin} setSignupPopUp={setSignupPopUp} SetIsAdmin={SetIsAdmin}/>
         <SignUp signupPopUp={signupPopUp} setSignupPopUp={setSignupPopUp} SetisLogin={SetisLogin} SetloginPopUp={SetloginPopUp}/>
-        <NavBar SetloginPopUp={SetloginPopUp} isLogin={isLogin} SetisLogin={SetisLogin} accountDetails={accountDetails} cartCount={cartCount} setCartCount={setCartCount}/> 
+        <NavBar SetloginPopUp={SetloginPopUp} isLogin={isLogin} SetisLogin={SetisLogin} accountDetails={accountDetails} cartCount={cartCount} SetIsAdmin={SetIsAdmin} setCartCount={setCartCount}/> 
       </header>
     </div>
   );

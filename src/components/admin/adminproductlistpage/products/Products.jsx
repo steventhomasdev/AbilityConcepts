@@ -1,8 +1,8 @@
 import React, { useState, useCallback, useEffect } from "react";
 import { useNavigate, useLocation } from "react-router-dom";
-import { GetProducts, GetProductsCat } from "../../../api/api";
-import Spinner from "../../common/spinner/Spinner";
-import SpinnerSmall from "../../common/spinnersmall/SpinnerSmall";
+import { GetProducts, GetProductsCat } from "../../../../api/api";
+import Spinner from "../../../common/spinner/Spinner";
+import SpinnerSmall from "../../../common/spinnersmall/SpinnerSmall";
 import "./style/Style.css";
 
 export default function Products({ productsList }) {
@@ -60,7 +60,9 @@ export default function Products({ productsList }) {
       }
     }
 
-    navigate("/productdetail", {
+    // ?product=${userData.product._id}
+
+    navigate(`/editproducts`, {
       state: {
         products: { userData },
       },
@@ -69,7 +71,7 @@ export default function Products({ productsList }) {
 
   const onCategoryClick = (event) => {
     const userData = {
-      category: (event.currentTarget.id).toLowerCase(),
+      category: event.currentTarget.id,
     };
 
     GetProducts(userData).then((data) => {
@@ -101,10 +103,10 @@ export default function Products({ productsList }) {
           ) : (
             <div className="row">
               <div className="col-sm-3">
-                <div class="searchProduct">
+                <div className="searchProduct">
                   <input
                     type="text"
-                    class="searchTerm"
+                    className="searchTerm"
                     placeholder="What are you looking for?"
                     onChange={getInputValue}
                   />
@@ -115,10 +117,10 @@ export default function Products({ productsList }) {
                   ) : (
                     <button
                       type="submit"
-                      class="searchButton"
+                      className="searchButton"
                       onClick={onSearchButtonClick}
                     >
-                      <i class="fa fa-search"></i>
+                      <i className="fa fa-search"></i>
                     </button>
                   )}
                 </div>

@@ -67,6 +67,12 @@ export default function MyOrders() {
                             </div>
                             <div className="col-xs-2">
                               <div>
+                                <span>Billed To</span>
+                                <p>{order.billingAddress.name}</p>
+                              </div>
+                            </div>
+                            <div className="col-xs-2">
+                              <div>
                                 <span>Shipped To</span>
                                 <p>{order.shippingAddress.name}</p>
                               </div>

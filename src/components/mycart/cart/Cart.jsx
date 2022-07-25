@@ -39,19 +39,19 @@ export default function Cart({ isLogin, setCartCount }) {
       productId: event.currentTarget.id,
     };
 
-    RemoveItemsFromCart(userData).then((data) =>
-      setCartCount(data.body.quantity)
-    );
-    setTimeout(() => {
-      setCartItemRefresh(true);
-      setLoading(false);
-    }, 1000);
+    RemoveItemsFromCart(userData).then((data) => {
+      setCartCount(data.body.quantity);
+      setTimeout(() => {
+        setCartItemRefresh(true);
+        setLoading(false);
+      }, 1000);
+    });
   };
 
   const OnAddButtonClick = (event) => {
-    let productDetails;
-
+    setIndex(event.currentTarget.id);
     setLoading(true);
+    let productDetails;
 
     for (let i in cartItems) {
       if (cartItems[i]._id === event.currentTarget.id) {
@@ -67,11 +67,13 @@ export default function Cart({ isLogin, setCartCount }) {
       productDetails: productDetails,
       quantity: 1,
     };
-    AddItemsToCart(userData).then((data) => setCartCount(data.body.quantity));
-    setTimeout(() => {
-      setCartItemRefresh(true);
-      setLoading(false);
-    }, 1000);
+    AddItemsToCart(userData).then((data) => {
+      setCartCount(data.body.quantity);
+      setTimeout(() => {
+        setCartItemRefresh(true);
+        setLoading(false);
+      }, 1000);
+    });
   };
 
   const getItemTotal = (productprice, quantity) => {
@@ -94,7 +96,17 @@ export default function Cart({ isLogin, setCartCount }) {
   };
 
   const calculateTax = () => {
-    return 2;
+    let totalTax = 0;
+    for (let i in cartItems) {
+      totalTax += Number(
+        getItemTotal(
+          cartItems[i].productDetails.productTax,
+          cartItems[i].quantity
+        ).replace(/\,/g, "")
+      );
+    }
+
+    return totalTax.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
   };
 
   const onProductClick = (event) => {
@@ -160,76 +172,100 @@ export default function Cart({ isLogin, setCartCount }) {
                           </thead>
                           <tbody>
                             {cartItems?.map((product) => (
-                              <tr>
-                                <td className="cart_product">
-                                  <a id={[product._id]}>
-                                    <img
-                                      src={product.productDetails.productimage}
-                                      style={{ width: "100px" }}
-                                      alt={product.productDetails.productName}
-                                    />
-                                  </a>
-                                </td>
-                                <td className="cart_description">
-                                  <h4>
-                                    <a
-                                      id={[product._id]}
-                                      onClick={onProductClick}
-                                    >
-                                      {product.productDetails.productName}
-                                    </a>
-                                  </h4>
-                                  <p>
-                                    Price: ${" "}
-                                    {product.productDetails.productprice}
-                                  </p>
-                                  <div className="quantity buttons_added">
-                                    <input
-                                      type="button"
-                                      value="--"
-                                      className="minus"
-                                      onClick={OnRemoveButtonClick}
-                                      id={[product.productId]}
-                                      style={{ color: "red" }}
-                                    />
-                                    <input
-                                      type="number"
-                                      step="1"
-                                      min="1"
-                                      max=""
-                                      name="quantity"
-                                      value={product.quantity}
-                                      title="Qty"
-                                      className="input-text qty text"
-                                      size="4"
-                                      pattern=""
-                                      inputmode=""
-                                      style={{ color: "black" }}
-                                    />
-                                    <input
-                                      type="button"
-                                      value="+"
-                                      className="plus"
-                                      onClick={OnAddButtonClick}
-                                      id={[product.productId]}
-                                      style={{ color: "green" }}
-                                    />
-                                  </div>
-                                </td>
-                                <td className="cart_total">
-                                  {loading && Index === product.productId ? (
-                                    <SpinnerSmall />
-                                  ) : (
-                                    <p className="cart_total_price">
-                                      $
-                                      {getItemTotal(
-                                        product.productDetails.productprice,
-                                        product.quantity
-                                      )}
-                                    </p>
-                                  )}
-                                </td>
-                              </tr>
+                              <>
+                                {loading && Index === product.productId ? (
+                                  <tr>
+                                    <td className="cart_product">
+                                      <a id={[product._id]}>
+                                        <img
+                                          src={
+                                            product.productDetails.productimage
+                                          }
+                                          style={{ width: "100px" }}
+                                          alt={
+                                            product.productDetails.productName
+                                          }
+                                        />
+                                      </a>
+                                    </td>
+                                    <td>
+                                      {" "}
+                                      <SpinnerSmall />
+                                    </td>
+                                  </tr>
+                                ) : (
+                                  <tr>
+                                    <td className="cart_product">
+                                      <a id={[product._id]}>
+                                        <img
+                                          src={
+                                            product.productDetails.productimage
+                                          }
+                                          style={{ width: "100px" }}
+                                          alt={
+                                            product.productDetails.productName
+                                          }
+                                        />
+                                      </a>
+                                    </td>
+                                    <td className="cart_description">
+                                      <h4>
+                                        <a
+                                          id={[product._id]}
+                                          onClick={onProductClick}
+                                        >
+                                          {product.productDetails.productName}
+                                        </a>
+                                      </h4>
+                                      <p>
+                                        Price: ${" "}
+                                        {product.productDetails.productprice}
+                                      </p>
+                                      <div className="quantity buttons_added">
+                                        <input
+                                          type="button"
+                                          value="--"
+                                          className="minus"
+                                          onClick={OnRemoveButtonClick}
+                                          id={[product.productId]}
+                                          style={{ color: "red" }}
+                                        />
+                                        <input
+                                          type="number"
+                                          step="1"
+                                          min="1"
+                                          max=""
+                                          name="quantity"
+                                          value={product.quantity}
+                                          title="Qty"
+                                          className="input-text qty text"
+                                          size="4"
+                                          pattern=""
+                                          inputmode=""
+                                          style={{ color: "black" }}
+                                        />
+                                        <input
+                                          type="button"
+                                          value="+"
+                                          className="plus"
+                                          onClick={OnAddButtonClick}
+                                          id={[product.productId]}
+                                          style={{ color: "green" }}
+                                        />
+                                      </div>
+                                    </td>
+                                    <td className="cart_total">
+                                      <p className="cart_total_price">
+                                        $
+                                        {getItemTotal(
+                                          product.productDetails.productprice,
+                                          product.quantity
+                                        )}
+                                      </p>
+                                    </td>
+                                  </tr>
+                                )}
+                              </>
                             ))}
                           </tbody>
                         </table>
@@ -253,7 +289,7 @@ export default function Cart({ isLogin, setCartCount }) {
                               $
                               {(
                                 Number(getCartTotal().replace(/\,/g, "")) +
-                                calculateTax()
+                                Number(calculateTax().replace(/\,/g, ""))
                               )
                                 .toString()
                                 .replace(/\B(?=(\d{3})+(?!\d))/g, ",")}

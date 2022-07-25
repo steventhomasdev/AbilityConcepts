@@ -1,16 +1,19 @@
 import React, { useState } from "react";
 import { LoginAuthentication } from "../../../api/api";
 import Spinner from "../spinner/Spinner";
-import { setToken } from "../../utls/Session";
+import { setAdmin, setToken } from "../../utls/Session";
+import { useNavigate } from "react-router-dom";
 
 export default function Login({
   loginPopUp,
   SetloginPopUp,
   SetisLogin,
   setSignupPopUp,
+  SetIsAdmin
 }) {
   let [feedback, setFeedBack] = useState("");
   let [loading, setLoading] = useState(false);
+  const navigate = useNavigate();
 
   const onCloseClick = () => {
     setFeedBack("");
@@ -27,12 +30,22 @@ export default function Login({
     };
 
     LoginAuthentication(userData).then((data) => {
+
+
+      console.log(data)
       if (data.statusCode === 200) {
         if (data.body.accessToken.length !== 0) {
           setToken(data.body.accessToken);
           SetisLogin(true);
           onCloseClick();
           setLoading(false);
+        }
+        if(data.body.admin === true){
+          setAdmin(true);
+          SetIsAdmin(true);
+          navigate("/orders", {
+            state: {},
+          });
         }
       } else {
         setFeedBack(data.body);

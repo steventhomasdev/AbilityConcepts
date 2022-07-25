@@ -7,8 +7,19 @@ export default function Products({ product, setCartCount, SetloginPopUp }) {
   const [loading, setLoading] = useState(false);
   const [quantity, setQuantity] = useState(1);
 
+  //   const quantityChange = (event) => {
+  //     setQuantity(event.target.value);
+  //   };
+
   const quantityChange = (event) => {
-    setQuantity(event.target.value);
+    if (event.target.value === "+") {
+      setQuantity(quantity + 1);
+    }
+    if (event.target.value === "-") {
+      if (quantity > 1) {
+        setQuantity(quantity - 1);
+      }
+    }
   };
 
   const onAddToCartClick = () => {
@@ -42,7 +53,9 @@ export default function Products({ product, setCartCount, SetloginPopUp }) {
               <li>
                 <a>Home</a>
               </li>
-              <li><a>Products</a></li>
+              <li>
+                <a>Products</a>
+              </li>
               <li className="active">{currentProduct.productName}</li>
             </ol>
           </div>
@@ -50,17 +63,16 @@ export default function Products({ product, setCartCount, SetloginPopUp }) {
             <div className="col-sm-12 padding-right">
               <div className="product-details">
                 <div className="col-sm-5">
-                  <div className="view-product">
+                  <div
+                    className="product_details_card card-1"
+                    style={{ textAlign: "center" }}
+                  >
                     <img
                       src={currentProduct.productimage}
                       alt={currentProduct.productName}
                     />
                   </div>
-                  <div
-                    id="similar-product"
-                    className="carousel slide"
-                    data-ride="carousel"
-                  ></div>
+                  <div id="similar-product"></div>
                 </div>
                 <div className="col-sm-7">
                   <div className="product-information">
@@ -68,42 +80,55 @@ export default function Products({ product, setCartCount, SetloginPopUp }) {
                     <p>Web ID: {currentProduct._id}</p>
                     <span>
                       <span>CAD ${currentProduct.productprice}</span>
-                      <label>Quantity:</label>
-                      <select onChange={quantityChange}>
-                        <option>1</option>
-                        <option>2</option>
-                        <option>3</option>
-                        <option>4</option>
-                        <option>5</option>
-                      </select>
-                      <button
-                        type="button"
-                        className="btn btn-fefault cart"
-                        onClick={onAddToCartClick}
-                      >
-                        {" "}
-                        {loading ? (
-                          <i
-                            class="fa fa-spinner"
-                            aria-hidden="true"
-                            style={{ color: "white", marginRight: "5px" }}
-                          ></i>
-                        ) : (
-                          <i className="fa fa-shopping-cart"></i>
-                        )}
-                        Add to cart
-                      </button>
                     </span>
+                    <div
+                      dangerouslySetInnerHTML={{
+                        __html: currentProduct.productdescription,
+                      }}
+                    ></div>
+                    <br/>
                     <p>
-                      <b>Availability:</b> In Stock
+                      <form id="myform" class="quantity">
+                        <input
+                          type="button"
+                          onClick={quantityChange}
+                          value="-"
+                          class="qtyminus minus"
+                          field="quantity"
+                        />
+                        <input
+                          type="text"
+                          name="quantity"
+                          value={quantity}
+                          class="qty"
+                          min={1}
+                        />
+                        <input
+                          type="button"
+                          onClick={quantityChange}
+                          value="+"
+                          class="qtyplus plus"
+                          field="quantity"
+                        />
+                        <button
+                          type="button"
+                          className="btn btn-fefault cart"
+                          onClick={onAddToCartClick}
+                        >
+                          {" "}
+                          {loading ? (
+                            <i
+                              class="fa fa-spinner"
+                              aria-hidden="true"
+                              style={{ color: "white", marginRight: "5px" }}
+                            ></i>
+                          ) : (
+                            <i className="fa fa-shopping-cart"></i>
+                          )}
+                          Add to cart
+                        </button>
+                      </form>
                     </p>
-                    <p>
-                      <b>Condition:</b> New
-                    </p>
-                    <p>
-                      <b>Brand:</b> E-SHOPPER
-                    </p>
-                    <a></a>
                   </div>
                 </div>
               </div>
@@ -113,73 +138,32 @@ export default function Products({ product, setCartCount, SetloginPopUp }) {
                   <ul className="nav nav-tabs">
                     <li className="active">
                       <a href="#details" data-toggle="tab">
-                        Details
+                        Features
                       </a>
                     </li>
                     <li>
                       <a href="#reviews" data-toggle="tab">
-                        Reviews
+                        Specifications
                       </a>
                     </li>
                   </ul>
                 </div>
                 <div className="tab-content">
                   <div className="tab-pane fade active in" id="details">
-                    <div className="col-sm-12">
-                      <p>{currentProduct.productdescription}</p>
-                    </div>
+                    <div
+                      className="col-sm-12"
+                      dangerouslySetInnerHTML={{
+                        __html: currentProduct.productfeatures,
+                      }}
+                    ></div>
                   </div>
                   <div className="tab-pane fade" id="reviews">
-                    <div className="col-sm-12">
-                      <ul>
-                        <li>
-                          <a href="">
-                            <i className="fa fa-user"></i>EUGEN
-                          </a>
-                        </li>
-                        <li>
-                          <a href="">
-                            <i className="fa fa-clock-o"></i>12:41 PM
-                          </a>
-                        </li>
-                        <li>
-                          <a href="">
-                            <i className="fa fa-calendar-o"></i>31 DEC 2014
-                          </a>
-                        </li>
-                      </ul>
-                      <p>
-                        Lorem ipsum dolor sit amet, consectetur adipisicing
-                        elit, sed do eiusmod tempor incididunt ut labore et
-                        dolore magna aliqua.Ut enim ad minim veniam, quis
-                        nostrud exercitation ullamco laboris nisi ut aliquip ex
-                        ea commodo consequat.Duis aute irure dolor in
-                        reprehenderit in voluptate velit esse cillum dolore eu
-                        fugiat nulla pariatur.
-                      </p>
-                      <p className="newreview">
-                        <b>Write Your Review</b>
-                      </p>
-
-                      <form action="#">
-                        <span>
-                          <input type="text" placeholder="Your Name" />
-                          <input type="email" placeholder="Email Address" />
-                        </span>
-                        <textarea name=""></textarea>
-                        <b>Rating: </b>{" "}
-                        <img
-                          src="assets/images/product-details/rating.png"
-                          alt=""
-                        />
-                        <button
-                          type="button"
-                          className="btn btn-default pull-right"
-                        >
-                          Submit
-                        </button>
-                      </form>
-                    </div>
+                    <div
+                      className="col-sm-12"
+                      dangerouslySetInnerHTML={{
+                        __html: currentProduct.productspecifications,
+                      }}
+                    ></div>
                   </div>
                 </div>
               </div>

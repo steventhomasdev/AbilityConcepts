@@ -16,7 +16,6 @@ export default function NavBar({
   const [searchArea, setsearchArea] = useState(false);
   const [userDropDown, setUserDropDown] = useState(false);
   const [servicesDropDown, setServicesDropDown] = useState(false);
-  const [aboutUsDropDown, setAboutUsDropDown] = useState(false);
   const [fundingDropDown, setFundingDropDown] = useState(false);
   const [searchString, setSearchString] = useState("");
   const [cartCountRefresh, setCartCountReresh] = useState(true);

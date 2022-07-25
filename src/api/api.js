@@ -158,15 +158,24 @@
   }
   
 
-  // export function Payment (userData) {
-  //   return fetch("http://localhost:8282/payment", {
-  //     method: "POST",
-  //     headers: {
-  //       'Content-Type': "application/json",
-  //       'Accept': "application/json",
-  //     },
-  //     body: JSON.stringify(userData),
-  //   }).then((data) => data.json());
-  // }
+export function UploadImageInS3(userData) {
+  return fetch("https://55l82zis7b.execute-api.us-east-2.amazonaws.com/staging/imageupload", {
+    method: "POST",
+    headers: {
+      'Content-Type': "application/json",
+      'Accept': "application/json",
+    },
+    body: JSON.stringify(userData),
+  }).then((data) => data.json());
+}
 
-
+export function AddProduct(userData) {
+  return fetch ("https://v24cojpebj.execute-api.us-east-2.amazonaws.com/staging/addproducts", {
+    method: "POST",
+    headers: {
+      'Content-Type': "application/json",
+      'Accept': "application/json",
+    },
+    body: JSON.stringify(userData),
+  }).then((data) => data.json());
+}

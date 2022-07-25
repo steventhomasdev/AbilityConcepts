@@ -15,7 +15,7 @@ export default function FundingPage() {
 
   useEffect(() => {
     setPage(state.page)
-  });
+  },[state]);
 
   const handleClick = (value) => {
     switch (value.target.innerText) {

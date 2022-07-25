@@ -12,34 +12,49 @@ import PaymentPage from "./components/payment/PaymentPage";
 import ProductDetailPage from "./components/productdetailpage/ProductDetailPage";
 import ProductListPage from "./components/productlistpage/ProductListPage";
 import ShippingPage from "./components/shipping/ShippingPage";
-import { getToken } from "./components/utls/Session";
+import { checkAdmin, getToken } from "./components/utls/Session";
 import InvoicePage from "./components/invoice/InvoicePage";
 import MyOrders from "./components/myorders/MyOrders";
 import OrderDetails from "./components/orderdetails/OrderDetails";
-import AdminPage from "./components/admin/AdminPage";
 import AboutUs from "./components/aboutus/AboutUs";
 import FundingPage from "./components/funding/FundingPage";
+import EditProducts from "./components/admin/editproducts/EditProducts";
+import AdminNavBar from "./components/admin/adminnavbar/AdminNavBar";
+import AddProducts from "./components/admin/addproducts/AddProducts";
+import AdminProductListPage from "./components/admin/adminproductlistpage/AdminProductListPage";
 
 function App() {
 
   const [cartCount, setCartCount] = useState(0) ;
   const [loginPopUp, SetloginPopUp] = useState(false);  // This is for the login popup
   const [isLogin, SetisLogin] = useState(getToken() == undefined ? false : true);
-  const [isAdmin, SetIsAdmin] = useState(false);
+  const [isAdmin, SetIsAdmin] = useState(checkAdmin()); // This is for the admin portal
 
   if(isAdmin){
     return(
-      <AdminPage/>
+      <>
+        <AdminNavBar/>
+        <TopSpacing/>
+        <Routes>
+          <Route path="/*" element={<MyOrders/>}/>
+          <Route path="/vieworders" elemet={<MyOrders/>}/>
+          <Route path="/productlist" element={<AdminProductListPage/>}/>
+          <Route path="/editproducts/*" element={<EditProducts/>}/>
+          <Route path="/addproducts" element={<AddProducts/>}/>
+          <Route path="/orderdetails" element={<OrderDetails/>}/>
+        </Routes>
+      </>
+
     )
   }else{
   return (
     <>
-      <Header cartCount={cartCount} setCartCount={setCartCount} loginPopUp={loginPopUp} SetloginPopUp={SetloginPopUp} isLogin={isLogin} SetisLogin={SetisLogin}/>
+      <Header cartCount={cartCount} setCartCount={setCartCount} loginPopUp={loginPopUp} SetloginPopUp={SetloginPopUp} isLogin={isLogin} SetisLogin={SetisLogin} SetIsAdmin={SetIsAdmin}/>
       <TopSpacing/>
       <Routes>
         <Route exact strict path="/home" element={<HomePage/>} />
         <Route path="/*" element={<HomePage />} />
-        <Route exact strict path="/productlist" element={<ProductListPage/>} />
+        <Route path="/productlist" element={<ProductListPage/>} />
         <Route path="/productdetail" element={<ProductDetailPage setCartCount={setCartCount} SetloginPopUp={SetloginPopUp}/>} />
         <Route path="/cart" element={<MycartPage isLogin={isLogin} setCartCount={setCartCount}/>}/>
         <Route path="/shipping" element={<ShippingPage isLogin={isLogin}/>}/>
