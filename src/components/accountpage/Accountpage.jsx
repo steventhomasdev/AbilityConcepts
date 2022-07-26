@@ -236,19 +236,19 @@ export default function Accountpage({ isLogin }) {
                             </select>
                           </div>
 
-                          <div className="col-sm-12">
+                          {/* <div className="col-sm-12">
                             <button className="btn btn-primary add-address">
                               Add new address
                             </button>
-                          </div>
+                          </div> */}
 
-                          <div className="form-group col-md-12">
+                        </form>
+                        <div className="form-group col-md-12">
                             <button
                               className="btn btn-primary pull-right"
                               onClick={onUpdateClick}
                             >Update</button>
                           </div>
-                        </form>
                       </div>
                     </div>
                   </div>

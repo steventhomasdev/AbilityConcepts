@@ -116,6 +116,10 @@ export default function NavBar({
     navigate("/shippingprocedure", {});
   }
 
+  const OnHomeModificationClick = () => {
+    navigate("/homemodification")
+  }
+
   const onDropDownItemClick = (value) => {
     navigate("/funding", {
       state: {
@@ -331,7 +335,7 @@ export default function NavBar({
                           style={{ display: "block" }}
                         >
                           <li className="cart-list-txt">
-                            <a>Home modification</a>
+                            <a onClick={OnHomeModificationClick}>Home modification</a>
                           </li>
                           <li className="cart-list-txt">
                             <a>Repair Services</a>

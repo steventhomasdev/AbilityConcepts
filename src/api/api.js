@@ -203,3 +203,14 @@ export function RemoveProducts(userData){
     body: JSON.stringify(userData),
   }).then((data) => data.json());
 }
+
+export function GetHomeModificationCat(userData){
+  return fetch ("https://3gadjgiu3c.execute-api.us-east-2.amazonaws.com/staging/gethomemodificationcategory", {
+    method: "POST",
+    headers: {
+      'Content-Type': "application/json",
+      'Accept': "application/json",
+    },
+    body: JSON.stringify(userData),
+  }).then((data) => data.json());
+}

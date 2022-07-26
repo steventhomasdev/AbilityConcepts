@@ -24,6 +24,7 @@ import AddProducts from "./components/admin/addproducts/AddProducts";
 import AdminProductListPage from "./components/admin/adminproductlistpage/AdminProductListPage";
 import ServiceEducation from "./components/service_education/ServiceEducation";
 import ShippingProcedure from "./components/shippingprocedure/ShippingProcedure";
+import HomeModification from "./components/homemodification/HomeModification";
 
 function App() {
 
@@ -72,6 +73,7 @@ function App() {
         <Route path="/funding" element={<FundingPage/>}/>
         <Route path="/serviceeducation" element={<ServiceEducation/>}/>
         <Route path="/shippingprocedure" element={<ShippingProcedure/>}/>
+        <Route path="/homemodification" element={<HomeModification/>}/>
       </Routes>
       <FooterDetails/>
       <ScrollToTop/>
