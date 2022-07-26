@@ -16,12 +16,10 @@ export default function AdminNavBar() {
   const onLogoutClick = () => {
     removeToken();
     removeAdmin();
-    navigate('/home', {})
+    navigate("/home", {});
+    window.location.reload(false);
   };
 
-  const userDropDownToggle = () => {
-    userDropDown ? setUserDropDown(false) : setUserDropDown(true);
-  };
 
   const handleScroll = () => {
     const offset = window.scrollY;
@@ -30,10 +28,6 @@ export default function AdminNavBar() {
     } else {
       setScrolled(false);
     }
-  };
-
-  const onMyAccountClick = () => {
-    navigate("/account", {});
   };
 
   useEffect(() => {
@@ -58,32 +52,8 @@ export default function AdminNavBar() {
               <div className="container">
                 <div className="attr-nav">
                   <ul>
-                    <li
-                      onMouseEnter={userDropDownToggle}
-                      onMouseLeave={userDropDownToggle}
-                      className="sub-menu-con"
-                      style={{ display: "block" }}
-                    >
-                      <a className="user-prof">
-                        <span>admin</span>
-                        <span className="lnr lnr-chevron-down"></span>
-                      </a>
-                      <div
-                        style={
-                          userDropDown
-                            ? { display: "block" }
-                            : { display: "none" }
-                        }
-                      >
-                        <ul
-                          className="dropdown-menu cart-list s-cate"
-                          style={{ display: "block" }}
-                        >
-                          <li className="cart-list-txt">
-                            <a onClick={onLogoutClick}>Logout</a>
-                          </li>
-                        </ul>
-                      </div>
+                    <li onClick={onLogoutClick} className="loginbtn">
+                      <button>Logout</button>
                     </li>
                   </ul>
                 </div>

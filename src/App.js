@@ -45,6 +45,9 @@ function App() {
           <Route path="/addproducts" element={<AddProducts/>}/>
           <Route path="/orderdetails" element={<OrderDetails/>}/>
         </Routes>
+        <FooterDetails/>
+        <ScrollToTop/>
+        <Footer/>
       </>
 
     )

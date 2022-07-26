@@ -1,3 +1,5 @@
+import { json } from "react-router";
+
   export function GetProductsCat() {
     //https://sfwywf7vs3.execute-api.us-east-2.amazonaws.com/Products_Live/getproductcategories
     return fetch("https://sfwywf7vs3.execute-api.us-east-2.amazonaws.com/Products_Live/getproductcategories", {
@@ -171,6 +173,28 @@ export function UploadImageInS3(userData) {
 
 export function AddProduct(userData) {
   return fetch ("https://v24cojpebj.execute-api.us-east-2.amazonaws.com/staging/addproducts", {
+    method: "POST",
+    headers: {
+      'Content-Type': "application/json",
+      'Accept': "application/json",
+    },
+    body: JSON.stringify(userData),
+  }).then((data) => data.json());
+}
+
+export function UpdateProducts(userData){
+  return fetch ("https://e5f7awbs2a.execute-api.us-east-2.amazonaws.com/staging/updateproducts", {
+    method: "POST",
+    headers: {
+      'Content-Type': "application/json",
+      'Accept': "application/json",
+    },
+    body: JSON.stringify(userData),
+  }).then((data) => data.json());
+}
+
+export function RemoveProducts(userData){
+  return fetch ("https://e5f7awbs2a.execute-api.us-east-2.amazonaws.com/staging/updateproducts", {
     method: "POST",
     headers: {
       'Content-Type': "application/json",

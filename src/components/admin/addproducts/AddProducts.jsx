@@ -69,7 +69,7 @@ export default function AddProducts() {
         resultString += "<li>" + lines[i] + "</li>";
       }
     }
-    resultString += "</ul";
+    resultString += "</ul>";
 
     return resultString;
   }
@@ -151,6 +151,7 @@ export default function AddProducts() {
                             method="post"
                           >
                             <div className="form-group col-md-6">
+                              <p>Product Name: </p>
                               <input
                                 type="text"
                                 className="form-control"
@@ -160,6 +161,7 @@ export default function AddProducts() {
                               />
                             </div>
                             <div className="form-group col-md-6">
+                              <p>Product Price: </p>
                               <input
                                 type="number"
                                 className="form-control"
@@ -169,6 +171,7 @@ export default function AddProducts() {
                               />
                             </div>
                             <div className="form-group col-md-6">
+                              <p>Product Tax: </p>
                               <input
                                 type="number"
                                 className="form-control"
@@ -178,6 +181,7 @@ export default function AddProducts() {
                               />
                             </div>
                             <div className="form-group col-md-6">
+                              <p>Product Category: </p>
                               <select
                                 className="select3"
                                 {...register("category")}
@@ -208,8 +212,10 @@ export default function AddProducts() {
                               </select>
                             </div>
                             <div className="form-group col-md-12">
+                              <p>Product Description: </p>
                               <textarea
-                                type="email"
+                                style={{ height: "200px" }}
+                                type="text"
                                 className="form-control"
                                 required="required"
                                 placeholder="Despription"
@@ -217,8 +223,10 @@ export default function AddProducts() {
                               />
                             </div>
                             <div className="form-group col-md-12">
+                              <p>Product Features: </p>
                               <textarea
-                                type="email"
+                                style={{ height: "200px" }}
+                                type="text"
                                 className="form-control"
                                 required="required"
                                 placeholder="Features"
@@ -226,8 +234,10 @@ export default function AddProducts() {
                               />
                             </div>
                             <div className="form-group col-md-12">
+                              <p>Product Specifications: </p>
                               <textarea
-                                type="email"
+                                style={{ height: "200px" }}
+                                type="text"
                                 className="form-control"
                                 required="required"
                                 placeholder="Specifications"
