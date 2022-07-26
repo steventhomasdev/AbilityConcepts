@@ -5,7 +5,7 @@ export default function ODSP() {
     <div>
       <br />
       <h1 style={{ color: "#a8be40" }}>
-        ODSP - Ontario Disability Support Program
+          ODSP - Ontario Disability Support Program
       </h1>
       <hr />
 
@@ -49,7 +49,9 @@ export default function ODSP() {
         you will be presented with the applicable forms.
       </p>
       <br />
-      <a>ODSP Office nearset you</a>
+      <a target="_blank" href="https://www.ontario.ca/page/ontario-disability-support-program">
+        ODSP Office nearset you
+      </a>
 
       <hr />
       <p style={{ color: "#a8be40" }}>RESTRICTIONS:</p>
@@ -59,7 +61,7 @@ export default function ODSP() {
         age Ontario Works: Must be currently on the Ontario Works Program
       </p>
       <br />
-      <a>ODSP Home Page</a>
+      <a target="_blank" href="https://www.ontario.ca/page/social-assistance">ODSP Home Page</a>
     </div>
   );
 }

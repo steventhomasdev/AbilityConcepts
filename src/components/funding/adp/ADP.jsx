@@ -3,7 +3,7 @@ import React from "react";
 export default function ADP() {
   return (
     <div>
-        <br/>
+      <br />
       <h1 style={{ color: "#a8be40" }}>
         ADP - Assistive Devices Program (ADP)
       </h1>
@@ -16,7 +16,12 @@ export default function ADP() {
         Ontario with long-term physical disabilities.
       </p>
       <br />
-      <a>ADP Home Page</a>
+      <a
+        target="_blank"
+        href="https://www.ontario.ca/page/assistive-devices-program"
+      >
+        ADP Home Page
+      </a>
     </div>
   );
 }

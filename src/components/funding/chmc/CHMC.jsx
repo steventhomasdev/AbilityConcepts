@@ -88,7 +88,7 @@ export default function CHMC() {
         416.423.3336 for further information.
       </p>
       <br />
-      <a>CHMC Home Page</a>
+      <a target="_blank" href="https://www.cmhc-schl.gc.ca/en">CHMC Home Page</a>
     </div>
   );
 }

@@ -41,7 +41,9 @@ export default function VAC() {
 
       <p>Must have VAC Card</p>
 
-      <a>Veterans Affairs Canada Home Page</a>
+      <a target="_blank" href="https://www.veterans.gc.ca/eng">
+        Veterans Affairs Canada Home Page
+      </a>
     </div>
   );
 }

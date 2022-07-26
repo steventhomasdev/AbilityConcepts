@@ -108,6 +108,14 @@ export default function NavBar({
     navigate("/myorders", {});
   };
 
+  const OnServiceEducationClick = () => {
+    navigate("/serviceeducation", {});
+  }
+
+  const OnShippingProcedureClick = () => {
+    navigate("/shippingprocedure", {});
+  }
+
   const onDropDownItemClick = (value) => {
     navigate("/funding", {
       state: {
@@ -329,10 +337,10 @@ export default function NavBar({
                             <a>Repair Services</a>
                           </li>
                           <li className="cart-list-txt">
-                            <a>Service Education</a>
+                            <a onClick={OnServiceEducationClick}>Service Education</a>
                           </li>
                           <li className="cart-list-txt">
-                            <a>Shipping Procedure</a>
+                            <a onClick={OnShippingProcedureClick}>Shipping Procedure</a>
                           </li>
                         </ul>
                       </div>

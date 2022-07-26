@@ -22,6 +22,8 @@ import EditProducts from "./components/admin/editproducts/EditProducts";
 import AdminNavBar from "./components/admin/adminnavbar/AdminNavBar";
 import AddProducts from "./components/admin/addproducts/AddProducts";
 import AdminProductListPage from "./components/admin/adminproductlistpage/AdminProductListPage";
+import ServiceEducation from "./components/service_education/ServiceEducation";
+import ShippingProcedure from "./components/shippingprocedure/ShippingProcedure";
 
 function App() {
 
@@ -65,6 +67,8 @@ function App() {
         <Route path="/myorders" element={<MyOrders/>}/>
         <Route path="/aboutus" element={<AboutUs/>}/>
         <Route path="/funding" element={<FundingPage/>}/>
+        <Route path="/serviceeducation" element={<ServiceEducation/>}/>
+        <Route path="/shippingprocedure" element={<ShippingProcedure/>}/>
       </Routes>
       <FooterDetails/>
       <ScrollToTop/>

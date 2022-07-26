@@ -5,7 +5,7 @@ export default function WSIB() {
     <div>
       <br />
       <h1 style={{ color: "#a8be40" }}>
-        WSIB - Workplace Safety & Insurance Board
+          WSIB - Workplace Safety & Insurance Board
       </h1>
       <hr />
 
@@ -54,8 +54,7 @@ export default function WSIB() {
 
       <hr />
       <p style={{ color: "#a8be40" }}>Cost:</p>
-
-      <p>None</p>
+      <a target="_blank" href="https://www.wsib.ca/en">WSIB Home Page</a>
     </div>
   );
 }

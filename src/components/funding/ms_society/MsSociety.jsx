@@ -54,7 +54,7 @@ export default function MsSociety() {
       <p>Toronto ON, M5T 2Z5</p>
 
       <br />
-      <a>MS Society Home Page</a>
+      <a target="_blank" href="https://mssociety.ca/">MS Society Home Page</a>
     </div>
   );
 }

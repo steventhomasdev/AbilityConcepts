@@ -5,6 +5,7 @@ export default function OntarioMarchOfDimes() {
     <div>
       <br />
       <h1 style={{ color: "#a8be40" }}>OMDI - Ontario March of Dimes</h1>
+
       <hr />
 
       <p>
@@ -69,7 +70,12 @@ export default function OntarioMarchOfDimes() {
         another vendor.
       </p>
       <br />
-      <a>MOD Home and Vehicle Modification Program Application Form</a>
+      <a
+        target="_blank"
+        href="https://abilityconcepts.ca/ahc_webimages/modappform.pdf"
+      >
+        MOD Home and Vehicle Modification Program Application Form
+      </a>
       <br />
       <p>
         Please call us at 416.423.3336 or 416.985.4937 should you have any
@@ -85,8 +91,11 @@ export default function OntarioMarchOfDimes() {
         applications sent at the end of each quarter may be delayed or turned
         down.
       </p>
-
-      <a>Ontario March of Dimes Home Page</a>
+      <p>
+        <a target="_blank" href="https://www.marchofdimes.ca/en-ca">
+          Ontario March of Dimes Home Page
+        </a>
+      </p>
     </div>
   );
 }
