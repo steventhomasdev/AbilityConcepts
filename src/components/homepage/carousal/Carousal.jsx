@@ -3,7 +3,7 @@ import OwlCarousel from "react-owl-carousel";
 import "owl.carousel/dist/assets/owl.carousel.css";
 import "owl.carousel/dist/assets/owl.theme.default.css";
 import "./owl.css";
-import { useNavigate, useLocation } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
 export default function Carousal({ products }) {
   const navigate = useNavigate();
@@ -69,11 +69,10 @@ export default function Carousal({ products }) {
                     <h2>{products[0].productName}</h2>
                     <div className="tab-pane fade" id="reviews"></div>
                     <div
-                      dangerouslySetInnerHTML=
-                      {{
+                      dangerouslySetInnerHTML={{
                         __html: products[0].productdescription,
-                      }}>
-                    </div>
+                      }}
+                    ></div>
                     <div className="packages-price">
                       <p>${products[0].productprice}</p>
                     </div>
@@ -123,7 +122,11 @@ export default function Carousal({ products }) {
                   <div className="welcome-hero-txt">
                     <h4>Popular Products</h4>
                     <h2>{products[1].productName}</h2>
-                    <p>{products[1].productdescription}</p>
+                    <div
+                      dangerouslySetInnerHTML={{
+                        __html: products[1].productdescription,
+                      }}
+                    ></div>
                     <div className="packages-price">
                       <p>${products[1].productprice}</p>
                     </div>
@@ -173,7 +176,11 @@ export default function Carousal({ products }) {
                   <div className="welcome-hero-txt">
                     <h4>Popular Products</h4>
                     <h2>{products[2].productName}</h2>
-                    <p>{products[2].productdescription}</p>
+                    <div
+                      dangerouslySetInnerHTML={{
+                        __html: products[2].productdescription,
+                      }}
+                    ></div>
                     <div className="packages-price">
                       <p>${products[2].productprice}</p>
                     </div>

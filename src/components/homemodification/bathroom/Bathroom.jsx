@@ -42,6 +42,7 @@ export default function Bathroom({ images }) {
           </div>
         )}
       </div>
+
       <div>
         <span style={{ color: "#a8be40" }}>
           <b>Walk-In Bathtub : </b>
@@ -54,17 +55,118 @@ export default function Bathroom({ images }) {
         </span>
       </div>
       <hr />
-
       <div>
         <span style={{ color: "#a8be40" }}>
           <b>Accessible Sink : </b>
         </span>
         <span>
           A vanity sink raised or lowered appropriately to allow for space for a
-          wheelchair
+          wheelchair test
         </span>
       </div>
-      <hr />
+      <hr /> 
+
+      <div>
+        <span style={{ color: "#a8be40" }}>
+          <b>Grab bars : </b>
+        </span>
+        <span>
+        Install grab bars in the bathtub, the shower, and on both sides of the toilet. They would also be helpful outside the tub and shower for support and balance.
+        </span>
+      </div>
+      <hr /> 
+      <div>
+        <span style={{ color: "#a8be40" }}>
+          <b>Non-slip and slip resistant mats and strips: </b>
+        </span>
+        <span>
+         Install in bath tub, shower and bathroom floor
+        </span>
+      </div>
+      <hr /> 
+      <div>
+        <span style={{ color: "#a8be40" }}>
+          <b>Transfer seat: </b>
+        </span>
+        <span>
+        Install in tub or build on platform to allow for easy access into and out of shower/bathing area
+        </span>
+      </div>
+      <hr /> 
+
+      <div>
+        <span style={{ color: "#a8be40" }}>
+          <b>Roll-in shower: </b>
+        </span>
+        <span>
+         Install for wheelchair entry
+        </span>
+      </div>
+      <hr /> 
+
+
+      <div>
+        <span style={{ color: "#a8be40" }}>
+          <b>Fold-down shower seat:  </b>
+        </span>
+        <span>
+        Install for comfort during showering
+        </span>
+      </div>
+      <hr /> 
+
+      <div>
+        <span style={{ color: "#a8be40" }}>
+          <b> Anti-scalding devices (water temperature regulator): </b>
+        </span>
+        <span>
+          Install in sinks, showers and bath tubs to prevent burning
+         </span>
+      </div>
+      <hr /> 
+
+
+
+      <div>
+        <span style={{ color: "#a8be40" }}>
+          <b>Raised toilet seat: </b>
+        </span>
+        <span>
+         Install to assist in standing
+        </span>
+      </div>
+      <hr /> 
+
+
+
+      <div>
+        <span style={{ color: "#a8be40" }}>
+          <b>Lever faucet handles: </b>
+        </span>
+        <span>
+          Replace turn-style faucet handles
+        </span>
+      </div>
+      <hr /> 
+
+      <div>
+        <span style={{ color: "#a8be40" }}>
+          <b>Motion Sensor Faucet</b>
+        </span>
+ 
+      </div>
+      <hr /> 
+      <div>
+        <span style={{ color: "#a8be40" }}>
+          <b>Bathtub removal: </b>
+        </span>
+        <span>
+        Bathtubs are the most dangerous place in the house. Replacement of a bathtub by a shower with curtain is the best way to reconfigure your bathroom for maximum safety.
+        </span>
+      </div>
+      <hr /> 
+
     </div>
+
   );
 }

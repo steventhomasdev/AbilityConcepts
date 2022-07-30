@@ -1,4 +1,3 @@
-import { json } from "react-router";
 
   export function GetProductsCat() {
     //https://sfwywf7vs3.execute-api.us-east-2.amazonaws.com/Products_Live/getproductcategories

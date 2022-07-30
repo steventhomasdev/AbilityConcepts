@@ -3,7 +3,16 @@ import { useNavigate } from "react-router-dom";
 import { GetHomeModificationCat, GetProducts } from "../../api/api";
 import Spinner from "../common/spinner/Spinner";
 import Bathroom from "./bathroom/Bathroom";
+import BedRoom from "./bedroom/BedRoom";
+import Entrances from "./entrances/Entrances";
+import Garage from "./garage/Garage";
+import GrabBars from "./grabbars/GrabBars";
+import HallWays from "./hallways/HallWays";
+import Kitchen from "./kitchen/Kitchen";
 import LandingPage from "./landingpage/LandingPage";
+import Lifts from "./lifts/Lifts";
+import Lighting from "./lighting/Lighting";
+import Stairs from "./stairs/Stairs";
 
 export default function HomeModification() {
   const navigate = useNavigate();
@@ -28,9 +37,10 @@ export default function HomeModification() {
     };
 
     for (let i in productCatList){
-        console.log(productCatList[i].cat)
         if(productCatList[i].cat == event.currentTarget.id){
-            setImages(productCatList[i].images.split(","))
+            if(userData.category !== "lighting"){
+                setImages(productCatList[i].images.split(","))
+            }
             setPage(event.currentTarget.id.toLowerCase());
             break;
         }
@@ -43,6 +53,35 @@ export default function HomeModification() {
       case "bathroom":
         return <Bathroom images={images}/>;
 
+      case "grab bars":
+        return <GrabBars images={images}/>;
+
+      case "bedroom":
+        return <BedRoom images={images}/>;
+        
+      case "entrences":
+        return <Entrances images={images}/>;
+
+      case "garage":
+          return <Garage images={images}/>;
+
+      case "hallways":
+          return <HallWays images={images}/>;
+      
+      case "kitchen":
+          return <Kitchen images={images}/>;
+      
+      case "stairs":
+          return <Stairs images={images}/>;
+      
+      case "lighting":
+            return <Lighting/>;
+
+     case "lifts/slings":
+              return <Lifts images={images}/>;
+
+      
+  
       default:
         return <LandingPage />;
     }
