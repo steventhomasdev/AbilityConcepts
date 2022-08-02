@@ -15,7 +15,7 @@ body {
   font-size: 16px;
   color: #a09e9c;
   background: #fff;
-  text-transform: capitalize;
+  /* text-transform: capitalize; */
   max-width: 1920px;
   margin: 0 auto;
   overflow-x: hidden;
@@ -2408,3 +2408,21 @@ select {
 }
 input.qtyplus { width:35px; height:35px;}
 input.qtyminus { width:35px; height:35px;}
+
+.bulletPoint > li {
+  list-style: square;
+}
+
+.bulletPoint
+{
+  margin-top:20px; margin-left:15px
+}
+
+input[type=checkbox] {
+  transform: scale(1.5);
+}
+
+.nav-pills > .active {
+  color: #a8be40;
+  font: bold;
+}

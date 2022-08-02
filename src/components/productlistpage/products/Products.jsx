@@ -8,7 +8,7 @@ import "./style/Style.css";
 export default function Products({ productsList }) {
   const navigate = useNavigate();
   const { state } = useLocation();
-  const [productCatList, setproductCatList] = useState("empty");
+  const [productCatList, setproductCatList] = useState([]);
   const products = productsList.products.data.body;
   const [loading, setLoading] = useState(true);
   const [searchString, setSearchString] = useState("");
@@ -16,7 +16,20 @@ export default function Products({ productsList }) {
 
   const fetchData = useCallback(() => {
     GetProductsCat()
-      .then((data) => setproductCatList(data.body))
+      .then((data) => {
+
+        
+        const tempList = data.body.map((obj, index) => {
+          if (obj["cat"] == "Rentals") {
+            obj["isActive"] = true;
+          } else {
+            obj["isActive"] = false;
+          }
+          return obj;
+        });
+        setproductCatList(tempList);
+
+      })
       .then(setLoading(false));
   }, []);
 
@@ -67,9 +80,17 @@ export default function Products({ productsList }) {
     });
   };
 
-  const onCategoryClick = (event) => {
+  const onCategoryClick = (event, categoriesData) => {
+    productCatList.map((category, index) => {
+      if (category.cat === categoriesData.cat) {
+        category["isActive"] = true;
+      } else {
+        category["isActive"] = false;
+      }
+    });
+
     const userData = {
-      category: (event.currentTarget.id).toLowerCase(),
+      category: event.currentTarget.id.toLowerCase(),
     };
 
     GetProducts(userData).then((data) => {
@@ -127,9 +148,17 @@ export default function Products({ productsList }) {
                     <h2>Categories</h2>
                     <div className="brands-name">
                       <ul className="nav nav-pills nav-stacked">
-                        {productCatList?.map((category) => (
-                          <li>
-                            <a onClick={onCategoryClick} id={category.cat}>
+                        {productCatList?.map((category, index) => (
+                          <li className="active" key={index}>
+                            <a
+                              style={{
+                                color: category.isActive ? "#a8be40" : "black",
+                              }}
+                              onClick={(event) =>
+                                onCategoryClick(event, category)
+                              }
+                              id={category.cat}
+                            >
                               {category.cat}
                             </a>
                           </li>

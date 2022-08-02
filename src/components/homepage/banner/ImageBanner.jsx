@@ -1,10 +1,13 @@
 import React from "react";
+import { useNavigate } from "react-router-dom";
 import OwlCarousel from "react-owl-carousel";
 import "owl.carousel/dist/assets/owl.carousel.css";
 import "owl.carousel/dist/assets/owl.theme.default.css";
 import "./owl.css";
 
 export default function ImageBanner() {
+  const navigate = useNavigate();
+
   return (
     <div>
       <section id="sofa-collection">
@@ -25,46 +28,28 @@ export default function ImageBanner() {
             <div className="sofa-collection collectionbg1">
               <div className="container">
                 <div className="sofa-collection-txt">
-                  <h2>unlimited sofa collection</h2>
+                  <h2>Ability Concepts</h2>
                   <p>
-                    Lorem ipsum dolor sit amet, consectetur adipisicing elit,
-                    sed do eiusmod tempor incididunt ut labore et dolore magna
-                    aliqua. Ut enim ad minim veniam, quis nostrud exercitation
-                    ullamco laboris nisi ut aliquip ex ea commodo consequat.
+                    Ability Concepts is committed to improve the quality of
+                    lives for people with disabilities. In achieving this
+                    mandate, we have made available a wide spectrum of products
+                    and services tailored to meet the individualistic needs of
+                    patients, health care professionals, governmental bodies and
+                    insurance corporations.
                   </p>
-                  <div className="sofa-collection-price">
-                    <h4>
-                      strting from <span>$ 199</span>
-                    </h4>
-                  </div>
-                  <button
-                    className="btn-cart welcome-add-cart sofa-collection-btn"
-                  >
-                    view more
-                  </button>
                 </div>
               </div>
             </div>
             <div className="sofa-collection collectionbg2">
               <div className="container">
                 <div className="sofa-collection-txt">
-                  <h2>unlimited dainning table collection</h2>
+                  <h2>Misson statement</h2>
                   <p>
-                    Lorem ipsum dolor sit amet, consectetur adipisicing elit,
-                    sed do eiusmod tempor incididunt ut labore et dolore magna
-                    aliqua. Ut enim ad minim veniam, quis nostrud exercitation
-                    ullamco laboris nisi ut aliquip ex ea commodo consequat.
+                    Ability Concepts will lead the way to the future of
+                    accessibility, mobility, health and wellness, enriching
+                    Canadian lives and communities with innovative ideas and
+                    technologies.
                   </p>
-                  <div className="sofa-collection-price">
-                    <h4>
-                      strting from <span>$ 299</span>
-                    </h4>
-                  </div>
-                  <button
-                    className="btn-cart welcome-add-cart sofa-collection-btn"
-                  >
-                    view more
-                  </button>
                 </div>
               </div>
             </div>

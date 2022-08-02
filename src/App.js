@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Route, Routes } from "react-router-dom";
+import { Route, Routes} from "react-router-dom";
 import Accountpage from "./components/accountpage/Accountpage";
 import TopSpacing from "./components/common/advertisement/TopSpacing";
 import Footer from "./components/common/footer/Footer";
@@ -25,6 +25,7 @@ import AdminProductListPage from "./components/admin/adminproductlistpage/AdminP
 import ServiceEducation from "./components/service_education/ServiceEducation";
 import ShippingProcedure from "./components/shippingprocedure/ShippingProcedure";
 import HomeModification from "./components/homemodification/HomeModification";
+import FeaturedItems from "./components/admin/featuredItems/FeaturedItems";
 
 function App() {
 
@@ -45,6 +46,7 @@ function App() {
           <Route path="/editproducts/*" element={<EditProducts/>}/>
           <Route path="/addproducts" element={<AddProducts/>}/>
           <Route path="/orderdetails" element={<OrderDetails/>}/>
+          <Route path="/featureditems" element={<FeaturedItems/>}/>
         </Routes>
         <FooterDetails/>
         <ScrollToTop/>

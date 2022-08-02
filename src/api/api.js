@@ -11,17 +11,17 @@
     }).then((data) => data.json());
   }
 
-  export function GetProductsForHomePage() {
-    //https://wx6r3vnf7d.execute-api.us-east-2.amazonaws.com/Products_Live/getproducts
-    return fetch("https://wx6r3vnf7d.execute-api.us-east-2.amazonaws.com/Products_Live/getproducts", {
-      method: "GET",
-      headers: {
-        'Content-Type': "application/json",
-        'Accept': "application/json",
-      },
-      body: JSON.stringify(),
-    }).then((data) => data.json());
-  }
+  // export function GetProductsForHomePage(userData) {
+  //   //https://wx6r3vnf7d.execute-api.us-east-2.amazonaws.com/Products_Live/getproducts
+  //   return fetch("https://wx6r3vnf7d.execute-api.us-east-2.amazonaws.com/Products_Live/getproducts", {
+  //     method: "GET",
+  //     headers: {
+  //       'Content-Type': "application/json",
+  //       'Accept': "application/json",
+  //     },
+  //     body: JSON.stringify(userData),
+  //   }).then((data) => data.json());
+  // }
 
   export function GetProducts(userData) {
     //https://wx6r3vnf7d.execute-api.us-east-2.amazonaws.com/Products_Live/getproducts
@@ -32,6 +32,18 @@
         'Accept': "application/json",
       },
       body: JSON.stringify(userData),
+    }).then((data) => data.json());
+  }
+
+  export function GetFeturedProducts() {
+    //https://79boofcwrc.execute-api.us-east-2.amazonaws.com/staging/featuredproducts
+    return fetch("https://79boofcwrc.execute-api.us-east-2.amazonaws.com/staging/featuredproducts", {
+      method: "POST",
+      headers: {
+        'Content-Type': "application/json",
+        'Accept': "application/json",
+      },
+      body: JSON.stringify(),
     }).then((data) => data.json());
   }
 

@@ -236,7 +236,7 @@ export default function Products({ product }) {
                             Product Details
                           </h2>
                           <div className="row">
-                            <p className="col-sm-10">
+                            <p className="col-sm-9">
                               Product Id : {currentProduct._id}
                             </p>
                             <button
@@ -390,7 +390,11 @@ export default function Products({ product }) {
                             Update Image
                           </button>
                         </div>
-                        <div></div>
+                        <div className="card card-1">
+                          <div class="switch" style={{fontSize: "18px"}}>
+                          <span><input type="checkbox"/><span> - </span>This is a featured product</span>
+                          </div>
+                        </div>
                       </div>
                     </div>
                   </div>

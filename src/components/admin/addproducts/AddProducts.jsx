@@ -89,6 +89,7 @@ export default function AddProducts() {
 
   const handleFileUpload = async () => {
     const file = getValues("file")[0];
+    console.log({file})
     const base64 = await convertToBase64(file);
     setPostImage(base64);
   };

@@ -8,6 +8,25 @@ export default function Stairs({ images }) {
       <h1 style={{ color: "#a8be40" }}>STAIRS MODIFICATION</h1>
       <hr />
       <br />
+      <div>
+        <span style={{ color: "#a8be40" }}>
+          <b>Stair Lift/Glide: </b>
+        </span>
+        <span>
+         Temporary or permanent device to provide movement up and down stairs. Available in curved or straight configurations
+        </span>
+      </div>
+      <hr />
+      <div>
+        <span style={{ color: "#a8be40" }}>
+          <b>Railings: </b>
+        </span>
+        <span>
+        Install for added support
+       </span>
+      </div>
+      <hr /> 
+
       <div className="row">
         {images != undefined ? (
           images?.map((image) => (
@@ -42,27 +61,8 @@ export default function Stairs({ images }) {
           </div>
         )}
       </div>
-
-      <div>
-        <span style={{ color: "#a8be40" }}>
-          <b>Stair Lift/Glide: </b>
-        </span>
-        <span>
-         Temporary or permanent device to provide movement up and down stairs. Available in curved or straight configurations
-        </span>
-      </div>
-      <hr />
-      <div>
-        <span style={{ color: "#a8be40" }}>
-          <b>Railings: </b>
-        </span>
-        <span>
-        Install for added support
-       </span>
-      </div>
-      <hr /> 
-      
     </div>
+    
 
   );
 }

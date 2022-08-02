@@ -29,14 +29,12 @@ import { GetProductsCat, LoginAuthentication } from "./api/api";
 //     return GetProductsCat().then((data) => {
 //       expect(data.StatusCode).toEqual("200");
 //     });
-//   });
-// });
-
+//   });o0poj 
 // describe("GetProductsCat Api test", () => {
 //   test("get all product categories", async () => {
 
 //     return GetProductsCat().then((data) => {
-//       expect(data).toEqual(200);
+//       expect(data).toEqual(200); 
 //     });
 //   });
 // });
@@ -57,7 +55,7 @@ import { GetProductsCat, LoginAuthentication } from "./api/api";
 // });
 
 // describe("Login API tests", () => {
-//   test("login fail", async () => {
+//   test("login fai", async () => {
 
 //     const userData = {
 //       email: "steven@gmail.com",
