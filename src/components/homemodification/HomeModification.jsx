@@ -15,7 +15,6 @@ import Lighting from "./lighting/Lighting";
 import Stairs from "./stairs/Stairs";
 
 export default function HomeModification() {
-  const navigate = useNavigate();
   const [productCatList, setproductCatList] = useState("empty");
   const [loading, setLoading] = useState(true);
   const [page, setPage] = useState("");
@@ -23,7 +22,13 @@ export default function HomeModification() {
 
   const fetchData = useCallback(() => {
     GetHomeModificationCat()
-      .then((data) => setproductCatList(data.body))
+      .then((data) => {
+        const tempList = data.body.map((obj) => {
+          obj["isActive"] = false;
+          return obj;
+        });
+        setproductCatList(tempList);
+      })
       .then(setLoading(false));
   }, []);
 
@@ -36,52 +41,54 @@ export default function HomeModification() {
       category: event.currentTarget.id.toLowerCase(),
     };
 
-    for (let i in productCatList){
-        if(productCatList[i].cat == event.currentTarget.id){
-            if(userData.category !== "lighting"){
-                setImages(productCatList[i].images.split(","))
-            }
-            setPage(event.currentTarget.id.toLowerCase());
-            break;
-        }
-    }
+    productCatList?.map((category) => {
+      category["isActive"] = false;
+    });
 
+    for (let i in productCatList) {
+      if (productCatList[i].cat == event.currentTarget.id) {
+        productCatList[i]["isActive"] = true;
+        if (userData.category !== "lighting") {
+          setImages(productCatList[i].images.split(","));
+        }
+        setPage(event.currentTarget.id.toLowerCase());
+        break;
+      }
+    }
   };
 
   const DisplayPage = () => {
     switch (page) {
       case "bathroom":
-        return <Bathroom images={images}/>;
+        return <Bathroom images={images} />;
 
       case "grab bars":
-        return <GrabBars images={images}/>;
+        return <GrabBars images={images} />;
 
       case "bedroom":
-        return <BedRoom images={images}/>;
-        
+        return <BedRoom images={images} />;
+
       case "entrences":
-        return <Entrances images={images}/>;
+        return <Entrances images={images} />;
 
       case "garage":
-          return <Garage images={images}/>;
+        return <Garage images={images} />;
 
       case "hallways":
-          return <HallWays images={images}/>;
-      
+        return <HallWays images={images} />;
+
       case "kitchen":
-          return <Kitchen images={images}/>;
-      
+        return <Kitchen images={images} />;
+
       case "stairs":
-          return <Stairs images={images}/>;
-      
+        return <Stairs images={images} />;
+
       case "lighting":
-            return <Lighting/>;
+        return <Lighting />;
 
-     case "lifts/slings":
-              return <Lifts images={images}/>;
+      case "lifts/slings":
+        return <Lifts images={images} />;
 
-      
-  
       default:
         return <LandingPage />;
     }
@@ -112,7 +119,15 @@ export default function HomeModification() {
                       <ul className="nav nav-pills nav-stacked">
                         {productCatList?.map((category) => (
                           <li>
-                            <a onClick={onCategoryClick} id={category.cat}>
+                            <a
+                              style={{
+                                color: category.isActive
+                                  ? "#a8be40"
+                                  : "#696763",
+                              }}
+                              onClick={onCategoryClick}
+                              id={category.cat}
+                            >
                               {category.cat}
                             </a>
                           </li>
@@ -168,13 +183,13 @@ export default function HomeModification() {
   //                   </div>
   //                 </div>
   //               </div>
-                // <div className="col-sm-9 padding-right">
-                //   <div className="features_items">
-                //     <div className="row">
+  // <div className="col-sm-9 padding-right">
+  //   <div className="features_items">
+  //     <div className="row">
 
-                //     </div>
-                //   </div>
-                // </div>
+  //     </div>
+  //   </div>
+  // </div>
   //             </div>
   //           </div>
   //         </section>

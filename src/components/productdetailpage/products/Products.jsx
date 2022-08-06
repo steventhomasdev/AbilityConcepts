@@ -1,15 +1,12 @@
 import React, { useState } from "react";
 import { AddItemsToCart } from "../../../api/api";
 import { getToken } from "../../utls/Session";
+import Magnifier from "react-magnifier";
 
 export default function Products({ product, setCartCount, SetloginPopUp }) {
   const currentProduct = product.products.userData.product;
   const [loading, setLoading] = useState(false);
   const [quantity, setQuantity] = useState(1);
-
-  //   const quantityChange = (event) => {
-  //     setQuantity(event.target.value);
-  //   };
 
   const quantityChange = (event) => {
     if (event.target.value === "+") {
@@ -67,10 +64,25 @@ export default function Products({ product, setCartCount, SetloginPopUp }) {
                     className="product_details_card card-1"
                     style={{ textAlign: "center" }}
                   >
-                    <img
-                      src={currentProduct.productimage}
-                      alt={currentProduct.productName}
-                    />
+                    <Magnifier 
+                    mgShape = "square"
+                    src={currentProduct.productimage}
+                     />;
+                    {/* <ReactImageMagnify
+                      {...{
+                        enlargedImageContainerClassName: "product_details_card card-1",
+                        smallImage: {
+                          alt: currentProduct.productName,
+                          isFluidWidth: true,
+                          src: currentProduct.productimage,
+                        },
+                        largeImage: {
+                          src: currentProduct.productimage,
+                          width: 1200,
+                          height: 1800,
+                        },
+                      }}
+                    /> */}
                   </div>
                   <div id="similar-product"></div>
                 </div>
@@ -86,7 +98,7 @@ export default function Products({ product, setCartCount, SetloginPopUp }) {
                         __html: currentProduct.productdescription,
                       }}
                     ></div>
-                    <br/>
+                    <br />
                     <p>
                       <form id="myform" class="quantity">
                         <input

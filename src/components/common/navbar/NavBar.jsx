@@ -110,15 +110,19 @@ export default function NavBar({
 
   const OnServiceEducationClick = () => {
     navigate("/serviceeducation", {});
-  }
+  };
 
   const OnShippingProcedureClick = () => {
     navigate("/shippingprocedure", {});
-  }
+  };
 
   const OnHomeModificationClick = () => {
-    navigate("/homemodification")
-  }
+    navigate("/homemodification");
+  };
+
+  const OnRepairServiceClick = () => {
+    navigate("/repairservices");
+  };
 
   const onDropDownItemClick = (value) => {
     navigate("/funding", {
@@ -299,30 +303,13 @@ export default function NavBar({
                         Products
                       </NavLink>
                     </li>
-                    <li>
-                      <NavLink
-                        exact="true"
-                        activeclassname="scroll active"
-                        end
-                        to={"/productlist"}
-                      >
-                        Rentals
-                      </NavLink>
-                    </li>
                     <li
                       onMouseEnter={servicesDropDownToggle}
                       onMouseLeave={servicesDropDownToggle}
                     >
-                      <NavLink
-                        exact="true"
-                        activeclassname="scroll active"
-                        end
-                        to={"/services"}
-                      >
-                        Services
-                        <span> </span>
-                        <i className="fa fa-caret-down"></i>
-                      </NavLink>
+                      <a>
+                      Services <i className="fa fa-caret-down"></i>
+                      </a>
                       <div
                         style={
                           servicesDropDown
@@ -335,16 +322,24 @@ export default function NavBar({
                           style={{ display: "block" }}
                         >
                           <li className="cart-list-txt">
-                            <a onClick={OnHomeModificationClick}>Home modification</a>
+                            <a onClick={OnHomeModificationClick}>
+                              Home modification
+                            </a>
                           </li>
                           <li className="cart-list-txt">
-                            <a>Repair Services</a>
+                            <a onClick={OnRepairServiceClick}>
+                              Repair Services
+                            </a>
                           </li>
                           <li className="cart-list-txt">
-                            <a onClick={OnServiceEducationClick}>Service Education</a>
+                            <a onClick={OnServiceEducationClick}>
+                              Service Education
+                            </a>
                           </li>
                           <li className="cart-list-txt">
-                            <a onClick={OnShippingProcedureClick}>Shipping Procedure</a>
+                            <a onClick={OnShippingProcedureClick}>
+                              Shipping Procedure
+                            </a>
                           </li>
                         </ul>
                       </div>

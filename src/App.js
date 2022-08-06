@@ -26,6 +26,8 @@ import ServiceEducation from "./components/service_education/ServiceEducation";
 import ShippingProcedure from "./components/shippingprocedure/ShippingProcedure";
 import HomeModification from "./components/homemodification/HomeModification";
 import FeaturedItems from "./components/admin/featuredItems/FeaturedItems";
+import RepairServices from "./components/repair_service/RepairServices";
+import IessSanitizer from "./components/iess_sanitizer/IessSanitizer";
 
 function App() {
 
@@ -76,6 +78,8 @@ function App() {
         <Route path="/serviceeducation" element={<ServiceEducation/>}/>
         <Route path="/shippingprocedure" element={<ShippingProcedure/>}/>
         <Route path="/homemodification" element={<HomeModification/>}/>
+        <Route path="/repairservices" element={<RepairServices/>}></Route>
+        <Route path="repairservices/iesssanitizer" element={<IessSanitizer/>}></Route>
       </Routes>
       <FooterDetails/>
       <ScrollToTop/>

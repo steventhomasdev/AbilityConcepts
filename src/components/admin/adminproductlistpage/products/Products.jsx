@@ -2,22 +2,40 @@ import React, { useState, useCallback, useEffect } from "react";
 import { useNavigate, useLocation } from "react-router-dom";
 import { GetProducts, GetProductsCat } from "../../../../api/api";
 import Spinner from "../../../common/spinner/Spinner";
-import SpinnerSmall from "../../../common/spinnersmall/SpinnerSmall";
 import "./style/Style.css";
 
 export default function Products({ productsList }) {
   const navigate = useNavigate();
-  const { state } = useLocation();
-  const [productCatList, setproductCatList] = useState("empty");
-  const products = productsList.products.data.body;
-  const [loading, setLoading] = useState(true);
+  const [productCatList, setproductCatList] = useState();
+  const [products, setProducts] = useState(productsList.products.data.body);
   const [searchString, setSearchString] = useState("");
   const [productLoading, setProductLoading] = useState(false);
 
   const fetchData = useCallback(() => {
-    GetProductsCat()
-      .then((data) => setproductCatList(data.body))
-      .then(setLoading(false));
+    GetProductsCat().then((data) => {
+
+      const cat = products ? products[0].productCat : "Rollators"
+
+      const tempList = data.body.map((obj) => {
+        if (obj["cat"].toLowerCase() == cat) {
+          obj["isActive"] = true;
+        } else {
+          obj["isActive"] = false;
+        }
+        return obj;
+      });
+      setproductCatList(tempList);
+    });
+
+    if (products === "No Products") {
+      const userData = {
+        category: "all",
+      };
+
+      GetProducts(userData).then((data) => {
+        setProducts(data.body);
+      });
+    }
   }, []);
 
   useEffect(() => {
@@ -36,12 +54,7 @@ export default function Products({ productsList }) {
     };
 
     GetProducts(userData).then((data) => {
-      navigate("/productlist", {
-        replace: true,
-        state: {
-          products: { data },
-        },
-      });
+      setProducts(data.body);
     });
 
     setTimeout(() => {
@@ -60,28 +73,33 @@ export default function Products({ productsList }) {
       }
     }
 
-    // ?product=${userData.product._id}
-
-    navigate(`/editproducts`, {
+    navigate("/editproducts", {
       state: {
         products: { userData },
       },
     });
   };
 
-  const onCategoryClick = (event) => {
+  const onCategoryClick = (event, categoriesData) => {
+    setProductLoading(true);
+    productCatList.map((category, index) => {
+      if (category.cat === categoriesData.cat) {
+        category["isActive"] = true;
+      } else {
+        category["isActive"] = false;
+      }
+    });
+
     const userData = {
-      category: event.currentTarget.id,
+      category: event.currentTarget.id.toLowerCase(),
     };
 
     GetProducts(userData).then((data) => {
-      navigate("/productlist", {
-        replace: true,
-        state: {
-          products: { data },
-        },
-      });
+      setProducts(data.body);
     });
+    setTimeout(() => {
+      setProductLoading(false);
+    }, 1000);
   };
 
   return (
@@ -96,7 +114,7 @@ export default function Products({ productsList }) {
               <li className="active">Products</li>
             </ol>
           </div>
-          {loading || productCatList === "empty" ? (
+          {productCatList === undefined ? (
             <div className="loading">
               <Spinner />
             </div>
@@ -110,28 +128,32 @@ export default function Products({ productsList }) {
                     placeholder="What are you looking for?"
                     onChange={getInputValue}
                   />
-                  {productLoading ? (
-                    <div className="loading">
-                      <SpinnerSmall />
-                    </div>
-                  ) : (
-                    <button
-                      type="submit"
-                      className="searchButton"
-                      onClick={onSearchButtonClick}
-                    >
-                      <i className="fa fa-search"></i>
-                    </button>
-                  )}
+                  <button
+                    type="submit"
+                    className="searchButton"
+                    onClick={onSearchButtonClick}
+                  >
+                    <i className="fa fa-search"></i>
+                  </button>
                 </div>
                 <div className="left-sidebar">
                   <div className="brands_products" style={{ marginTop: "5%" }}>
                     <h2>Categories</h2>
                     <div className="brands-name">
                       <ul className="nav nav-pills nav-stacked">
-                        {productCatList?.map((category) => (
-                          <li>
-                            <a onClick={onCategoryClick} id={category.cat}>
+                        {productCatList?.map((category, index) => (
+                          <li className="active" key={index}>
+                            <a
+                              style={{
+                                color: category.isActive
+                                  ? "#a8be40"
+                                  : "#696763",
+                              }}
+                              onClick={(event) =>
+                                onCategoryClick(event, category)
+                              }
+                              id={category.cat}
+                            >
                               {category.cat}
                             </a>
                           </li>
@@ -143,64 +165,70 @@ export default function Products({ productsList }) {
               </div>
               <div className="col-sm-9 padding-right">
                 <div className="features_items">
-                  <div className="row">
-                    {products != "No Products" || loading ? (
-                      products?.map((product) => (
-                        <div className="col-md-3 col-sm-4">
-                          <div
-                            className="single-new-arrival"
-                            onClick={onProductClick}
-                            id={[product._id]}
-                          >
-                            <div className="single-new-arrival-bg">
-                              <img
-                                src={product.productimage}
-                                alt={product.productName}
-                              />
-                              <div className="single-new-arrival-bg-overlay"></div>
-                              <div className="new-arrival-cart">
-                                <p>
-                                  <a>
-                                    View <span>details </span>
-                                  </a>
-                                </p>
-                                <p className="arrival-review pull-right">
-                                  <span className="lnr lnr-frame-expand"></span>
-                                </p>
-                              </div>
-                            </div>
-                            <h4>
-                              <a>{product.productName}</a>
-                            </h4>
-                            <p className="arrival-product-price">
-                              ${product.productprice}
-                            </p>
-                          </div>
-                        </div>
-                      ))
-                    ) : (
-                      <div className="col-sm-9 padding-right">
-                        <div className="features_items">
-                          <div className="row">
+                  {productLoading ? (
+                    <div className="loading">
+                      <Spinner />
+                    </div>
+                  ) : (
+                    <div className="row">
+                      {products != "No Products" ? (
+                        products?.map((product, index) => (
+                          <div className="col-md-3 col-sm-4" key={index}>
                             <div
-                              className="d-flex justify-content-center align-items-center"
-                              id="main"
+                              className="single-new-arrival"
+                              onClick={onProductClick}
+                              id={[product._id]}
                             >
-                              <div className="inline-block align-middle">
-                                <h2
-                                  className="font-weight-normal lead"
-                                  id="desc"
-                                >
-                                  No Results Found try with different search
-                                  keyword.
-                                </h2>
+                              <div className="single-new-arrival-bg">
+                                <img
+                                  src={product.productimage}
+                                  alt={product.productName}
+                                />
+                                <div className="single-new-arrival-bg-overlay"></div>
+                                <div className="new-arrival-cart">
+                                  <p>
+                                    <a>
+                                      View <span>details </span>
+                                    </a>
+                                  </p>
+                                  <p className="arrival-review pull-right">
+                                    <span className="lnr lnr-frame-expand"></span>
+                                  </p>
+                                </div>
+                              </div>
+                              <h4>
+                                <a>{product.productName}</a>
+                              </h4>
+                              <p className="arrival-product-price">
+                                ${product.productprice}
+                              </p>
+                            </div>
+                          </div>
+                        ))
+                      ) : (
+                        <div className="col-sm-9 padding-right">
+                          <div className="features_items">
+                            <div className="row">
+                              <div
+                                className="d-flex justify-content-center align-items-center"
+                                id="main"
+                              >
+                                <div className="inline-block align-middle">
+                                  <h2
+                                    className="font-weight-normal lead"
+                                    id="desc"
+                                  >
+                                    No Results Found try with different search
+                                    keyword.
+                                  </h2>
+                                </div>
                               </div>
                             </div>
                           </div>
                         </div>
-                      </div>
-                    )}
-                  </div>
+                      )}
+                    </div>
+                  )}
                 </div>
               </div>
             </div>
