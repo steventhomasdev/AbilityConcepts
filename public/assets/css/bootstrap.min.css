@@ -1090,7 +1090,7 @@
     line-height: inherit;
   }
   a {
-    color: #337ab7;
+    color: #a8be40;
     text-decoration: none;
   }
   a:focus,
@@ -1331,7 +1331,7 @@
     color: #777;
   }
   .text-primary {
-    color: #337ab7;
+    color: #a8be40;
   }
   a.text-primary:focus,
   a.text-primary:hover {
@@ -1367,7 +1367,7 @@
   }
   .bg-primary {
     color: #fff;
-    background-color: #337ab7;
+    background-color: #a8be40;
   }
   a.bg-primary:focus,
   a.bg-primary:hover {
@@ -3169,7 +3169,7 @@
   }
   .btn-primary {
     color: #fff;
-    background-color: #337ab7;
+    background-color: #a8be40;
     border-color: #2e6da4;
   }
   .btn-primary.focus,
@@ -3217,11 +3217,11 @@
   fieldset[disabled] .btn-primary.focus,
   fieldset[disabled] .btn-primary:focus,
   fieldset[disabled] .btn-primary:hover {
-    background-color: #337ab7;
+    background-color: #a8be40;
     border-color: #2e6da4;
   }
   .btn-primary .badge {
-    color: #337ab7;
+    color: #a8be40;
     background-color: #fff;
   }
   .btn-success {
@@ -3454,7 +3454,7 @@
   }
   .btn-link {
     font-weight: 400;
-    color: #337ab7;
+    color: #a8be40;
     border-radius: 0;
   }
   .btn-link,
@@ -3623,7 +3623,7 @@
   .dropdown-menu > .active > a:hover {
     color: #fff;
     text-decoration: none;
-    background-color: #337ab7;
+    background-color: #a8be40;
     outline: 0;
   }
   .dropdown-menu > .disabled > a:focus,
@@ -4055,7 +4055,7 @@
   .nav .open > a:focus,
   .nav .open > a:hover {
     background-color: #eee;
-    border-color: #337ab7;
+    border-color: #a8be40;
   }
   .nav .nav-divider {
     height: 1px;
@@ -4148,7 +4148,7 @@
   .nav-pills > li.active > a:focus,
   .nav-pills > li.active > a:hover {
     color: #fff;
-    background-color: #337ab7;
+    background-color: #a8be40;
   }
   .nav-stacked > li {
     float: none;
@@ -4778,7 +4778,7 @@
     padding: 6px 12px;
     margin-left: -1px;
     line-height: 1.42857143;
-    color: #337ab7;
+    color: #a8be40;
     text-decoration: none;
     background-color: #fff;
     border: 1px solid #ddd;
@@ -4812,8 +4812,8 @@
     z-index: 3;
     color: #fff;
     cursor: default;
-    background-color: #337ab7;
-    border-color: #337ab7;
+    background-color: #a8be40;
+    border-color: #a8be40;
   }
   .pagination > .disabled > a,
   .pagination > .disabled > a:focus,
@@ -4929,7 +4929,7 @@
     background-color: #5e5e5e;
   }
   .label-primary {
-    background-color: #337ab7;
+    background-color: #a8be40;
   }
   .label-primary[href]:focus,
   .label-primary[href]:hover {
@@ -4997,7 +4997,7 @@
   }
   .list-group-item.active > .badge,
   .nav-pills > .active > a > .badge {
-    color: #337ab7;
+    color: #a8be40;
     background-color: #fff;
   }
   .list-group-item > .badge {
@@ -5072,7 +5072,7 @@
   a.thumbnail.active,
   a.thumbnail:focus,
   a.thumbnail:hover {
-    border-color: #337ab7;
+    border-color: #a8be40;
   }
   .thumbnail .caption {
     padding: 9px;
@@ -5178,7 +5178,7 @@
     line-height: 20px;
     color: #fff;
     text-align: center;
-    background-color: #337ab7;
+    background-color: #a8be40;
     -webkit-box-shadow: inset 0 -1px 0 rgba(0, 0, 0, 0.15);
     box-shadow: inset 0 -1px 0 rgba(0, 0, 0, 0.15);
     -webkit-transition: width 0.6s ease;
@@ -5476,8 +5476,8 @@
   .list-group-item.active:hover {
     z-index: 2;
     color: #fff;
-    background-color: #337ab7;
-    border-color: #337ab7;
+    background-color: #a8be40;
+    border-color: #a8be40;
   }
   .list-group-item.active .list-group-item-heading,
   .list-group-item.active .list-group-item-heading > .small,
@@ -5980,22 +5980,22 @@
     border-bottom-color: #ddd;
   }
   .panel-primary {
-    border-color: #337ab7;
+    border-color: #a8be40;
   }
   .panel-primary > .panel-heading {
     color: #fff;
-    background-color: #337ab7;
-    border-color: #337ab7;
+    background-color: #a8be40;
+    border-color: #a8be40;
   }
   .panel-primary > .panel-heading + .panel-collapse > .panel-body {
-    border-top-color: #337ab7;
+    border-top-color: #a8be40;
   }
   .panel-primary > .panel-heading .badge {
-    color: #337ab7;
+    color: #a8be40;
     background-color: #fff;
   }
   .panel-primary > .panel-footer + .panel-collapse > .panel-body {
-    border-bottom-color: #337ab7;
+    border-bottom-color: #a8be40;
   }
   .panel-success {
     border-color: #d6e9c6;

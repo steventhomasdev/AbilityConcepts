@@ -3,6 +3,7 @@ import { useNavigate, useLocation } from "react-router-dom";
 import { GetProducts, GetProductsCat } from "../../../../api/api";
 import Spinner from "../../../common/spinner/Spinner";
 import "./style/Style.css";
+import ReactPaginate from "react-paginate";
 
 export default function Products({ productsList }) {
   const navigate = useNavigate();
@@ -11,17 +12,17 @@ export default function Products({ productsList }) {
   const [searchString, setSearchString] = useState("");
   const [productLoading, setProductLoading] = useState(false);
 
+  //pagination
+
+  const [currentItems, setCurrentItems] = useState();
+  const [pageCount, setPageCount] = useState(0);
+  const [itemOffset, setItemOffset] = useState(0);
+
   const fetchData = useCallback(() => {
+    const endOffset = itemOffset + 8;
     GetProductsCat().then((data) => {
-
-      const cat = products ? products[0].productCat : "Rollators"
-
       const tempList = data.body.map((obj) => {
-        if (obj["cat"].toLowerCase() == cat) {
-          obj["isActive"] = true;
-        } else {
-          obj["isActive"] = false;
-        }
+        obj["isActive"] = false;
         return obj;
       });
       setproductCatList(tempList);
@@ -34,20 +35,37 @@ export default function Products({ productsList }) {
 
       GetProducts(userData).then((data) => {
         setProducts(data.body);
+        setCurrentItems(data.body.slice(itemOffset, endOffset));
       });
     }
   }, []);
 
+  const pagination = () => {
+    const endOffset = itemOffset + 8;
+    setCurrentItems(products.slice(itemOffset, endOffset));
+    setPageCount(Math.ceil(products.length / 8));
+  };
+
   useEffect(() => {
     fetchData();
-  }, [fetchData]);
+  }, []);
+
+  useEffect(() => {
+    pagination()
+  }, [itemOffset]);
 
   const getInputValue = (event) => {
     const userValue = event.target.value;
     setSearchString(userValue);
   };
 
+  const handlePageClick = (event) => {
+    const newOffset = (event.selected * 8) % products.length;
+    setItemOffset(newOffset);
+  };
+
   const onSearchButtonClick = () => {
+    const endOffset = itemOffset + 8;
     setProductLoading(true);
     const userData = {
       searchString: searchString,
@@ -55,6 +73,13 @@ export default function Products({ productsList }) {
 
     GetProducts(userData).then((data) => {
       setProducts(data.body);
+      if(data.body != "No Products"){
+        setCurrentItems(data.body.slice(itemOffset, endOffset));
+        setPageCount(Math.ceil(data.body.length / 8));
+      }
+      else{
+        setCurrentItems(null);
+      }
     });
 
     setTimeout(() => {
@@ -82,7 +107,7 @@ export default function Products({ productsList }) {
 
   const onCategoryClick = (event, categoriesData) => {
     setProductLoading(true);
-    productCatList.map((category, index) => {
+    productCatList.map((category) => {
       if (category.cat === categoriesData.cat) {
         category["isActive"] = true;
       } else {
@@ -95,7 +120,15 @@ export default function Products({ productsList }) {
     };
 
     GetProducts(userData).then((data) => {
+      const endOffset = itemOffset + 8;
       setProducts(data.body);
+      if(data.body != "No Products"){
+        setCurrentItems(data.body.slice(itemOffset, endOffset));
+        setPageCount(Math.ceil(data.body.length / 8));
+      }
+      else{
+        setCurrentItems(null);
+      }
     });
     setTimeout(() => {
       setProductLoading(false);
@@ -172,7 +205,7 @@ export default function Products({ productsList }) {
                   ) : (
                     <div className="row">
                       {products != "No Products" ? (
-                        products?.map((product, index) => (
+                        currentItems.map((product, index) => (
                           <div className="col-md-3 col-sm-4" key={index}>
                             <div
                               className="single-new-arrival"
@@ -210,7 +243,7 @@ export default function Products({ productsList }) {
                           <div className="features_items">
                             <div className="row">
                               <div
-                                className="d-flex justify-content-center align-items-center"
+                                className="d-flex justify-content-center align-products-center"
                                 id="main"
                               >
                                 <div className="inline-block align-middle">
@@ -229,6 +262,28 @@ export default function Products({ productsList }) {
                       )}
                     </div>
                   )}
+                </div>
+                <div className="loading">
+                  <ReactPaginate
+                    nextLabel="next >"
+                    onPageChange={handlePageClick}
+                    pageRangeDisplayed={3}
+                    marginPagesDisplayed={2}
+                    pageCount={pageCount}
+                    previousLabel="< previous"
+                    pageClassName="page-item"
+                    pageLinkClassName="page-link"
+                    previousClassName="page-item"
+                    previousLinkClassName="page-link"
+                    nextClassName="page-item"
+                    nextLinkClassName="page-link"
+                    breakLabel="..."
+                    breakClassName="page-item"
+                    breakLinkClassName="page-link"
+                    containerClassName="pagination"
+                    activeClassName="active"
+                    renderOnZeroPageCount={null}
+                  />
                 </div>
               </div>
             </div>

@@ -3,6 +3,7 @@ import { AddItemsToCart } from "../../../api/api";
 import { getToken } from "../../utls/Session";
 import Magnifier from "react-magnifier";
 
+
 export default function Products({ product, setCartCount, SetloginPopUp }) {
   const currentProduct = product.products.userData.product;
   const [loading, setLoading] = useState(false);
@@ -64,25 +65,10 @@ export default function Products({ product, setCartCount, SetloginPopUp }) {
                     className="product_details_card card-1"
                     style={{ textAlign: "center" }}
                   >
-                    <Magnifier 
-                    mgShape = "square"
-                    src={currentProduct.productimage}
-                     />;
-                    {/* <ReactImageMagnify
-                      {...{
-                        enlargedImageContainerClassName: "product_details_card card-1",
-                        smallImage: {
-                          alt: currentProduct.productName,
-                          isFluidWidth: true,
-                          src: currentProduct.productimage,
-                        },
-                        largeImage: {
-                          src: currentProduct.productimage,
-                          width: 1200,
-                          height: 1800,
-                        },
-                      }}
-                    /> */}
+                    <Magnifier
+                      mgShape="square"
+                      src={currentProduct.productimage}
+                    />
                   </div>
                   <div id="similar-product"></div>
                 </div>
