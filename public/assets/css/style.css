@@ -2426,3 +2426,19 @@ input[type=checkbox] {
   color: #a8be40;
   font: bold;
 }
+
+.owl-theme .owl-dots .owl-dot span {
+  width: 10px;
+  height: 10px;
+  margin: 0px 7px !important;
+  background: #D6D6D6;
+  display: block;
+  -webkit-backface-visibility: visible;
+  transition: opacity 200ms ease;
+  border-radius: 30px; }
+.owl-theme .owl-dots .owl-dot.active span, .owl-theme .owl-dots .owl-dot:hover span {
+  background: #a8be40 !important; }
+
+  .owl-theme .owl-nav.disabled + .owl-dots {
+    margin-top: 0px !important;
+}
