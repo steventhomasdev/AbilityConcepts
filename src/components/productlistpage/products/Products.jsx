@@ -82,6 +82,7 @@ export default function Products({ productsList }) {
       }
       else{
         setCurrentItems(null);
+        setPageCount(Math.ceil(0 / 8));
       }
     });
 
@@ -131,6 +132,7 @@ export default function Products({ productsList }) {
       }
       else{
         setCurrentItems(null);
+        setPageCount(Math.ceil(0 / 8));
       }
     });
     setTimeout(() => {

@@ -107,16 +107,29 @@ export default function PaymentPage() {
     return totalPrice.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
   };
 
+  // const calculateTax = () => {
+  //   const cartItems = state.products.cartItems;
+  //   let totalTax = 0;
+  //   for (let i in cartItems) {
+  //     totalTax += Number(
+  //       getItemTotal(
+  //         cartItems[i].productDetails.productTax,
+  //         cartItems[i].quantity
+  //       ).replace(/\,/g, "")
+  //     );
+  //     let tax = ((cartItems[i].productDetails.productTax * cartItems[i].productDetails.productprice)/100)*cartItems[i].quantity
+  //     console.log(Math.ceil(tax))
+  //   }
+
+  //   return totalTax.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+  // };
+
   const calculateTax = () => {
     const cartItems = state.products.cartItems;
     let totalTax = 0;
     for (let i in cartItems) {
-      totalTax += Number(
-        getItemTotal(
-          cartItems[i].productDetails.productTax,
-          cartItems[i].quantity
-        ).replace(/\,/g, "")
-      );
+      let tax = ((cartItems[i].productDetails.productTax * cartItems[i].productDetails.productprice)/100)*cartItems[i].quantity
+      totalTax += Math.ceil(tax)
     }
 
     return totalTax.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");

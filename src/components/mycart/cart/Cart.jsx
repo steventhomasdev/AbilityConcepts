@@ -77,7 +77,10 @@ export default function Cart({ isLogin, setCartCount }) {
   };
 
   const getItemTotal = (productprice, quantity) => {
-    const total = Number(productprice.replace(/\,/g, "")) * Number(quantity);
+    let total = 0;
+    if(productprice != undefined){
+      total = Number(productprice.replace(/\,/g, "")) * Number(quantity);
+    }
     return total.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
   };
 
@@ -98,12 +101,8 @@ export default function Cart({ isLogin, setCartCount }) {
   const calculateTax = () => {
     let totalTax = 0;
     for (let i in cartItems) {
-      totalTax += Number(
-        getItemTotal(
-          cartItems[i].productDetails.productTax,
-          cartItems[i].quantity
-        ).replace(/\,/g, "")
-      );
+      let tax = ((cartItems[i].productDetails.productTax * cartItems[i].productDetails.productprice)/100)*cartItems[i].quantity
+      totalTax += tax
     }
 
     return totalTax.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
