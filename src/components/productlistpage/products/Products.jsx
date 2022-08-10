@@ -19,7 +19,6 @@ export default function Products({ productsList }) {
   const [itemOffset, setItemOffset] = useState(0);
 
   const fetchData = useCallback(() => {
-
     setProductLoading(true);
     const endOffset = itemOffset + 8;
     GetProductsCat().then((data) => {
@@ -40,6 +39,8 @@ export default function Products({ productsList }) {
         setCurrentItems(data.body.slice(itemOffset, endOffset));
         setProductLoading(false);
       });
+    }else{
+      setProductLoading(false);
     }
   }, []);
 
@@ -54,7 +55,7 @@ export default function Products({ productsList }) {
   }, []);
 
   useEffect(() => {
-    pagination()
+    pagination();
   }, [itemOffset]);
 
   const getInputValue = (event) => {
@@ -76,11 +77,10 @@ export default function Products({ productsList }) {
 
     GetProducts(userData).then((data) => {
       setProducts(data.body);
-      if(data.body != "No Products"){
+      if (data.body != "No Products") {
         setCurrentItems(data.body.slice(itemOffset, endOffset));
         setPageCount(Math.ceil(data.body.length / 8));
-      }
-      else{
+      } else {
         setCurrentItems(null);
         setPageCount(Math.ceil(0 / 8));
       }
@@ -126,11 +126,10 @@ export default function Products({ productsList }) {
     GetProducts(userData).then((data) => {
       const endOffset = itemOffset + 8;
       setProducts(data.body);
-      if(data.body != "No Products"){
+      if (data.body != "No Products") {
         setCurrentItems(data.body.slice(itemOffset, endOffset));
         setPageCount(Math.ceil(data.body.length / 8));
-      }
-      else{
+      } else {
         setCurrentItems(null);
         setPageCount(Math.ceil(0 / 8));
       }
@@ -159,7 +158,7 @@ export default function Products({ productsList }) {
           ) : (
             <div className="row">
               <div className="col-sm-3">
-                <br/>
+                <br />
                 <div className="searchProduct">
                   <input
                     type="text"
@@ -175,7 +174,8 @@ export default function Products({ productsList }) {
                     <i className="fa fa-search"></i>
                   </button>
                 </div>
-                <br/><br/>
+                <br />
+                <br />
                 <div className="left-sidebar">
                   <div className="brands_products" style={{ marginTop: "5%" }}>
                     <h2>Categories</h2>
@@ -246,7 +246,7 @@ export default function Products({ productsList }) {
                           </div>
                         ))
                       ) : (
-                        <div className="col-sm-9 padding-right">
+                        <div className="col-sm-12 padding-right">
                           <div className="features_items">
                             <div className="row">
                               <div
@@ -258,8 +258,15 @@ export default function Products({ productsList }) {
                                     className="font-weight-normal lead"
                                     id="desc"
                                   >
-                                    No Results Found try with different search
-                                    keyword.
+                                    {/* No Results Found try with different search
+                                    keyword. */}
+                                    <div className="loading">
+                                      {" "}
+                                      <img
+                                        src="assets/images/noresults.webp"
+                                        alt="gif"
+                                      />
+                                    </div>
                                   </h2>
                                 </div>
                               </div>

@@ -78,7 +78,7 @@ export default function Cart({ isLogin, setCartCount }) {
 
   const getItemTotal = (productprice, quantity) => {
     let total = 0;
-    if(productprice != undefined){
+    if (productprice != undefined) {
       total = Number(productprice.replace(/\,/g, "")) * Number(quantity);
     }
     return total.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
@@ -101,8 +101,12 @@ export default function Cart({ isLogin, setCartCount }) {
   const calculateTax = () => {
     let totalTax = 0;
     for (let i in cartItems) {
-      let tax = ((cartItems[i].productDetails.productTax * cartItems[i].productDetails.productprice)/100)*cartItems[i].quantity
-      totalTax += tax
+      let tax =
+        ((cartItems[i].productDetails.productTax *
+          cartItems[i].productDetails.productprice) /
+          100) *
+        cartItems[i].quantity;
+      totalTax += tax;
     }
 
     return totalTax.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
@@ -346,10 +350,9 @@ export default function Cart({ isLogin, setCartCount }) {
                         className="d-flex justify-content-center align-items-center"
                         id="main"
                       >
-                        <div className="inline-block align-middle">
-                          <h2 className="font-weight-normal lead" id="desc">
-                            No Items present in the cart
-                          </h2>
+                        <div className="loading">
+                          {" "}
+                          <img src="assets/images/emptyCart.webp" alt="gif" />
                         </div>
                       </div>
                     </div>
