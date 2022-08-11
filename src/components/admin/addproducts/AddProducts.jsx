@@ -264,7 +264,7 @@ export default function AddProducts() {
                             src={
                               postImage
                                 ? postImage
-                                : "assets/images/uploadImage.jpeg"
+                                : "assets/images/uploadImage.png"
                             }
                             style={{
                               height: "250px",
