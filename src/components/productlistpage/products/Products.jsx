@@ -263,7 +263,7 @@ export default function Products({ productsList }) {
                                     <div className="loading">
                                       {" "}
                                       <img
-                                        src="assets/images/noresults.webp"
+                                        src="assets/images/noresults.png"
                                         alt="gif"
                                       />
                                     </div>

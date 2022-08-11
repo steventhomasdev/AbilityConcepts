@@ -352,7 +352,7 @@ export default function Cart({ isLogin, setCartCount }) {
                       >
                         <div className="loading">
                           {" "}
-                          <img src="assets/images/emptyCart.webp" alt="gif" />
+                          <img src="assets/images/emptycart.png" alt="empty cart image" />
                         </div>
                       </div>
                     </div>
