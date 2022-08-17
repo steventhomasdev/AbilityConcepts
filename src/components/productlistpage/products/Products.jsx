@@ -213,7 +213,7 @@ export default function Products({ productsList }) {
                     <div className="row">
                       {products != "No Products" ? (
                         currentItems.map((product, index) => (
-                          <div className="col-md-3 col-sm-4" key={index}>
+                          <div className="col-md-3 col-xs-3" key={index}>
                             <div
                               className="single-new-arrival"
                               onClick={onProductClick}
