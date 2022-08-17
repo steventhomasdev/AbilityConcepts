@@ -1,6 +1,8 @@
 import React from "react";
+import { useNavigate } from "react-router-dom";
 
 export default function FooterDetails() {
+  const navigate = useNavigate();
   return (
     <div>
       <section id="newsletter" className="newsletter">
@@ -15,13 +17,13 @@ export default function FooterDetails() {
                   <div className="hm-foot-menu">
                     <ul>
                       <li>
-                        <a href="#">About us</a>
+                      <a onClick={()=>{navigate("/aboutus")}}>About Us</a>
                       </li>
                       <li>
-                        <a href="#">Funding</a>
+                        <a onClick={()=>{navigate("/funding")}}>Funding</a>
                       </li>
                       <li>
-                        <a href="#">Products</a>
+                        <a onClick={()=>{navigate("/productlist")}}>Products</a>
                       </li>
                     </ul>
                   </div>
@@ -35,13 +37,13 @@ export default function FooterDetails() {
                   <div className="hm-foot-menu">
                     <ul>
                       <li>
-                        <a href="#">Rentals</a>
+                        <a onClick={()=>{navigate("/productlist")}}>Rentals</a>
                       </li>
                       <li>
-                        <a href="#">Wheelchair</a>
+                        <a onClick={()=>{navigate("/productlist")}}>Wheelchair</a>
                       </li>
                       <li>
-                        <a href="#">Bed</a>
+                        <a onClick={()=>{navigate("/productlist")}}>Bed</a>
                       </li>
                     </ul>
                   </div>
@@ -75,13 +77,13 @@ export default function FooterDetails() {
                   <div className="hm-foot-menu">
                     <ul>
                       <li>
-                        <a href="#">Home modification</a>
+                        <a onClick={()=>{navigate("/homemodification")}}>Home modification</a>
                       </li>
                       <li>
-                        <a href="#">Repair services</a>
+                        <a onClick={()=>{navigate("/repairservices")}}>Repair services</a>
                       </li>
                       <li>
-                        <a href="#">Service education</a>
+                        <a onClick={()=>{navigate("/serviceeducation")}}>Service education</a>
                       </li>
                     </ul>
                   </div>
