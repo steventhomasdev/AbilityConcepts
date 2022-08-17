@@ -19,6 +19,7 @@ export default function HomeModification() {
   const [loading, setLoading] = useState(true);
   const [page, setPage] = useState("");
   const [images, setImages] = useState();
+  const navigate = useNavigate();
 
   const fetchData = useCallback(() => {
     GetHomeModificationCat()
@@ -101,7 +102,13 @@ export default function HomeModification() {
           <div className="breadcrumbs">
             <ol className="breadcrumb">
               <li>
-                <a>Home</a>
+                <a
+                  onClick={() => {
+                    navigate("/home");
+                  }}
+                >
+                  Home
+                </a>
               </li>
               <li className="active">Home Modification</li>
             </ol>
