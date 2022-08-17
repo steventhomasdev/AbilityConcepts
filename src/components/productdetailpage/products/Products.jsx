@@ -60,7 +60,7 @@ export default function Products({ product, setCartCount, SetloginPopUp }) {
           <div className="row">
             <div className="col-sm-12 padding-right">
               <div className="product-details">
-                <div className="col-sm-5">
+                <div className="col-xs-12 col-md-5 product-image">
                   <div
                     className="product_details_card card-1"
                     style={{ textAlign: "center" }}
@@ -72,7 +72,7 @@ export default function Products({ product, setCartCount, SetloginPopUp }) {
                   </div>
                   <div id="similar-product"></div>
                 </div>
-                <div className="col-sm-7">
+                <div className="col-xs-12 col-md-7">
                   <div className="product-information">
                     <h2>{currentProduct.productName}</h2>
                     <p>Web ID: {currentProduct._id}</p>

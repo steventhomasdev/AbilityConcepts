@@ -309,8 +309,8 @@ export default function Cart({ isLogin, setCartCount }) {
           <div className="container">
             <div className="row">
               <div className="breadcrumbs ">
-                <div className="col-sm-9"></div>
-                <div className="col-sm-3">
+                <div className="col-md-9"></div>
+                <div className="col-md-3">
                   <ol className="breadcrumb bar">
                     <li>
                       <a

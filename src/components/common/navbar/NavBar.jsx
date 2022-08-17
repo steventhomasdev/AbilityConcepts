@@ -197,8 +197,7 @@ export default function NavBar({
                   <ul>
                     {isLogin ? (
                       <li
-                        onMouseEnter={userDropDownToggle}
-                        onMouseLeave={userDropDownToggle}
+                        onClick={userDropDownToggle}
                         className="sub-menu-con"
                         style={{ display: "block" }}
                       >
@@ -304,8 +303,7 @@ export default function NavBar({
                       </NavLink>
                     </li>
                     <li
-                      onMouseEnter={servicesDropDownToggle}
-                      onMouseLeave={servicesDropDownToggle}
+                      onClick={servicesDropDownToggle}
                     >
                       <a>
                       Services <i className="fa fa-caret-down"></i>
@@ -345,8 +343,7 @@ export default function NavBar({
                       </div>
                     </li>
                     <li
-                      onMouseEnter={fundingDropDownToggle}
-                      onMouseLeave={fundingDropDownToggle}
+                      onClick={fundingDropDownToggle}
                     >
                       <a>
                         Funding <i className="fa fa-caret-down"></i>

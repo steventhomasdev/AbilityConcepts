@@ -32,7 +32,7 @@
 	nav.navbar.bootsnav.menu-center ul.nav.navbar-center {float:left;margin: 0;padding:0;}
 	nav.navbar.bootsnav .navbar-brand {padding: 25px;}
 	nav.navbar.bootsnav ul.nav > li > a {padding: 15px 0px;border: transparent;}
-	.attr-nav > ul > li > a {padding: 20px 15px;}
+	/* .attr-nav > ul > li > a {padding: 20px 15px;} */
 	.loginbtn{margin-top: 15px;}
 	.login-pop .container .overlay-container{
 		display: none;

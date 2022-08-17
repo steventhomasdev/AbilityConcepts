@@ -997,7 +997,7 @@ body.on-side .wrap-sticky nav.navbar.bootsnav.sticked{
         display: inline-block;
         float: left;
         margin-right: -200px;
-        margin-top: 10px;
+        margin-top: 30px;
     }
     
     nav.navbar.bootsnav .navbar-collapse {

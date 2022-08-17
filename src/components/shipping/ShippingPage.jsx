@@ -132,10 +132,7 @@ export default function ShippingPage({ isLogin }) {
                       required
                       {...register("billaddress")}
                     />
-                    <select
-                      className="mb-10"
-                      {...register("billcountry")}
-                    >
+                    <select className="mb-10" {...register("billcountry")}>
                       <option>-- Country -- *</option>
                       <option>United States</option>
                       <option>Canada</option>
@@ -239,8 +236,8 @@ export default function ShippingPage({ isLogin }) {
           <div className="container">
             <div className="row">
               <div className="breadcrumbs ">
-                <div className="col-sm-9"></div>
-                <div className="col-sm-3">
+                <div className="col-md-9"></div>
+                <div className="col-md-3">
                   <ol className="breadcrumb bar">
                     <li>
                       <button

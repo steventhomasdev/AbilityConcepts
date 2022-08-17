@@ -21,28 +21,26 @@ export default function PaymentPage() {
 
     const tax = {
       productDetails: {
-        productName: 'Tax',
-        productprice: String(calculateTax())
+        productName: "Tax",
+        productprice: String(calculateTax()),
       },
-      quantity: 1
-    }
+      quantity: 1,
+    };
     productList.push(tax);
     setOrderProductList(productList);
 
     const shipping = {
       productDetails: {
-        productName: 'Shipping',
-        productprice: String(0)
+        productName: "Shipping",
+        productprice: String(0),
       },
-      quantity: 1
-    }
+      quantity: 1,
+    };
     productList.push(shipping);
     setOrderProductList(productList);
-
   }, []);
 
   const makePayment = () => {
-
     setLoading(true);
     const current = new Date();
     const date = `${current.getDate()}/${
@@ -65,16 +63,19 @@ export default function PaymentPage() {
 
     console.log(userData.products);
 
-    return fetch("https://uuelbqsi64.execute-api.us-east-2.amazonaws.com/Products_Live/payment", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({
-        authorizationToken: getToken(),
-        productList: orderProductList
-      }),
-    })
+    return fetch(
+      "https://uuelbqsi64.execute-api.us-east-2.amazonaws.com/Products_Live/payment",
+      {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          authorizationToken: getToken(),
+          productList: orderProductList,
+        }),
+      }
+    )
       .then((res) => {
         if (res.ok) return res.json();
         return res.json().then((json) => Promise.reject(json));
@@ -128,8 +129,12 @@ export default function PaymentPage() {
     const cartItems = state.products.cartItems;
     let totalTax = 0;
     for (let i in cartItems) {
-      let tax = ((cartItems[i].productDetails.productTax * cartItems[i].productDetails.productprice)/100)*cartItems[i].quantity
-      totalTax += Math.ceil(tax)
+      let tax =
+        ((cartItems[i].productDetails.productTax *
+          cartItems[i].productDetails.productprice) /
+          100) *
+        cartItems[i].quantity;
+      totalTax += Math.ceil(tax);
     }
 
     return totalTax.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
@@ -223,8 +228,8 @@ export default function PaymentPage() {
                           <span>
                             $
                             {(
-                                Number(getCartTotal().replace(/\,/g, "")) +
-                                Number(calculateTax().replace(/\,/g, ""))
+                              Number(getCartTotal().replace(/\,/g, "")) +
+                              Number(calculateTax().replace(/\,/g, ""))
                             )
                               .toString()
                               .replace(/\B(?=(\d{3})+(?!\d))/g, ",")}
@@ -243,8 +248,8 @@ export default function PaymentPage() {
         <div className="container">
           <div className="row">
             <div className="breadcrumbs ">
-              <div className="col-sm-9"></div>
-              <div className="col-sm-3">
+              <div className="col-md-9"></div>
+              <div className="col-md-3">
                 <ol className="breadcrumb bar">
                   <li>
                     {/* <StripeCheckout
