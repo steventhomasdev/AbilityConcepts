@@ -132,15 +132,6 @@ export default function RepairServices() {
           electrical lighting, battery Scooter: brakes, wheels, welding, seat,
           electrical lighting, battery
         </p>
-        <button
-          type="button"
-          class="btn btn-primary"
-          style={{
-            width: "10%",
-          }}
-        >
-          Quick Quote
-        </button>
       </div>
     </div>
   );

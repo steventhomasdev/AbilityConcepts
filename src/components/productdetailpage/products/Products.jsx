@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { AddItemsToCart } from "../../../api/api";
+import { useNavigate } from "react-router-dom";
 import { getToken } from "../../utls/Session";
 import Magnifier from "react-magnifier";
 
@@ -8,6 +9,7 @@ export default function Products({ product, setCartCount, SetloginPopUp }) {
   const currentProduct = product.products.userData.product;
   const [loading, setLoading] = useState(false);
   const [quantity, setQuantity] = useState(1);
+  const navigate = useNavigate();
 
   const quantityChange = (event) => {
     if (event.target.value === "+") {
@@ -49,10 +51,10 @@ export default function Products({ product, setCartCount, SetloginPopUp }) {
           <div className="breadcrumbs">
             <ol className="breadcrumb">
               <li>
-                <a>Home</a>
+              <a onClick={()=>{navigate("/home")}}>Home</a>
               </li>
               <li>
-                <a>Products</a>
+              <a onClick={()=>{navigate("/productlist")}}>Products</a>
               </li>
               <li className="active">{currentProduct.productName}</li>
             </ol>

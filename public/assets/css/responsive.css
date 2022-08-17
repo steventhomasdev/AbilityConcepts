@@ -33,7 +33,7 @@
 	nav.navbar.bootsnav .navbar-brand {padding: 25px;}
 	nav.navbar.bootsnav ul.nav > li > a {padding: 15px 0px;border: transparent;}
 	/* .attr-nav > ul > li > a {padding: 20px 15px;} */
-	.loginbtn{margin-top: 15px;}
+	/* .loginbtn{margin-top: 15px;} */
 	.login-pop .container .overlay-container{
 		display: none;
 	}
@@ -46,9 +46,9 @@
 	.login-pop .mobileLogin{
 		display: inline;
 	}
-	.sub-menu-con{
+	/* .sub-menu-con{
 		visibility: hidden;
-	}
+	} */
 
 	.wrap-sticky nav.navbar.bootsnav {
 		background-color: #fff;

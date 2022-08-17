@@ -1,5 +1,5 @@
 import React, { useState, useCallback, useEffect } from "react";
-import { useNavigate, useLocation } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { GetProducts, GetProductsCat } from "../../../api/api";
 import Spinner from "../../common/spinner/Spinner";
 import "./style/Style.css";
@@ -146,7 +146,7 @@ export default function Products({ productsList }) {
           <div className="breadcrumbs">
             <ol className="breadcrumb">
               <li>
-                <a>Home</a>
+                <a onClick={()=>{navigate("/home")}}>Home</a>
               </li>
               <li className="active">Products</li>
             </ol>
